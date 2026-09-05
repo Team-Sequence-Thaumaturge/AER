@@ -158,29 +158,7 @@ A foundational premise of AER is that digital ecosystems do not perish upon powe
 
 ---
 
-## 4. Anti-Collusion & Topological Sybil Resistance
-
-To eliminate closed cyclic collusion (circle-jerking) without central surveillance, AER deploys a three-tier topological and thermodynamic defense matrix:
-
-```mermaid
-graph TD
-    subgraph "Collusive Ring (Closed Clique)"
-        A["Node 1"] <-->|Mutual Upvotes| B["Node 2"]
-        B <-->|Mutual Upvotes| C["Node 3"]
-        C <-->|Mutual Upvotes| A
-    end
-
-    subgraph "Global Trust Graph"
-        G1["Global Node X"] --> G2["Global Node Y"]
-        G2 --> G3["Global Node Z"]
-    end
-
-    G3 -.->|❌ 0% External Trust Edges| A
-    
-    style A fill:#ffcccc,stroke:#ff0000
-    style B fill:#ffcccc,stroke:#ff0000
-    style C fill:#ffcccc,stroke:#ff0000
-```
+## 4. Topological Anti-Collusion & Emergent Game Theory
 
 ### 4.1 Tier 1: Graph Laplacian & EigenTrust Damping
 * Let $\mathbf{P}$ denote the normalized recognition transition matrix of the network.
@@ -200,6 +178,37 @@ graph TD
   $$\text{Cost}_{\text{attacker}} = \sum_{k=1}^N \left( P_{\text{idle}} \cdot \text{Rate}_{\text{elec}} + \text{Depr}_k \right) \cdot \Delta t > 0$$
   $$\text{Revenue}_{\text{attacker}} = 0 \quad (\because \text{No external market tasks resolved})$$
   $$\text{ROI}_{\text{attacker}} \equiv -100\%$$
+
+### 4.4 Emergent Game Theory: "Proof of Proof" & Natural Topological Dissolution
+A system enforcing zero-defect compliance via coercive code creates prohibitive deadweight loss ($\mathcal{L}_{\text{coercion}}$) through locked capital and excessive verification overhead. True credit emerges strictly within an iterated game where **defection is structurally possible, but economically irrational**.
+
+```mermaid
+graph TD
+    Traitor["High-Tier Node Defects<br/>(Refuses Settlement / Defaults Debt)"] --> Broadcast["Defection Evidence Propagated via Mesh<br/>(ECDSA Non-Repudiation)"]
+    Broadcast --> Boycott["Decentralized Topological Boycott<br/>(Peers Cease Routing & Credit Allocation)"]
+    Boycott --> Isolation["Total Isolation<br/>(Inbound Recognition R_inbound = 0)"]
+    Isolation --> Decay["🔥 Autonomous Half-Life Bit-Shift Decay<br/>ΔA(t) = ΔA_peak >> ⌊Δt / T_half⌋"]
+    Decay --> GroundState["Social Mass Evaporates to Baseline A_0<br/>(Zero Central Police Overhead)"]
+    GroundState --> Redemption["Restoration Condition:<br/>Inject Massive Verified Negentropy (ΔS < 0) into Public Domain"]
+```
+
+#### 4.4.1 The Signaling Equilibrium ("Proof of Proof")
+A large Credit A reservoir functions as an endogenous meta-proof:
+$$\mathbb{E}[\text{Defection Gain}] \ll \sum_{t=1}^\infty \delta^t \cdot \mathbb{E}\left[ \text{Yield}_B(A_j(t)) \right]$$
+Where $\delta \in (0, 1)$ is the intertemporal discount factor. Because the present discounted value of future protocol yield and credit access strictly dominates any finite one-off defection gain, high Credit A serves as mathematical proof that node $j$ will remain honest without external coercion.
+
+#### 4.4.2 The Collateral-to-Credit Continuum
+To maximize total systemic utility and capital velocity, the physical collateral requirement $\mathcal{C}_{\text{req}}$ scales inversely with proven gravitational mass $A_j$:
+$$\mathcal{C}_{\text{req}}(A_j) = \max\left(0, \ 1 - \frac{A_j - A_0}{\alpha}\right) \cdot \text{Bounty}_{\text{task}}$$
+* **Nascent Nodes ($A_j \approx A_0$):** 100% pre-funded escrow required (Zero-trust phase).
+* **Proven Nodes ($A_j \gg A_0$):** Collateral melts into uncollateralized credit lines ($\mathcal{C}_{\text{req}} \to 0$), completely eliminating capital deadweight loss.
+
+#### 4.4.3 Natural Dissolution via Inactivity Decay
+When a node defects (e.g., malicious task rejection or offline debt repudiation):
+1. **Decentralized Topological Boycott:** Non-defective peer nodes rationally sever routing edges to eliminate counterparty risk.
+2. **Autonomous Reputation Evaporation:** Inbound negentropy recognition collapses to zero ($R_{\text{inbound}} = 0$). The deterministic bit-shift half-life formula grinds the traitor's accumulated surplus $\Delta A$ toward zero:
+   $$\lim_{t \to \infty} A_{\text{traitor}}(t) = A_0$$
+3. **Zero-Cost Homeostasis:** The network requires zero centralized judicial infrastructure. Time and arithmetic dissolve the traitor’s societal authority into the ground floor ($A_0$). Re-entry requires the node to provide free, verified negentropy to the community, automatically restoring net social surplus.
 
 ---
 
