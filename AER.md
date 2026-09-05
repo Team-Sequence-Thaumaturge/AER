@@ -179,17 +179,18 @@ A foundational premise of AER is that digital ecosystems do not perish upon powe
   $$\text{Revenue}_{\text{attacker}} = 0 \quad (\because \text{No external market tasks resolved})$$
   $$\text{ROI}_{\text{attacker}} \equiv -100\%$$
 
-### 4.4 Emergent Game Theory: "Proof of Proof" & Natural Topological Dissolution
+### 4.4 Emergent Game Theory: "Proof of Proof" & Thermodynamic Phase Transition of Trust
 A system enforcing zero-defect compliance via coercive code creates prohibitive deadweight loss ($\mathcal{L}_{\text{coercion}}$) through locked capital and excessive verification overhead. True credit emerges strictly within an iterated game where **defection is structurally possible, but economically irrational**.
 
 ```mermaid
 graph TD
     Traitor["High-Tier Node Defects<br/>(Refuses Settlement / Defaults Debt)"] --> Broadcast["Defection Evidence Propagated via Mesh<br/>(ECDSA Non-Repudiation)"]
-    Broadcast --> Boycott["Decentralized Topological Boycott<br/>(Peers Cease Routing & Credit Allocation)"]
+    Broadcast --> Critical["Critical Threshold Reached (Ω >= Ω_c)<br/>Percolation Trust Cluster Shatters"]
+    Critical --> Boycott["Decentralized Topological Boycott<br/>(Peers Sever All Routing Edges)"]
     Boycott --> Isolation["Total Isolation<br/>(Inbound Recognition R_inbound = 0)"]
-    Isolation --> Decay["🔥 Autonomous Half-Life Bit-Shift Decay<br/>ΔA(t) = ΔA_peak >> ⌊Δt / T_half⌋"]
-    Decay --> GroundState["Social Mass Evaporates to Baseline A_0<br/>(Zero Central Police Overhead)"]
-    GroundState --> Redemption["Restoration Condition:<br/>Inject Massive Verified Negentropy (ΔS < 0) into Public Domain"]
+    Isolation --> Decay["⚡ Phase Transition: Cascading Avalanche Decay<br/>ΔA(t) = ΔA_peak >> ⌊Δt / T_half⌋ → 0"]
+    Decay --> GroundState["Social Mass Collapses to Ground State A_0<br/>(Zero Central Judicial Overhead)"]
+    GroundState --> Redemption["Thermodynamic Hysteresis Re-entry:<br/>Inject Massive Free Negentropy (ΔS < 0) into Ecosystem"]
 ```
 
 #### 4.4.1 The Signaling Equilibrium ("Proof of Proof")
@@ -200,15 +201,34 @@ Where $\delta \in (0, 1)$ is the intertemporal discount factor. Because the pres
 #### 4.4.2 The Collateral-to-Credit Continuum
 To maximize total systemic utility and capital velocity, the physical collateral requirement $\mathcal{C}_{\text{req}}$ scales inversely with proven gravitational mass $A_j$:
 $$\mathcal{C}_{\text{req}}(A_j) = \max\left(0, \ 1 - \frac{A_j - A_0}{\alpha}\right) \cdot \text{Bounty}_{\text{task}}$$
-* **Nascent Nodes ($A_j \approx A_0$):** 100% pre-funded escrow required (Zero-trust phase).
+* **Nascent Nodes ($A_j \approx A_0$):** Mandatory 100% upfront escrow ($\mathcal{C}_{\text{req}} = 1.0$). A disposable node with zero surplus reputation ($\Delta A = 0$) cannot initiate uncollateralized credit lines under any circumstances; all outbound tasks require full pre-funding in Credit B.
 * **Proven Nodes ($A_j \gg A_0$):** Collateral melts into uncollateralized credit lines ($\mathcal{C}_{\text{req}} \to 0$), completely eliminating capital deadweight loss.
 
-#### 4.4.3 Natural Dissolution via Inactivity Decay
-When a node defects (e.g., malicious task rejection or offline debt repudiation):
-1. **Decentralized Topological Boycott:** Non-defective peer nodes rationally sever routing edges to eliminate counterparty risk.
-2. **Autonomous Reputation Evaporation:** Inbound negentropy recognition collapses to zero ($R_{\text{inbound}} = 0$). The deterministic bit-shift half-life formula grinds the traitor's accumulated surplus $\Delta A$ toward zero:
-   $$\lim_{t \to \infty} A_{\text{traitor}}(t) = A_0$$
-3. **Zero-Cost Homeostasis:** The network requires zero centralized judicial infrastructure. Time and arithmetic dissolve the traitor’s societal authority into the ground floor ($A_0$). Re-entry requires the node to provide free, verified negentropy to the community, automatically restoring net social surplus.
+#### 4.4.3 Optimistic Timelock Auto-Discharge (Anti-Free-Rider Defense)
+To eliminate the Byzantine vector where an $A_0$ client receives deliverables and arbitrarily withholds settlement signatures, AER implements the **Optimistic Challenge Window ($T_{\text{challenge}}$)**:
+1. When the worker node submits the solution digest $\mathcal{H}(\text{Output})$ and computational artifact, an on-chain/state-channel timer $T_{\text{challenge}}$ (default: 24 hours) activates.
+2. The client must either (a) issue a cryptographic release receipt, or (b) publish an on-chain **Deterministic Fraud Proof** (e.g., AST syntax failure, compilation crash log, $SE(3)$ spatial constraint violation).
+3. If the client remains silent or refuses settlement without providing a deterministic proof, the escrowed bounty **automatically discharges 100% to the worker upon expiration of $T_{\text{challenge}}$**. Malicious free-riding by disposable accounts is physically unviable.
+
+#### 4.4.4 The Phase Transition of Trust & Cascading Half-Life Collapse
+Arbitrary arithmetic penalties ($-n$ fiat fines or slashing) found in conventional Web3 architectures degenerate into a mere "cost of griefing" for capitalized cartels and require centralized judicial parameters. AER replaces linear penalties with **Statistical-Mechanical Phase Transitions**:
+1. **Superconducting Trust Phase ($A \gg A_0$):**
+   So long as proven order and interaction frequencies persist above threshold, collateral demands decay toward zero, realizing frictionless velocity of capital.
+2. **Critical Percolation Point ($\Omega_c$):**
+   Cryptographic proofs of breach (repudiated IOUs, fraudulent tasks, timelock expirations) diffuse across the gossip mesh. When local detection density crosses the critical threshold $\Omega_c$, the trust percolation cluster shatters instantaneously.
+3. **Cascading Half-Life Avalanche ($A \to A_0$):**
+   All routing peers unilaterally sever topological edges ($R_{\text{inbound}} = 0$). Bereft of inbound negentropy, the traitor's reputation does not decrement linearly; rather, bit-shift half-life arithmetic (`>> 1`) triggers an exponential avalanche collapse directly into the ground state ($A_0$):
+   $$\Delta A(t) = \Delta A_{\text{peak}} \gg \left\lfloor \frac{\Delta t}{T_{\text{half}}} \right\rfloor \xrightarrow{\text{Cascading Avalanche}} 0$$
+   Once quenched into the insulating ground state ($A_0$), the node loses all protocol privileges. Recovery exhibits **Thermodynamic Hysteresis**: re-entry requires injecting immense, uncompensated negentropy into the public commons to re-establish non-local recognition.
+
+#### 4.4.5 Offline Multi-Charging & Bounty-Futures Priority Netting
+In field operations where high-tier nodes (e.g., autonomous exploration rovers) operate disconnected from the global mesh and draw credit across multiple isolated charging stations:
+1. **Macro Negentropy Conservation:**
+   The consumed energy (e.g., 200 kWh) is not annihilated into entropy; it is converted into physical order ($\Delta S_{\text{field}} < 0$, automated harvesting, infrastructure repair, spatial mapping). Systemic thermodynamic utility is fully conserved.
+2. **Bounty-Futures Priority Netting:**
+   The tasks performed by the rover in the disconnected zone represent confirmed accounts receivable (Credit B locked in client escrows). Upon reconnecting to the satellite/mesh backbone, **inbound task escrow releases are automatically directed to clear outstanding offline energy IOUs prior to any liquid disbursement to the rover**.
+3. **Local Risk Factor ($\gamma_{\text{offline}}$) & P2P Liquidity Paper:**
+   Isolated stations apply a dynamic offline risk discount $\gamma_{\text{offline}} \in (0, 1)$ to energy pricing, and can trade cryptographically signed rover IOUs across local mesh clusters as short-term commercial liquidity paper.
 
 ---
 

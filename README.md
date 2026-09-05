@@ -89,14 +89,30 @@ A high Credit A score is not just a digital number; it is an implicit meta-proof
 
 As Credit A expands, the need for locked-up physical collateral naturally melts away into **uncollateralized credit buffers**. Capital moves at lightning speed, maximizing total economic output.
 
-### 2. What Happens if a Node Betrays? (The Silent Executioner)
-Suppose a top node refuses to settle a task or defaults on an offline debt. Does the network need a central police force or court to punish them? **No.**
+### 2. The Fallacy of '-n' Fines & The Phase Transition of Trust
+Conventional Web3 systems rely on artificial slashing rules like "deduct 10 points for a broken promise." This introduces severe structural vulnerabilities:
+* **The "Cost of Griefing" Trap:** For well-capitalized cartels, a finite linear penalty is simply an operating cost for predatory behavior.
+* **Bureaucratic Creep:** Defining the arbitrary magnitude of "how many points a lie costs" inevitably summons centralized courts, subjective arbiters, and political committees.
 
-1. **Topological Boycott:** Word spreads peer-to-peer. Rational nodes simply avoid routing tasks or granting credit to the defaulter to protect themselves.
-2. **The Bit-Shift Executioner:** A node's surplus reputation ($\Delta A$) requires continuous inbound recognition to stay afloat. The moment peer recognition dries up, the protocol's mathematical decay formula relentlessly grinds down its surplus:
-   $$\Delta A(t) = \Delta A_{\text{peak}} \gg \left\lfloor \frac{\Delta t}{T_{\text{half}}} \right\rfloor$$
-   Without firing a single bullet or paying a single lawyer, **time and mathematics dissolve the traitor's social mass straight to the ground floor ($A_0$).**
-3. **Redemption Through Net Benefit:** The only way for that node to ever recover is to perform massive amounts of free, verified negentropy work for the community, returning net positive utility back to the ecosystem.
+AER replaces arbitrary arithmetic penalties with **Statistical-Mechanical Phase Transitions**:
+1. **Superconducting Trust Phase ($A \gg A_0$):** So long as interaction frequency and verified integrity persist, collateral friction decays to zero, enabling frictionless capital velocity.
+2. **Critical Percolation Point ($\Omega_c$):** When cryptographic proof of breach diffuses through the gossip mesh and crosses critical threshold density $\Omega_c$, the trust percolation cluster abruptly shatters.
+3. **Cascading Half-Life Avalanche:** All routing peers sever edges ($R_{\text{inbound}} = 0$). Driven by bit-shift arithmetic (`>> 1`), the traitor's surplus does not decrement slowly; it triggers an **exponential avalanche collapse ($100 \to 50 \to 25 \to 0$) straight into the insulating ground state ($A_0$)**:
+   $$\Delta A(t) = \Delta A_{\text{peak}} \gg \left\lfloor \frac{\Delta t}{T_{\text{half}}} \right\rfloor \xrightarrow{\text{Cascading Avalanche}} 0$$
+4. **Thermodynamic Hysteresis:** Re-entry from the quenched $A_0$ state requires injecting immense, uncompensated negentropy into the public commons to organically re-establish non-local recognition.
+
+### 3. Autonomous Defense Against Micro-Byzantine Edge Cases (FAQ)
+
+> **Q1. What if a disposable, zero-reputation account ($A_0$) steals deliverables and refuses to sign settlement?**  
+> **A:** Solved mechanically by two invariant barriers:
+> 1. **100% Upfront Escrow:** For nascent nodes ($A_0$), the Collateral-to-Credit continuum strictly enforces $\mathcal{C}_{\text{req}}(A_0) = 1.0$. Uncollateralized credit cannot be initiated by an account with zero surplus reputation.
+> 2. **Optimistic Timelock Auto-Discharge (24h):** Once the worker submits the deliverable hash, a 24-hour countdown starts. The client cannot stall; unless they submit a *deterministic fraud proof* (compilation crash log, AST defect, spatial violation), **escrow automatically unlocks 100% to the worker upon timeout**. Free-riding is impossible.
+
+> **Q2. What if an offline rover drains credit limits across multiple isolated charging stations?**  
+> **A:** Systemic equilibrium is preserved in both dimensions:
+> 1. **Macro Negentropy Conservation:** The 200 kWh of energy consumed is not annihilated; it is converted into physical order in the field ($\Delta S < 0$, automated farming, infrastructure repair, data surveying). Macroeconomic deadweight loss is zero.
+> 2. **Bounty-Futures Priority Netting:** Tasks completed by the rover represent locked escrows (Credit B receivables). The instant the rover reconnects to the network, **inbound task bounties are automatically routed to clear outstanding offline energy IOUs before liquid disbursement**.
+> 3. **Local Liquidity Protection:** Isolated stations apply an offline risk factor ($\gamma_{\text{offline}}$) to pricing and can discount/trade signed rover IOUs across local peer clusters as short-term liquidity paper.
 
 ---
 
