@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "order_id": "0x66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb",
+  "side": "ASK",
+  "resource_type": "GPU_QUOTA",
+  "resource_specification": {
+    "gpu_model": "NVIDIA_H100_SXM5_80GB",
+    "cuda_cores": 16896,
+    "vram_gb": 80,
+    "interconnect_bandwidth_gbps": 900
+  },
+  "resource_cid": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
+  "quantity": 10.0,
+  "price_credit_b": "1500000000000000000",
+  "total_price_credit_b": "15000000000000000000",
+  "maker_node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "expiration_timestamp": 1741386400,
+  "nonce": 101,
+  "maker_signature": "0x4b78912d1c68f2378a87b8d4f6c498a584c379a97bcfae090dfbc873e13d1a876798e154ab17dc8e58a2fcf889bd5f187a5369be3ff8601614749ff898efbf111c"
+}

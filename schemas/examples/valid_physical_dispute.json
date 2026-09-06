@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "dispute_id": "0x77cc77cc77cc77cc77cc77cc77cc77cc77cc77cc77cc77cc77cc77cc77cc77cc",
+  "task_id": "0x4e07408562bedb8b60ce05c1decfe3ad16b72230967de52f643ab8141a07aec0",
+  "challenger_node_id": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+  "defendant_node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "dispute_category": "MOTOR_TORQUE_ZERO",
+  "spatiotemporal_voxel": {
+    "voxel_coordinates": [12.45, -3.12, 1.80],
+    "timestamp_frame_ms": 14200,
+    "frame_duration_ms": 100.0
+  },
+  "merkle_bisection_path": [
+    {
+      "level": 0,
+      "sibling_hashes": [
+        "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "0x1111111111111111111111111111111111111111111111111111111111111111"
+      ],
+      "node_hash": "0x2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  ],
+  "sensor_telemetry_sample": {
+    "se3_pose_matrix": [
+      1.0, 0.0, 0.0, 12.45,
+      0.0, 1.0, 0.0, -3.12,
+      0.0, 0.0, 1.0, 1.80,
+      0.0, 0.0, 0.0, 1.0
+    ],
+    "motor_current_amperes": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "battery_delta_coulombs": 0.0,
+    "lidar_point_cloud_hash": "0x3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "zk_snark_proof": {
+    "proof_circuit": "PhysicalConservationDisputeVerifier_v1",
+    "proof_points_a": [
+      "0x11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff",
+      "0x223344556677889900aabbccddeeff11223344556677889900aabbccddeeff11"
+    ],
+    "proof_points_b": [
+      [
+        "0x3344556677889900aabbccddeeff11223344556677889900aabbccddeeff1122",
+        "0x44556677889900aabbccddeeff11223344556677889900aabbccddeeff112233"
+      ],
+      [
+        "0x556677889900aabbccddeeff11223344556677889900aabbccddeeff11223344",
+        "0x6677889900aabbccddeeff11223344556677889900aabbccddeeff1122334455"
+      ]
+    ],
+    "proof_points_c": [
+      "0x77889900aabbccddeeff11223344556677889900aabbccddeeff112233445566",
+      "0x889900aabbccddeeff11223344556677889900aabbccddeeff11223344556677"
+    ],
+    "public_inputs": [
+      "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "0x4e07408562bedb8b60ce05c1decfe3ad16b72230967de52f643ab8141a07aec0"
+    ]
+  },
+  "timestamp": 1741302000,
+  "challenger_signature": "0x1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef011b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef011c"
+}

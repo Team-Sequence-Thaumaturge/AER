@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "blinded_silicon_commitment": "0xa1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0",
+  "platform_pcr_digest": "0x11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff",
+  "attestation_key_quote": {
+    "ak_public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0abcdef123456789\n-----END PUBLIC KEY-----",
+    "quote_signature": "0x3045022100e4b85c18171092a407e3240ee093f18e8a7deeb3e11b33989c445667788990aabbcc",
+    "quote_payload": "AQEBAgAAABAAAAAA89abcdef0123456789"
+  },
+  "zk_vendor_membership_proof": {
+    "proof_type": "ZK_SNARK_GROTH16",
+    "proof_bytes": "0x9876543210abcdef9876543210abcdef9876543210abcdef9876543210abcdef",
+    "public_inputs": [
+      "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "0x1111222233334444555566667777888899990000aaaabbbbccccddddeeeeffff"
+    ]
+  },
+  "silicon_vendor": "TCG_TPM20",
+  "silicon_firmware_version": "TPM2.0-v1.38-rev4",
+  "timestamp": 1741300000,
+  "nonce": "0xfeedfacedeadbeefcafebeefdeadbeefcafebeefdeadbeefcafebeefdeadbeef"
+}

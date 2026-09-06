@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "order_id": "0x66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb66bb",
+  "side": "SWAP",
+  "resource_type": "GPU_QUOTA",
+  "resource_specification": {},
+  "resource_cid": "short",
+  "quantity": 0.0,
+  "price_credit_b": "100",
+  "total_price_credit_b": "0",
+  "maker_node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "expiration_timestamp": 1741386400,
+  "nonce": 101
+}

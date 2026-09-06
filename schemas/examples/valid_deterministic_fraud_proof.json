@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "0x4e07408562bedb8b60ce05c1decfe3ad16b72230967de52f643ab8141a07aec0",
+  "reporter_node_id": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+  "worker_node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "defect_type": "AST_SYNTAX_ERROR",
+  "proof_payload": {
+    "source_artifact_hash": "0x89abcdef0123456789abcdef0123456789abcdef0123456789abcdef01234567",
+    "error_code": "AST_PARSE_FAILURE_UNEXPECTED_EOF",
+    "reproduction_trace": "line 142: unexpected EOF while parsing multiline string literal",
+    "evaluator_version": "cpython-3.12-ast"
+  },
+  "deterministic_evaluator_digest": "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+  "timestamp": 1741301500,
+  "reporter_signature": "0x5c72199b59b19e4de7f7ff7999818816e87f551b933a36db5db7890b0beec1c70e28f1cc47a8a1eb3dcf8b4618e0df345efea6de3ecf96f1311ff9c4b7b2ebbf1b"
+}

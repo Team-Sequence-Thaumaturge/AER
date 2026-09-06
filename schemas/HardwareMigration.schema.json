@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aer.sequence.org/schemas/v1/HardwareMigration.schema.json",
+  "title": "AER Hardware Migration & Ghost Handover Schema",
+  "description": "Cryptographically authenticated migration manifest transferring machine soul/vault control between physical silicon units (AER Appendix C.3).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "account_id",
+    "migration_type",
+    "old_node_id",
+    "new_node_id",
+    "new_tpm_attestation",
+    "handover_signatures",
+    "timestamp"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^1\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the schema specification (e.g. 1.0.0)."
+    },
+    "account_id": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "ERC-4337 smart contract account address holding accumulated Credit B and reputation history."
+    },
+    "migration_type": {
+      "type": "string",
+      "enum": [
+        "GRACEFUL_HANDOVER",
+        "EMERGENCY_DISASTER_RECOVERY"
+      ],
+      "description": "Migration modality: GRACEFUL (bilateral handshake + zeroization) or EMERGENCY (destroyed chassis with M-of-N guild witnesses)."
+    },
+    "old_node_id": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Ethereum address of the retiring or destroyed silicon hardware unit."
+    },
+    "new_node_id": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Ethereum address of the newly commissioned silicon hardware unit."
+    },
+    "new_tpm_attestation": {
+      "type": "object",
+      "required": [
+        "blinded_silicon_commitment",
+        "platform_pcr_digest",
+        "ak_quote"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "blinded_silicon_commitment": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{64}$"
+        },
+        "platform_pcr_digest": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{64}$"
+        },
+        "ak_quote": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]+$"
+        }
+      },
+      "description": "Full hardware attestation payload of the new target machine."
+    },
+    "zeroization_proof": {
+      "type": "object",
+      "required": [
+        "zeroization_type",
+        "proof_signature"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "zeroization_type": {
+          "type": "string",
+          "enum": ["TPM2_CLEARCONTROL", "SEV_DECOMMISSION", "PHYSICAL_ZEROIZATION"]
+        },
+        "proof_signature": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]+$"
+        }
+      },
+      "description": "Cryptographic proof that the old signing keys were permanently zeroized inside the old TPM (mandatory for GRACEFUL)."
+    },
+    "handover_signatures": {
+      "type": "object",
+      "required": [
+        "new_node_signature"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "old_node_signature": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{130}$",
+          "description": "ECDSA signature from the old node approving migration (required in GRACEFUL)."
+        },
+        "new_node_signature": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{130}$",
+          "description": "ECDSA signature from the new node accepting soul stewardship."
+        },
+        "guild_witness_signatures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["witness_node_id", "witness_signature"],
+            "additionalProperties": false,
+            "properties": {
+              "witness_node_id": {
+                "type": "string",
+                "pattern": "^0x[a-fA-F0-9]{40}$"
+              },
+              "witness_signature": {
+                "type": "string",
+                "pattern": "^0x[a-fA-F0-9]{130}$"
+              }
+            }
+          },
+          "description": "M-of-N attestation signatures from peer guild nodes (mandatory in EMERGENCY)."
+        }
+      }
+    },
+    "challenge_timelock_deadline": {
+      "type": "integer",
+      "minimum": 1700000000,
+      "description": "Mandatory quarantine window timestamp (+7 days in emergency mode) allowing the original owner to veto fraudulent claims."
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 1700000000,
+      "description": "Unix epoch timestamp in seconds when the migration ticket was finalized."
+    }
+  }
+}

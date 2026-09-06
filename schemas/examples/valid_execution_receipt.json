@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "0x4e07408562bedb8b60ce05c1decfe3ad16b72230967de52f643ab8141a07aec0",
+  "worker_node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "beneficiary_node_id": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+  "solution_hash": "0xba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+  "execution_success": true,
+  "resource_metrics": {
+    "gas_or_fuel_used": 1420500,
+    "energy_kwh": 0.45,
+    "cpu_seconds": 12.8
+  },
+  "settlement_amount_credit_b": "50000000000000000000",
+  "timestamp": 1741300500,
+  "nonce": "0x0000000000000000000000000000000000000000000000000000000000000007",
+  "beneficiary_ecdsa_signature": "0x3a1076bf45ab87712ad64ccb3b102177378029668fced168f7cf4d4707a54ef85cf63b9f7f6c065f1888a50231aaab52d684ec31e1beef2b3b50cee36529b2211c"
+}

@@ -1,0 +1,211 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aer.sequence.org/schemas/v1/PhysicalDispute.schema.json",
+  "title": "AER Physical Sensor Dispute Schema",
+  "description": "Evidence format for resolving robotic physical task disputes via 3D octree Merkle bisection and multimodal conservation law verification (AER Appendix C.1).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "dispute_id",
+    "task_id",
+    "challenger_node_id",
+    "defendant_node_id",
+    "dispute_category",
+    "spatiotemporal_voxel",
+    "merkle_bisection_path",
+    "sensor_telemetry_sample",
+    "zk_snark_proof",
+    "timestamp",
+    "challenger_signature"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^1\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the schema specification (e.g. 1.0.0)."
+    },
+    "dispute_id": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{64}$",
+      "description": "Unique 32-byte identifier for the physical dispute proceeding."
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{64}$",
+      "description": "Target robotics task escrow identifier."
+    },
+    "challenger_node_id": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Ethereum address of the complaining client or peer inspector."
+    },
+    "defendant_node_id": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "description": "Ethereum address of the accused autonomous robot or worker."
+    },
+    "dispute_category": {
+      "type": "string",
+      "enum": [
+        "SPATIAL_COLLISION",
+        "MOTOR_TORQUE_ZERO",
+        "GEOFENCE_BREACH",
+        "ENERGY_CONSERVATION_VIOLATION",
+        "SENSOR_MULTIMODAL_MISMATCH"
+      ],
+      "description": "Class of physical law or contractual spatial boundary violation."
+    },
+    "spatiotemporal_voxel": {
+      "type": "object",
+      "required": [
+        "voxel_coordinates",
+        "timestamp_frame_ms",
+        "frame_duration_ms"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "voxel_coordinates": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "Disputed 3D spatial coordinate [x, y, z] in meters relative to reference datum."
+        },
+        "timestamp_frame_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Relative millisecond offset from task initiation."
+        },
+        "frame_duration_ms": {
+          "type": "number",
+          "exclusiveMinimum": 0.0,
+          "description": "Duration of the disputed telemetry frame."
+        }
+      }
+    },
+    "merkle_bisection_path": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["level", "sibling_hashes", "node_hash"],
+        "additionalProperties": false,
+        "properties": {
+          "level": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 32,
+            "description": "Octree hierarchy depth."
+          },
+          "sibling_hashes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{64}$"
+            },
+            "minItems": 7,
+            "maxItems": 7,
+            "description": "7 sibling octant hashes in the 8-ary spatial tree."
+          },
+          "node_hash": {
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{64}$",
+            "description": "Combined parent or leaf hash."
+          }
+        }
+      },
+      "description": "O(log N) Merkle path isolating the specific 100ms / 1cm^3 dispute voxel."
+    },
+    "sensor_telemetry_sample": {
+      "type": "object",
+      "required": [
+        "se3_pose_matrix",
+        "motor_current_amperes",
+        "battery_delta_coulombs",
+        "lidar_point_cloud_hash"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "se3_pose_matrix": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 16,
+          "maxItems": 16,
+          "description": "Homogeneous 4x4 SE(3) transformation matrix representing robot spatial pose."
+        },
+        "motor_current_amperes": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 1,
+          "description": "Recorded actuator electrical currents in Amperes."
+        },
+        "battery_delta_coulombs": {
+          "type": "number",
+          "description": "Measured Coulomb discharge over the frame window."
+        },
+        "lidar_point_cloud_hash": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{64}$",
+          "description": "SHA-256 digest of the raw point cloud / depth map capture."
+        }
+      }
+    },
+    "zk_snark_proof": {
+      "type": "object",
+      "required": [
+        "proof_circuit",
+        "proof_points_a",
+        "proof_points_b",
+        "proof_points_c",
+        "public_inputs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "proof_circuit": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Identifier of the verified Circom/Groth16 verifier circuit."
+        },
+        "proof_points_a": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^0x[a-fA-F0-9]+$" },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "proof_points_b": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^0x[a-fA-F0-9]+$" },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "proof_points_c": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^0x[a-fA-F0-9]+$" },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "public_inputs": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^0x[a-fA-F0-9]+$" }
+        }
+      },
+      "description": "Succinct ZK proof verifying that sensor readings mathematically contradict physical boundary or conservation equations."
+    },
+    "timestamp": {
+      "type": "integer",
+      "minimum": 1700000000,
+      "description": "Unix timestamp in seconds when the dispute was formally lodged."
+    },
+    "challenger_signature": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{130}$",
+      "description": "65-byte ECDSA signature of the challenger asserting this evidence."
+    }
+  }
+}

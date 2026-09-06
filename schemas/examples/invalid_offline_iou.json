@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "iou_id": "0x55aa55aa55aa55aa55aa55aa55aa55aa55aa55aa55aa55aa55aa55aa55aa55aa",
+  "debtor_node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "station_id": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+  "energy_kwh": -10.0,
+  "unit_price_credit_b": "200000000000000000",
+  "total_credit_b": "0",
+  "offline_risk_factor": 0.5,
+  "nonce": -1,
+  "timestamp": 1741301000,
+  "expiry_timestamp": 1742000000
+}

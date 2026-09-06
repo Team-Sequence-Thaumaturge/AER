@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0.0",
+  "account_id": "0xF39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "migration_type": "UNAUTHORIZED_STEAL",
+  "old_node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "new_node_id": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+  "new_tpm_attestation": {
+    "blinded_silicon_commitment": "0x1234",
+    "platform_pcr_digest": "0x1234",
+    "ak_quote": "0x1234"
+  },
+  "handover_signatures": {},
+  "timestamp": 1741300000
+}

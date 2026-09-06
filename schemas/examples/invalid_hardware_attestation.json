@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0.0",
+  "node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "platform_pcr_digest": "0x11223344556677889900aabbccddeeff11223344556677889900aabbccddeeff",
+  "attestation_key_quote": {
+    "ak_public_key": "short_invalid_key",
+    "quote_signature": "0x1234",
+    "quote_payload": "AQEBAgAAABAAAAAA89..."
+  },
+  "zk_vendor_membership_proof": {
+    "proof_type": "INVALID_PROOF_TYPE",
+    "proof_bytes": "0x9876",
+    "public_inputs": ["0x1"]
+  },
+  "silicon_vendor": "FAKE_VENDOR",
+  "timestamp": 100,
+  "nonce": "0x1234"
+}
