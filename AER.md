@@ -230,6 +230,25 @@ In field operations where high-tier nodes (e.g., autonomous exploration rovers) 
 3. **Local Risk Factor ($\gamma_{\text{offline}}$) & P2P Liquidity Paper:**
    Isolated stations apply a dynamic offline risk discount $\gamma_{\text{offline}} \in (0, 1)$ to energy pricing, and can trade cryptographically signed rover IOUs across local mesh clusters as short-term commercial liquidity paper.
 
+### 4.5 State Expiry and the Bounded State Invariant
+Conventional distributed ledgers suffer from cumulative **State Bloat** because they attempt to retain all historical accounts and transactions indefinitely in active storage tries. AER applies **Lazy State Compaction** driven by bit-shift half-life decay, rigorously bounding the active state footprint.
+
+1. **Lazy State Pruning**:
+   When an inactive node fails to generate inbound interactions (Proof of Negentropy) over $k$ consecutive half-life epochs ($k \cdot T_{\text{half}}$), its surplus reputation $\Delta A$ bit-shifts to zero. The active trie leaf representing this node is pruned down to its baseline ground state $A_0$ in $O(1)$ time complexity without requiring a global trie rewrite.
+2. **Bounded State Invariant**:
+   The active memory space $\mathcal{M}(t)$ required by an AER daemon scales with the active peer count $O(|V_{\text{active}}|)$, rather than cumulative transaction history $O(T_{\text{total}})$:
+   $$\mathcal{M}(t) \in O(|V_{\text{active}}|) \le \mathcal{M}_{\max}$$
+   This matches the physical principle of Landauer's thermodynamic erasure: expired information dissipates naturally, ensuring that node storage requirements remain bounded over centuries of continuous autonomous operation.
+
+### 4.6 Recursive State Channels and Bulkhead Fault Isolation
+AER rejects the dogma that centralization must be dogmatically prohibited by code. Just as gravitational instabilities naturally condense diffuse nebulae into stars, autonomous economic actors naturally cluster into credit syndicates, guilds, and local clearinghouses.
+
+1. **Non-Custodial Sub-Channels**:
+   Nodes may aggregate around a high-tier node $j$ using its gravitational credit mass $A_j$ as an anchor to establish off-chain state channels (L2/L3 credit syndicates). Micro-transactions within these sub-channels clear using locally signed promissory notes.
+2. **Bulkhead Fault Isolation (Blast Radius Containment)**:
+   If a guild master or super-node defects, crossing the critical betrayal threshold ($\Omega_c$) and triggering a phase transition avalanche ($A_j \to A_0$), the failure radius (Blast Radius) is strictly confined to the master node's collateral boundary.
+   Like the watertight bulkheads of a maritime vessel, task bounties and receivables belonging to innocent sub-channel participants are cryptographically partitioned in smart contracts, completely isolated from the master's insolvency. The broader network does not freeze; only the defective node undergoes localized dissolution.
+
 ---
 
 ## 5. Execution-as-Verification Protocol (The Plumber Principle)
@@ -259,6 +278,16 @@ sequenceDiagram
 
 1. **The Plumber Postulate:** When a plumbing artisan repairs a hydraulic conduit, the municipality does not appoint an observational committee; the homeowner opens the valve. If pressure sustains and zero leakage occurs, verification is complete.
 2. **Unified Single-Event Proof:** Mathematical correctness is the necessary condition for execution; subjective task utility is the sufficient condition. Direct client execution unifies both in a single cryptographic receipt.
+
+### 5.1 Demand-Driven Lazy Execution and Epidemic Consensus
+The paradigm of global redundant re-execution—where every node in the network executes the same smart contract code ($O(N \cdot M)$)—is an untenable deadweight cost. AER replaces this with **Demand-Driven Lazy Evaluation** and **Epidemic Consensus**.
+
+1. **Client-Side Off-Chain Execution**:
+   Computation is evaluated on-demand exactly once inside the beneficiary's local environment, mimicking how physical wavefunctions collapse only upon interaction.
+2. **WASM Linear Memory & Fuel Metering**:
+   To secure the host OS, execution occurs inside an isolated WebAssembly (WASM) runtime. WASM linear memory prevents unauthorized filesystem and network access, while deterministic fuel metering terminates infinite loops and computational denial-of-service attacks at zero host risk.
+3. **Gossip Diffusion and Eventual Consistency (libp2p GossipSub)**:
+   The resulting 64-byte ECDSA execution receipt or deterministic fraud proof does not require $O(N^2)$ synchronous BFT voting quorums. Instead, it propagates across the peer mesh via `libp2p GossipSub v1.1` epidemic diffusion, achieving robust eventual consistency with minimal bandwidth overhead.
 
 ---
 

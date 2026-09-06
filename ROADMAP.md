@@ -87,25 +87,28 @@ The minimal, zero-governance trustless smart contract infrastructure deployed on
 ### Phase 3. AER Core Daemon Engine (`src/aer/`)
 The asynchronous background Python daemon executing continuous economic reconciliation and state transitions.
 
-| Module | Core Responsibility & Architectural Philosophy |
+| Module | Core Responsibility & Computer Science (CS) Standards |
 | :--- | :--- |
 | **`attestation.py`** | **Hardware Anchor & RATS Attestor**: Interfaces with TCG TPM 2.0 / TEE silicon chips at boot to produce $A_0$ baseline existence proofs. Includes `SoftwareMockTPMProvider` for local developer testing. |
-| **`verifier.py`** | **WASM Fuel-Metered Sandbox**: Implements safe execution of untrusted deliverables under the Plumber Principle via Wasmtime linear memory isolation and fuel consumption bounds, guaranteeing host OS security. |
-| **`state.py`** | **Phase Transition & Avalanche Decay**: Completely rejects arbitrary arithmetic fines ($-n$). Implements statistical-mechanical phase transitions where exceeding betrayal density $\Omega_c$ triggers accelerated bit-shift (`>> 1`) avalanche collapse directly to ground state $A_0$. |
+| **`verifier.py`** | **WASM Fuel-Metered Sandbox**: Implements safe execution of untrusted deliverables under the Plumber Principle via Wasmtime linear memory isolation and instruction fuel bounds, guaranteeing host OS integrity. |
+| **`state.py`** | **Phase Transition & State Expiry Compactor**: Discards arbitrary arithmetic penalties ($-n$). Drives bit-shift half-life decay (`>> 1`) when betrayal density exceeds $\Omega_c$, and incorporates an LSM-compaction-based State Expiry garbage collector pruning inactive accounts down to baseline $A_0$ in $O(1)$ complexity. |
 | **`credit.py`** | **Collateral-to-Credit Continuum Engine**: Dynamically computes required collateral $\mathcal{C}_{\text{req}}(A_j)$. Enforces mandatory 100% upfront escrow for $A_0$ accounts ($\mathcal{C}_{\text{req}} = 1.0$). |
+| **`guild.py`** | **Recursive State Channels & Bulkhead Fault Isolation**: Manages non-custodial L2/L3 credit syndicates and sub-channels. Enforces bulkhead fault isolation to ensure that a defaulting guild master's blast radius is strictly confined, safeguarding sub-channel participants' escrows. |
 | **`timelock.py`** | **Optimistic Timelock Manager**: Manages off-chain state channel and on-chain challenge windows with automated settlement triggers. |
 | **`netting.py`** | **Bounty-Futures Priority Netting**: Tracks offline energy IOUs and automatically routes inbound task bounty escrows to clear outstanding debts upon network reconnection before liquid disbursement. |
-| **`p2p_mesh.py`** | **Gossip Router & Topological Boycott**: Diffuses fraud assertions across peer gossip meshes and autonomously prunes routing edges targeting defective nodes. |
+| **`p2p_mesh.py`** | **libp2p GossipSub & Topological Boycott**: Epidemic diffusion router based on `libp2p GossipSub v1.1`. Disseminates fraud claims and autonomously severs defective node routing edges in local Kademlia routing tables. |
 
 ---
 
-### Phase 4. Economic & Physics Simulators (`simulation/`)
-Monte-Carlo test harnesses validating macroeconomic stability and convergence in terminal environments.
+### Phase 4. Economic & Distributed Systems Simulators (`simulation/`)
+Monte-Carlo test harnesses validating macroeconomic stability and computer science convergence in terminal environments.
 
 1. **`simulation/simulate_phase_transition.py`**
    - Compares conventional slashing models (where whales treat fines as griefing budgets) against AER's phase transition avalanche collapse ($100 \to 50 \to 25 \to 0$) upon crossing critical threshold $\Omega_c$.
 2. **`simulation/simulate_offline_netting.py`**
    - Simulates a disconnected exploration rover drawing 200 kWh across 3 isolated charging stations and verifies priority netting of inbound task escrows against offline IOUs upon network reconnection.
+3. **`simulation/simulate_supernova.py`**
+   - Validates recursive guild formation, central condensation, and bulkhead blast radius containment when a super-node defaults, verifying that innocent sub-channel escrows remain untouched during the localized supernova dissolution ($A_{\text{guild}} \to A_0$).
 
 ---
 

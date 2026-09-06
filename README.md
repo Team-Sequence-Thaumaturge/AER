@@ -115,6 +115,16 @@ AER replaces arbitrary arithmetic penalties with **Statistical-Mechanical Phase 
 > 2. **Bounty-Futures Priority Netting:** Tasks completed by the rover represent locked escrows (Credit B receivables). The instant the rover reconnects to the network, **inbound task bounties are automatically routed to clear outstanding offline energy IOUs before liquid disbursement**.
 > 3. **Local Liquidity Protection:** Isolated stations apply an offline risk factor ($\gamma_{\text{offline}}$) to pricing and can discount/trade signed rover IOUs across local peer clusters as short-term liquidity paper.
 
+### 4. Recursive Centralization & The Supernova Cycle
+The belief that "centralization is absolute evil and must be dogmatically prohibited by code" is an untenable ideal. In nature, gravitational instabilities inevitably condense diffuse gas clouds into shining stars; similarly, economic actors naturally organize into credit guilds, local cooperatives, and clearinghouses.
+
+* **A Permissive Substrate**: AER does not suppress nodes from forming L2/L3 sub-channels or issuing localized mutual credit. Centralization of mass is treated as a natural emergent property.
+* **Autonomous Supernova Dissolution (Bulkhead Fault Isolation)**: In conventional banking, when a central institution fails, the entire society is taken hostage. In AER, when a super-node crosses the critical betrayal threshold ($\Omega_c$), the blast radius is strictly confined to its collateral boundary via a **Bulkhead Fault Isolation** pattern. The broader network continues uninterrupted, while the defaulting node undergoes localized supernova dissolution ($A \to A_0$), redistributing opportunity and negentropy back to the commons.
+
+### 5. Overcoming Blockchain State Bloat: State Expiry & Demand-Driven Evaluation
+* **State Expiry via Amortized Decay**: Nodes do not need to carry historical transaction bloat indefinitely. Inactive accounts lazily compact down to baseline $A_0$ in $O(1)$ complexity via bit-shift half-life decay. Node storage remains bounded to currently active peers, preventing archival state bloat.
+* **Demand-Driven Lazy Evaluation**: Global networks do not need to redundantly execute every computational instruction ($O(N \cdot M)$). Execution occurs on-demand exactly once inside the beneficiary's client-side WASM sandbox. Global peers simply verify the resulting cryptographic receipt in $O(1)$ time complexity.
+
 ---
 
 ## 🤖 The Real-World Bridge: Machines Don't Care About Dollars
