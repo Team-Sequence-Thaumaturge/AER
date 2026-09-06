@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://aer.sequence.org/schemas/v1/HardwareMigration.schema.json",
-  "title": "AER Hardware Migration & Ghost Handover Schema",
-  "description": "Cryptographically authenticated migration manifest transferring machine soul/vault control between physical silicon units (AER Appendix C.3).",
+  "title": "ERC-4337 Non-Custodial Account Key Rotation & Disaster Recovery Specification",
+  "description": "Cryptographically authenticated migration manifest transferring signer authorization over an ERC-4337 Smart Contract Account between physical silicon roots of trust (AER Appendix C.3). Supports cooperative dual-attestation key rotation with TPM zeroization proof, alongside multi-party quorum disaster recovery under hardware destruction.",
   "type": "object",
   "required": [
     "schema_version",
@@ -19,12 +19,12 @@
     "schema_version": {
       "type": "string",
       "pattern": "^1\\.[0-9]+\\.[0-9]+$",
-      "description": "Semantic version of the schema specification (e.g. 1.0.0)."
+      "description": "Semantic versioning string of this formal schema specification (e.g. 1.0.0)."
     },
     "account_id": {
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{40}$",
-      "description": "ERC-4337 smart contract account address holding accumulated Credit B and reputation history."
+      "description": "ERC-4337 smart contract account address anchoring persistent state, balance, and operational history."
     },
     "migration_type": {
       "type": "string",
@@ -32,17 +32,17 @@
         "GRACEFUL_HANDOVER",
         "EMERGENCY_DISASTER_RECOVERY"
       ],
-      "description": "Migration modality: GRACEFUL (bilateral handshake + zeroization) or EMERGENCY (destroyed chassis with M-of-N guild witnesses)."
+      "description": "Key rotation procedure: GRACEFUL_HANDOVER (bilateral cryptographic handshake with key zeroization) or EMERGENCY_DISASTER_RECOVERY (multi-party guild quorum following physical hardware failure)."
     },
     "old_node_id": {
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{40}$",
-      "description": "Ethereum address of the retiring or destroyed silicon hardware unit."
+      "description": "EVM operational address of the decommissioned or failed hardware node."
     },
     "new_node_id": {
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{40}$",
-      "description": "Ethereum address of the newly commissioned silicon hardware unit."
+      "description": "EVM operational address of the target hardware node assuming signer delegation."
     },
     "new_tpm_attestation": {
       "type": "object",
@@ -55,18 +55,21 @@
       "properties": {
         "blinded_silicon_commitment": {
           "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{64}$"
+          "pattern": "^0x[a-fA-F0-9]{64}$",
+          "description": "Pedersen commitment Commit(Chip_Secret, r) verifying target silicon integrity."
         },
         "platform_pcr_digest": {
           "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{64}$"
+          "pattern": "^0x[a-fA-F0-9]{64}$",
+          "description": "Platform Configuration Register measurement digest for target secure boot state."
         },
         "ak_quote": {
           "type": "string",
-          "pattern": "^0x[a-fA-F0-9]+$"
+          "pattern": "^0x[a-fA-F0-9]+$",
+          "description": "Hardware quote payload signed by target TPM Attestation Key."
         }
       },
-      "description": "Full hardware attestation payload of the new target machine."
+      "description": "Complete hardware attestation evidence structure verifying the target silicon root of trust."
     },
     "zeroization_proof": {
       "type": "object",
@@ -78,14 +81,16 @@
       "properties": {
         "zeroization_type": {
           "type": "string",
-          "enum": ["TPM2_CLEARCONTROL", "SEV_DECOMMISSION", "PHYSICAL_ZEROIZATION"]
+          "enum": ["TPM2_CLEARCONTROL", "SEV_DECOMMISSION", "PHYSICAL_ZEROIZATION"],
+          "description": "Hardware command standard executing irrevocable key destruction."
         },
         "proof_signature": {
           "type": "string",
-          "pattern": "^0x[a-fA-F0-9]+$"
+          "pattern": "^0x[a-fA-F0-9]+$",
+          "description": "Cryptographic signature or hardware receipt attesting that previous signing keys have been zeroized."
         }
       },
-      "description": "Cryptographic proof that the old signing keys were permanently zeroized inside the old TPM (mandatory for GRACEFUL)."
+      "description": "Cryptographic evidence verifying that obsolete signing credentials have been permanently cleared within the retiring silicon (mandatory for GRACEFUL_HANDOVER)."
     },
     "handover_signatures": {
       "type": "object",
@@ -97,12 +102,12 @@
         "old_node_signature": {
           "type": "string",
           "pattern": "^0x[a-fA-F0-9]{130}$",
-          "description": "ECDSA signature from the old node approving migration (required in GRACEFUL)."
+          "description": "ECDSA signature from the retiring node authorizing signer rotation."
         },
         "new_node_signature": {
           "type": "string",
           "pattern": "^0x[a-fA-F0-9]{130}$",
-          "description": "ECDSA signature from the new node accepting soul stewardship."
+          "description": "ECDSA signature from the target node accepting signer responsibility."
         },
         "guild_witness_signatures": {
           "type": "array",
@@ -121,19 +126,19 @@
               }
             }
           },
-          "description": "M-of-N attestation signatures from peer guild nodes (mandatory in EMERGENCY)."
+          "description": "M-of-N threshold signatures from authorized guild witness peers (mandatory for EMERGENCY_DISASTER_RECOVERY)."
         }
       }
     },
     "challenge_timelock_deadline": {
       "type": "integer",
       "minimum": 1700000000,
-      "description": "Mandatory quarantine window timestamp (+7 days in emergency mode) allowing the original owner to veto fraudulent claims."
+      "description": "Mandatory challenge timelock deadline (e.g. 7-day quarantine window) protecting against malicious recovery attempts."
     },
     "timestamp": {
       "type": "integer",
       "minimum": 1700000000,
-      "description": "Unix epoch timestamp in seconds when the migration ticket was finalized."
+      "description": "Unix epoch timestamp in seconds recording migration manifest generation."
     }
   }
 }

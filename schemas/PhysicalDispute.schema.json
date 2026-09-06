@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://aer.sequence.org/schemas/v1/PhysicalDispute.schema.json",
-  "title": "AER Physical Sensor Dispute Schema",
-  "description": "Evidence format for resolving robotic physical task disputes via 3D octree Merkle bisection and multimodal conservation law verification (AER Appendix C.1).",
+  "title": "Spatiotemporal Bisection Dispute Proof Specification (3D Octree Merkle Path & Multimodal Conservation Verification)",
+  "description": "Cryptographically authenticated evidence format resolving physical robotic task disputes via interactive 3D octree Merkle bisection paths and multimodal sensor telemetry conservation verification (AER Appendix C.1). Compresses volumetric telemetry to a single dispute voxel for sub-200k gas on-chain zero-knowledge verification.",
   "type": "object",
   "required": [
     "schema_version",
@@ -23,27 +23,27 @@
     "schema_version": {
       "type": "string",
       "pattern": "^1\\.[0-9]+\\.[0-9]+$",
-      "description": "Semantic version of the schema specification (e.g. 1.0.0)."
+      "description": "Semantic versioning string of this formal schema specification (e.g. 1.0.0)."
     },
     "dispute_id": {
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{64}$",
-      "description": "Unique 32-byte identifier for the physical dispute proceeding."
+      "description": "Unique 32-byte cryptographic identifier for the formal dispute proceeding."
     },
     "task_id": {
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{64}$",
-      "description": "Target robotics task escrow identifier."
+      "description": "Target on-chain escrow contract identifier under dispute."
     },
     "challenger_node_id": {
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{40}$",
-      "description": "Ethereum address of the complaining client or peer inspector."
+      "description": "EVM address of the complaining challenger asserting physical contract violation."
     },
     "defendant_node_id": {
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{40}$",
-      "description": "Ethereum address of the accused autonomous robot or worker."
+      "description": "EVM address of the executor node defending physical telemetry integrity."
     },
     "dispute_category": {
       "type": "string",
@@ -54,7 +54,7 @@
         "ENERGY_CONSERVATION_VIOLATION",
         "SENSOR_MULTIMODAL_MISMATCH"
       ],
-      "description": "Class of physical law or contractual spatial boundary violation."
+      "description": "Deterministic classification of physical or spatial conservation violation."
     },
     "spatiotemporal_voxel": {
       "type": "object",
@@ -70,17 +70,17 @@
           "items": { "type": "number" },
           "minItems": 3,
           "maxItems": 3,
-          "description": "Disputed 3D spatial coordinate [x, y, z] in meters relative to reference datum."
+          "description": "Disputed 3D spatial coordinate vector [x, y, z] in meters relative to reference spatial datum."
         },
         "timestamp_frame_ms": {
           "type": "integer",
           "minimum": 0,
-          "description": "Relative millisecond offset from task initiation."
+          "description": "Temporal offset in milliseconds from execution commencement."
         },
         "frame_duration_ms": {
           "type": "number",
           "exclusiveMinimum": 0.0,
-          "description": "Duration of the disputed telemetry frame."
+          "description": "Discrete temporal sampling window duration of the disputed telemetry frame."
         }
       }
     },
@@ -96,7 +96,7 @@
             "type": "integer",
             "minimum": 0,
             "maximum": 32,
-            "description": "Octree hierarchy depth."
+            "description": "Hierarchical depth level within the 3D octree spatial decomposition."
           },
           "sibling_hashes": {
             "type": "array",
@@ -106,16 +106,16 @@
             },
             "minItems": 7,
             "maxItems": 7,
-            "description": "7 sibling octant hashes in the 8-ary spatial tree."
+            "description": "7 sibling octant hashes within the 8-ary spatial tree."
           },
           "node_hash": {
             "type": "string",
             "pattern": "^0x[a-fA-F0-9]{64}$",
-            "description": "Combined parent or leaf hash."
+            "description": "Composite node digest binding the octant leaf or intermediate branch."
           }
         }
       },
-      "description": "O(log N) Merkle path isolating the specific 100ms / 1cm^3 dispute voxel."
+      "description": "O(log N) Merkle path isolating the specific spatial dispute voxel from comprehensive telemetry."
     },
     "sensor_telemetry_sample": {
       "type": "object",
@@ -132,22 +132,22 @@
           "items": { "type": "number" },
           "minItems": 16,
           "maxItems": 16,
-          "description": "Homogeneous 4x4 SE(3) transformation matrix representing robot spatial pose."
+          "description": "Homogeneous 4x4 SE(3) transformation matrix representing spatial position and orientation."
         },
         "motor_current_amperes": {
           "type": "array",
           "items": { "type": "number" },
           "minItems": 1,
-          "description": "Recorded actuator electrical currents in Amperes."
+          "description": "Discrete actuator electrical current measurements in Amperes."
         },
         "battery_delta_coulombs": {
           "type": "number",
-          "description": "Measured Coulomb discharge over the frame window."
+          "description": "Integrated Coulomb charge differential over the frame sampling window."
         },
         "lidar_point_cloud_hash": {
           "type": "string",
           "pattern": "^0x[a-fA-F0-9]{64}$",
-          "description": "SHA-256 digest of the raw point cloud / depth map capture."
+          "description": "SHA-256 cryptographic digest of the raw point cloud / depth array frame."
         }
       }
     },
@@ -165,13 +165,14 @@
         "proof_circuit": {
           "type": "string",
           "maxLength": 64,
-          "description": "Identifier of the verified Circom/Groth16 verifier circuit."
+          "description": "Canonical on-chain verifier circuit identifier (e.g. PhysicalConservationDisputeVerifier_v1)."
         },
         "proof_points_a": {
           "type": "array",
           "items": { "type": "string", "pattern": "^0x[a-fA-F0-9]+$" },
           "minItems": 2,
-          "maxItems": 2
+          "maxItems": 2,
+          "description": "G1 affine point A in Groth16 proof format."
         },
         "proof_points_b": {
           "type": "array",
@@ -182,30 +183,33 @@
             "maxItems": 2
           },
           "minItems": 2,
-          "maxItems": 2
+          "maxItems": 2,
+          "description": "G2 affine point B in Groth16 proof format."
         },
         "proof_points_c": {
           "type": "array",
           "items": { "type": "string", "pattern": "^0x[a-fA-F0-9]+$" },
           "minItems": 2,
-          "maxItems": 2
+          "maxItems": 2,
+          "description": "G1 affine point C in Groth16 proof format."
         },
         "public_inputs": {
           "type": "array",
-          "items": { "type": "string", "pattern": "^0x[a-fA-F0-9]+$" }
+          "items": { "type": "string", "pattern": "^0x[a-fA-F0-9]+$" },
+          "description": "Public signals evaluated by the on-chain bilinear pairing precompile."
         }
       },
-      "description": "Succinct ZK proof verifying that sensor readings mathematically contradict physical boundary or conservation equations."
+      "description": "Succinct zero-knowledge proof establishing that recorded telemetry mathematically violates physical conservation or boundary constraints."
     },
     "timestamp": {
       "type": "integer",
       "minimum": 1700000000,
-      "description": "Unix timestamp in seconds when the dispute was formally lodged."
+      "description": "Unix epoch timestamp in seconds recording dispute initiation."
     },
     "challenger_signature": {
       "type": "string",
       "pattern": "^0x[a-fA-F0-9]{130}$",
-      "description": "65-byte ECDSA signature of the challenger asserting this evidence."
+      "description": "65-byte ECDSA cryptographic signature of the challenger asserting dispute evidence validity."
     }
   }
 }
