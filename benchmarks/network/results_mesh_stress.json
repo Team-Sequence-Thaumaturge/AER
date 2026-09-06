@@ -1,0 +1,43 @@
+{
+  "timestamp": 1788738390.9106743,
+  "phase": "2-3",
+  "benchmark_name": "AER 10,000-Node Partition & Netting Stress Benchmark",
+  "config": {
+    "total_nodes": 10000,
+    "target_degree": 8,
+    "broadcast_samples": 50,
+    "partition_ratio": 0.5,
+    "rover_netting_count": 1000,
+    "credit_limit_b": 5000,
+    "gamma_offline": 1.05
+  },
+  "broadcast": {
+    "samples": 50,
+    "elapsed_sec": 0.3217,
+    "mean_delivery_ratio_pct": 100.0,
+    "mean_hop_distance": 6.0,
+    "throughput_msgs_per_sec": 155.44,
+    "target_sla_passed": true
+  },
+  "partition": {
+    "cross_partition_attempts": 5000,
+    "accepted_offline_ious": 1774,
+    "rejected_by_debt_ceiling": 3226,
+    "total_offline_debt_issued_b": 737664,
+    "mean_debt_per_node_b": 4917.76,
+    "debt_ceiling_enforced": true,
+    "unbacked_inflation_bounded": true,
+    "elapsed_sec": 0.0037
+  },
+  "netting": {
+    "num_rovers": 1000,
+    "total_ious_ingested": 1000,
+    "total_iou_volume_b": 1000000,
+    "cleared_debt_b": 1000000,
+    "cleared_ratio_pct": 100.0,
+    "convergence_time_sec": 0.0002,
+    "throughput_ious_per_sec": 6222777.56,
+    "deadlock_detected": false,
+    "sla_passed": true
+  }
+}
