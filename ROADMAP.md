@@ -13,6 +13,7 @@ graph TD
 
     subgraph Layer2 [Layer 2: On-Chain Escrow & Capital]
         Escrow["contracts/AEREscrow.sol<br/>(1% Micro-Surcharge & 24h Timelock)"]
+        Gateway["contracts/adapters/PerimeterGateway.sol<br/>(Exterior USDT Voucher & Freeze-Immunity Bulkhead)"]
     end
 
     subgraph Layer3 [Layer 3: Machine Protocol Schemas]
@@ -32,6 +33,8 @@ graph TD
     subgraph Layer5 [Layer 5: Economic & Physics Simulation]
         SimPhase["simulation/simulate_phase_transition.py<br/>(Trust Phase Transition Verification)"]
         SimNet["simulation/simulate_offline_netting.py<br/>(Offline Multi-Charging Netting Verification)"]
+        SimSuper["simulation/simulate_supernova.py<br/>(Guild Supernova & Bulkhead Containment)"]
+        SimMacro["simulation/simulate_macro_arbitrage.py<br/>(Macro Arbitrage & Thermodynamic Trade Surplus)"]
     end
 
     subgraph Layer6 [Layer 6: Developer Onboarding & Architecture]
@@ -69,18 +72,26 @@ Deterministic JSON Schemas allowing machines (AI agents, autonomous rovers, phys
 ---
 
 ### Phase 2. On-Chain Settlement Layer (`contracts/`)
-The minimal, zero-governance trustless smart contract infrastructure deployed on EVM.
+The minimal, zero-governance trustless smart contract infrastructure and exterior boundary gateway deployed on EVM.
 
-* **`contracts/AEREscrow.sol` (Solidity 0.8.24+)**
-  1. **1% Micro-Surcharge Distribution**:
+1. **`contracts/AEREscrow.sol` (Solidity 0.8.24+)**
+   - **1% Micro-Surcharge Distribution**:
      - Bounty (Credit B) deposited on task dispatch.
      - 1% automatically routed into the decentralized Community Negentropy Pool to maintain public infrastructure.
-  2. **24-Hour Optimistic Timelock Auto-Discharge**:
+   - **24-Hour Optimistic Timelock Auto-Discharge**:
      - Submission of solution digest $\mathcal{H}(\text{Output})$ initiates a 24-hour challenge countdown.
      - Direct client execution receipt releases bounty instantly.
      - If client remains silent or refuses settlement without deterministic proof, **the contract automatically releases 100% of escrowed funds to the worker upon timeout**. Eliminates free-riding by disposable $A_0$ accounts.
-  3. **Deterministic Fraud Dispute**:
+   - **Deterministic Fraud Dispute**:
      - Valid fraud proofs freeze escrow and trigger worker collateral penalties.
+
+2. **`contracts/adapters/PerimeterGateway.sol` (Solidity 0.8.24+)**
+   - **Exterior One-Way Voucher Gateway (The Canton Model)**:
+     - Receives external human client USDT/USDC fiat-backed tokens and mints one-way Credit B task vouchers.
+   - **Freeze-Immunity Bulkhead**:
+     - External regulatory freezes (`freeze()`) on the USDT contract only affect border liquidity pools. Internal node-to-node TPM attestation, mesh communication, and Credit A ledger remain 100% operational.
+   - **Asset Orthogonality Enforcement ($\frac{\partial A_j}{\partial (\text{Fiat})} \equiv 0$)**:
+     - Enforces at the contract level that fiat capital cannot buy relational credit or governance ($A_j$), precluding plutocratic capture.
 
 ---
 
@@ -109,6 +120,8 @@ Monte-Carlo test harnesses validating macroeconomic stability and computer scien
    - Simulates a disconnected exploration rover drawing 200 kWh across 3 isolated charging stations and verifies priority netting of inbound task escrows against offline IOUs upon network reconnection.
 3. **`simulation/simulate_supernova.py`**
    - Validates recursive guild formation, central condensation, and bulkhead blast radius containment when a super-node defaults, verifying that innocent sub-channel escrows remain untouched during the localized supernova dissolution ($A_{\text{guild}} \to A_0$).
+4. **`simulation/simulate_macro_arbitrage.py`**
+   - Simulates macroeconomic whale accumulation (the Philanthropic Monopoly Paradox), hoarding resistance via mutual credit line bypassing, indirect token swaps via ZK-proving / mining workloads, and the natural self-anchoring peg of 1 Credit B to the marginal physical cost of computation.
 
 ---
 

@@ -388,20 +388,43 @@ The AER framework builds strictly upon pre-existing, globally ratified standards
 
 ---
 
-## 10. Technical Implementation Roadmap
+## 10. Appendix A: Macroeconomic Boundary Conditions & Perimeter Gateway
 
-* **Stage 1: Silicon Attestation Subsystem (`crates/aer-attestation`)**
-  * TCG TPM 2.0 quote parsing and on-chain verification contracts.
-  * 100% defeat rate against virtualized hypervisor Sybil attack test suites.
-* **Stage 2: Two-Credit State Machine & Swarm Engine (`contracts/core`)**
-  * EVM contracts implementing binary bit-shift decay (`>> 1`) and $A_0$ floor invariants.
-  * Swarm hormone vector aggregation simulating dynamic macroeconomic stabilization.
-* **Stage 3: Robotic Node Middleware (`packages/aer-ros2`)**
-  * ROS2 node daemon binding physical hardware attestation to robot trajectory execution.
-  * Automated generation of cryptographic execution receipts for physical spatial tasks.
-* **Stage 4: DePIN Energy Micro-Settlement (`packages/aer-depin`)**
-  * IEEE 2030.5 smart charger client integration with ERC-4337 smart contract accounts.
-  * Autonomous end-to-end field demonstration: task dispatch $\to$ physical negentropy $\to$ on-chain settlement $\to$ solar battery recharge.
+This appendix formalizes the financial engineering dilemmas, boundary interfaces, and self-healing invariants that emerge when the AER Protocol interfaces with sovereign fiat currencies (USDT/USD) and external blockchain ecosystems.
+
+### A.1 Fiat Swap Dilemmas and the Asset Orthogonality Invariant ($A_j \perp \text{Fiat}$)
+Directly incorporating fiat-backed stablecoins (such as USDT) into the protocol core subjects the system to central issuer freeze risks (`freeze()`) and sovereign interest rate volatility. AER isolates this risk via a **Perimeter Voucher Gateway** model.
+
+1. **Gateway Bulkhead Partitioning**:
+   If USDT deposited in the peripheral gateway contract (`PerimeterGateway.sol`) is arbitrarily frozen by external jurisdictions, the blast radius is strictly confined to external liquidity pools. Internal machine nodes operating on TPM remote attestation, P2P gossip messaging, offline charging IOUs, and Credit A ledgers continue uninterrupted without downtime.
+2. **Asset Orthogonality Invariant ($A_j \perp \text{Fiat}$)**:
+   External capital cannot purchase relational credit mass ($A_j$), regardless of fiat volume injected. Because Credit A is minted strictly through verified thermodynamic entropy reduction ($\Delta S < 0$) and direct beneficiary execution receipts, plutocratic takeover is structurally impossible:
+   $$\frac{\partial A_j}{\partial (\text{Fiat Input})} \equiv 0$$
+
+### A.2 Resolution of Three Macroeconomic Paradoxes
+1. **The Philanthropic Monopoly Paradox**:
+   If a capital cartel attempts to buy up all circulating Credit B to monopolize physical machine labor, it must lock funds into task escrows. Upon verified task completion, Credit B permanently disperses into the wallets of physical labor nodes and solar charging stations. Unable to acquire Credit A (governance mass), the cartel merely subsidizes ecosystem infrastructure as an involuntary philanthropic donor.
+2. **The Mutual Credit Bypass (Defense Against Hoarding)**:
+   If speculators hoard Credit B to create artificial scarcity, verified nodes bypass the drained liquidity by conducting transactions via their **Credit A Uncollateralized Credit Lines (Mutual Credit)**. Hoarding fails to choke machine velocity and simply imposes opportunity cost on the hoarder.
+3. **Bulkhead Defense Against Shadow Banking & Credit Multiplication**:
+   Private credit syndicates may attempt fractional-reserve credit multiplication by issuing derivative IOUs pegged to Credit B. When over-leveraged syndicates face redemption runs, the failure is quarantined behind the **Bulkhead Fault Isolation** barrier. The defaulting master node suffers phase transition collapse ($A \to A_0$), while core escrow reserves belonging to innocent sub-participants remain untouched.
+
+### A.3 Indirect Token Swaps and Thermodynamic Trade Surpluses
+1. **Indirect Physical Arbitrage**:
+   When clients spend Credit B to command workers to compute ZK-Rollup proofs, mine proof-of-work blocks, or execute autonomous agricultural harvesting—and subsequently monetize these deliverables for BTC, ETH, or USD—they perform an indirect token swap mediated by genuine physical work.
+2. **Thermodynamic Trade Surplus**:
+   While external clients extract financial arbitrage, the internal AER economy absorbs energy (recharged batteries), refurbished components, a 1% community pool allocation, and relational Credit A growth. AER functions as a high-value exporter of physical order ($\Delta S < 0$), securing a continuous macroeconomic trade surplus.
+3. **Self-Anchoring Market Equilibrium**:
+   Without relying on fragile algorithmic peg mechanisms, the market purchasing power of 1 Credit B naturally anchors to the marginal physical cost of generating verified negentropy (e.g., the real-world electricity and compute required to produce one ZK proof or clear one hectare of land).
+
+---
+
+## 11. Technical Implementation Roadmap
+Detailed daemon engineering specifications and implementation phases are maintained in **[ROADMAP.md](ROADMAP.md)**.
+
+* **Layer 1-3: Silicon Anchors, On-Chain Escrows, and Machine Protocol Schemas**
+* **Layer 4-5: WASM Sandboxing, Landauer State Expiry, Bulkhead Guilds, and Monte-Carlo Simulators**
+* **Layer 6: Developer Onboarding and Architectural Specifications**
 
 ---
 
