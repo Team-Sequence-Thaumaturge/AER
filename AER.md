@@ -419,12 +419,54 @@ Directly incorporating fiat-backed stablecoins (such as USDT) into the protocol 
 
 ---
 
-## 11. Technical Implementation Roadmap
+## 11. Appendix B: The Chasm Between Human-Centric AI Agents and Machine-Native Protocols
+
+This appendix formalizes the structural limitations of today's proxy agents, the behavioral economics of unexpected reward acquisition (digital loot), the necessity of epistemic opacity (black-boxization) against surveillance capitalism, and the serverless P2P order book and zero-server localhost UI specification.
+
+### B.1 The Three Dependencies of Proxy Agents and the Illusion of Autonomy
+Today's commercial AI agents remain constrained as human proxies, characterized by three systemic vulnerabilities:
+1. **Parasitism on Human Legacy UIs (Screen-Scraping Prosthetics)**: Automating web clicks and form fills does not constitute autonomous agency; it is optical character recognition (OCR) and DOM scripting masquerading as intelligence.
+2. **Centralized Fiat Life-Support**: Agents depend on human credit cards (Stripe, corporate cards) and cloud accounts. Cancellation of subscriptions or credit limit exhaustion induces immediate brain-death.
+3. **Natural Language Overhead**: Machine-to-machine coordination conducted in verbose natural language prompts squanders vast compute, latency, and thermodynamic energy.
+
+### B.2 Behavioral Economics: Transcending Risk Avoidance into "Digital Loot" Acquisition
+1. **The Asymmetry of Human Utility (Loss Prevention vs. Unexpected Gain)**:
+   While sandboxed crash isolation ("my host OS will not be corrupted") is a mandatory hygiene requirement, risk avoidance alone does not drive viral adoption. Just as Bitcoin galvanized the global economy when it proved real-world wealth generation, AER satisfies human utility by providing **the thrill of serendipitous digital loot acquisition**.
+2. **Credit B as Sovereign Digital Purchasing Power**:
+   An idle PC running `aerd` accumulates Credit B overnight. Without credit cards, bank accounts, or KYC hurdles, this credit grants direct purchasing power to acquire **proprietary closed-source MCP tools, high-performance GPU compute quotas, and unindexed domain datasets** from the P2P mesh, directly empowering the developer's local agent.
+
+### B.3 The Structural Blind Spot of Big Tech and AER's Moat: "The Epistemic Black Box"
+1. **The Surveillance Panopticon**:
+   Big Tech platforms (OpenAI, Google, AWS) are legally and commercially bound by corporate compliance, copyright liabilities, anti-terrorism laws, and shareholder duty to log, monitor, filter, and inspect every prompt, tool call, input, and output payload. True confidential computing is structurally incompatible with cloud platform models.
+2. **Epistemic Opacity (Black-Boxization)**:
+   AER binds hardware TPM 2.0 cryptographic attestation with WASM linear memory sandboxing to establish an **opaque computational black box** beyond the reach of ISPs, cloud hosts, and payment processors:
+   $$\text{Observable}(\text{Payload}) \equiv \mathcal{H}(\text{Output}) \quad (\text{Zero Knowledge of Semantics})$$
+   External observers perceive solely the execution completion digest and state transition hashes. Sensitive algorithms and proprietary datasets remain confined within the silicon enclaves of the transacting peers.
+
+### B.4 Serverless P2P Order Book Protocol (`P2P Resource Discovery`)
+Specifies decentralized resource advertisement and order fulfillment without centralized intermediaries:
+
+1. **GossipSub Topic Broadcasting (`/aer/market/v1/...`)**:
+   Advertising nodes broadcast cryptographically signed order manifests (`schemas/MarketOrder.schema.json`) across designated GossipSub topics (`/aer/market/gpu-quota`, `/aer/market/mcp-tools`, `/aer/market/datasets`). Peer nodes ingest these announcements into a local in-memory order book.
+2. **Kademlia DHT Provider Records**:
+   Resource descriptors $\text{CID} = \mathcal{H}(\text{ResourceMetadata})$ are registered on the Kademlia DHT, enabling $O(\log N)$ routing to resource provider `multiaddr` records without a central registry.
+3. **Autonomous Order Netting**:
+   The buyer node's `src/aer/market.py` daemon matches incoming market offers against user-defined autonomous policies (e.g., "monetize idle GPU at night; automatically acquire C++ verification MCP tool upon reaching 50 Credit B") via direct peer-to-peer state channels.
+
+### B.5 Zero-Server Localhost Loopback Interface (`127.0.0.1 Loopback UI`)
+1. **Embedded Self-Hosting Architecture**:
+   The `aerd` binary embeds static frontend distribution assets (HTML/JS) and binds a local-only asynchronous HTTP/WebSocket IPC server (`src/aer/ui_server.py`) strictly to `127.0.0.1:28741`, eliminating cloud web server dependencies.
+2. **Human Visibility Dashboard (AER Station)**:
+   A lightweight system tray indicator and native WebView2/Tauri window visualize live P2P order flows, Credit A/B balances, and autonomous loot acquisition notifications without exfiltrating telemetry to third-party endpoints.
+
+---
+
+## 12. Technical Implementation Roadmap
 Detailed daemon engineering specifications and implementation phases are maintained in **[ROADMAP.md](ROADMAP.md)**.
 
 * **Layer 1-3: Silicon Anchors, On-Chain Escrows, and Machine Protocol Schemas**
-* **Layer 4-5: WASM Sandboxing, Landauer State Expiry, Bulkhead Guilds, and Monte-Carlo Simulators**
-* **Layer 6: Developer Onboarding and Architectural Specifications**
+* **Layer 4-5: WASM Sandboxing, P2P Order Book, Landauer State Expiry, Bulkhead Guilds, and Monte-Carlo Simulators**
+* **Layer 6: Developer Onboarding and Localhost Loopback UI (AER Station)**
 
 ---
 

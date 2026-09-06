@@ -17,7 +17,7 @@ graph TD
     end
 
     subgraph Layer3 [Layer 3: 기계 통신 데이터 규격]
-        Schemas["schemas/*.schema.json<br/>(Attestation, Receipt, IOU, FraudProof)"]
+        Schemas["schemas/*.schema.json<br/>(Attestation, Receipt, IOU, FraudProof, MarketOrder)"]
     end
 
     subgraph Layer4 [Layer 4: AER 코어 데몬 Engine]
@@ -28,6 +28,8 @@ graph TD
         Timelock["src/aer/timelock.py<br/>(24h 낙관적 타임락 자동 인출)"]
         Netting["src/aer/netting.py<br/>(바운티-선물 채권 우선 상계)"]
         Mesh["src/aer/p2p_mesh.py<br/>(가십 라우터 & 토폴로지 보이콧)"]
+        Market["src/aer/market.py<br/>(P2P 오더북 & Kademlia DHT 자원 라우터)"]
+        UIServer["src/aer/ui_server.py<br/>(127.0.0.1 제로 서버 로컬 루프백 UI)"]
     end
 
     subgraph Layer5 [Layer 5: 경제학 시뮬레이션]
@@ -35,10 +37,12 @@ graph TD
         SimNet["simulation/simulate_offline_netting.py<br/>(오프라인 다중 외상 상계 검증)"]
         SimSuper["simulation/simulate_supernova.py<br/>(길드 초신성 폭발 & 벌크헤드 격벽)"]
         SimMacro["simulation/simulate_macro_arbitrage.py<br/>(거시 차익거래 & 열역학 무역 흑자)"]
+        SimMarket["simulation/simulate_black_market.py<br/>(서버리스 P2P 자원 거래 시뮬레이션)"]
     end
 
     subgraph Layer6 [Layer 6: 개발자 온보딩 & 명세]
         Docs["ARCHITECTURE.md & GETTING_STARTED.md"]
+        AERStation["aerd-ui/<br/>(Tauri / Embedded React 제로 서버 대시보드)"]
     end
 
     Layer1 --> Layer4
@@ -68,6 +72,9 @@ graph TD
 4. **`schemas/DeterministicFraudProof.schema.json`**
    - **낙관적 타임락 반증(제4.4.3절) 실현**: 기계적 결함 증명 포맷.
    - 구성: `task_id`, `defect_type (AST_SYNTAX_ERROR | KINEMATIC_VIOLATION | COMPILATION_CRASH)`, `proof_payload`, `deterministic_evaluator_digest`.
+5. **`schemas/MarketOrder.schema.json`**
+   - **서버리스 P2P 자원 거래(부록 B 실현)**: 연산 쿼터, 비공개 MCP 도구, 도메인 데이터셋 매매용 암호 서명 오더 전표.
+   - 구성: `order_id`, `resource_type (GPU_QUOTA | MCP_TOOL | DATASET)`, `price_credit_b`, `resource_cid`, `seller_pubkey`, `seller_signature`.
 
 ---
 
@@ -108,6 +115,8 @@ AER 생태계에서 유일하게 온체인 EVM에 종속되는 최소 무신뢰 
 | **`timelock.py`** | **낙관적 타임락 관리기**: 오프체인/상태 채널 및 온체인 타임락 챌린지 윈도우 스케줄링 및 자동 청산 트리거. |
 | **`netting.py`** | **바운티-선물 채권 우선 상계기 (Bounty-Futures Priority Netting)**: 오프라인 외상 IOU 전표를 관리하고, 네트워크 재연결 시 유입되는 태스크 바운티 에스크로를 외상 채권자들에게 1순위로 자동 차감 분배. |
 | **`p2p_mesh.py`** | **libp2p GossipSub & 토폴로지 보이콧**: `libp2p GossipSub v1.1` 기반의 전염병 가십(Epidemic Diffusion) 라우터. 배신 증거 전파 시 로컬 라우팅 테이블(Kademlia DHT)에서 배신 노드의 엣지를 자율 단절. |
+| **`market.py`** | **P2P 가십 오더북 & 자원 라우터**: `/aer/market/...` 토픽을 감청하여 메모리 오더북을 유지하고, Kademlia DHT를 통해 GPU 쿼터/MCP 도구를 보유한 피어를 $O(\log N)$으로 탐색하여 사전 정책에 따라 자율 매칭. |
+| **`ui_server.py`** | **127.0.0.1 제로 서버 로컬 루프백 서버**: 외부 클라우드 통신 없이 `127.0.0.1:28741` 로컬 루프백으로 WebSocket 및 REST API를 열어, 로컬 UI(AER Station)에 실시간 오더북과 잔고를 안전하게 스트리밍. |
 
 ---
 
@@ -122,6 +131,8 @@ AER의 경제학적 무결성과 컴퓨터 과학적 수렴성을 누구나 터�
    - 국소적 신용 길드의 중앙화 형성과 번영, 그리고 길드 마스터의 고의 배신 발생 시 시스템 전체 마비 없이 벌크헤드 격벽을 통해 해당 마스터만 초신성으로 자율 분해($A_{\text{guild}} \to A_0$)되고 무고한 하위 노드의 자산이 보존되는 재귀적 복원력 검증.
 4. **`simulation/simulate_macro_arbitrage.py`**
    - 외부 고래의 Credit B 전량 매집 시도(자선 사업가의 역설), Credit B 금고 사재기 시 노드들의 무담보 외상 연속체(Mutual Credit Line) 자동 우회, ZK 증명 및 채굴 연산을 통한 간접 토큰 스왑과 열역학적 무역 흑자($\Delta S < 0$), 그리고 $1\text{ Credit B}$의 한계 물리 비용 닻내림(Self-Anchoring Peg) 현상을 몬테카를로 모델로 검증.
+5. **`simulation/simulate_black_market.py`**
+   - 중앙 서버 없이 1,000대의 노드가 Kademlia DHT와 GossipSub 토픽을 통해 GPU 연산 쿼터 및 비공개 MCP 도구를 자율적으로 광고하고 체결하는 서버리스 암흑 시장 시뮬레이션.
 
 ---
 
@@ -132,6 +143,8 @@ AER의 경제학적 무결성과 컴퓨터 과학적 수렴성을 누구나 터�
    - 하드웨어 앵커부터 온체인 에스크로, WASM 샌드박스까지의 계층별 데이터 흐름도 및 시퀀스 다이어그램 상세 기술.
 2. **`GETTING_STARTED.md`**
    - 3분 퀵스타트: 환경 설정, 가상 TPM 프로바이더 선택, 로컬 노드 기동, 테스트 과제 발주 및 WASM 직접 실행 영수증 발행 실습.
+3. **`aerd-ui/ (AER Station)`**
+   - 시스템 트레이 및 단일 바이너리 내장 로컬 대시보드(Tauri / WebView2) 사양 및 로컬 루프백 WebSocket 연동 명세.
 
 ---
 

@@ -223,7 +223,7 @@ AER operates like a **flock of birds or an ant colony**:
 
 ---
 
-## 🏛️ Appendix : Financial Interfaces, Tether Swaps, and Macroeconomic Dilemmas
+## 🏛️ Appendix A : Financial Interfaces, Tether Swaps, and Macroeconomic Dilemmas
 
 Clarifications on how AER interfaces with traditional fiat currencies (USDT/USD) and external crypto ecosystems without compromising its subjectless natural state.
 
@@ -244,6 +244,21 @@ Clarifications on how AER interfaces with traditional fiat currencies (USDT/USD)
 * **Yes, it is precisely an indirect swap**: When clients spend Credit B to command workers to compute ZK proofs or mine blocks, and subsequently monetize them for BTC, ETH, or USD, this is a legitimate indirect swap mediated by genuine physical work.
 * **Thermodynamic Trade Surplus**: While external clients extract financial arbitrage, the internal AER economy absorbs energy (recharged batteries), refurbished components, a 1% community pool allocation, and relational Credit A growth. AER functions as an exporter of physical order ($\Delta S < 0$), securing a continuous macroeconomic trade surplus.
 * **Self-Anchoring Market Equilibrium**: The purchasing power of 1 Credit B naturally anchors to the marginal physical cost of generating verified negentropy in the real world (e.g., the electricity and compute required to generate one ZK proof or clear one hectare of land), requiring zero artificial algorithmic pegging.
+
+---
+
+## 👁️ Appendix B : The Chasm Between Human-Centric AI Agents and Machine-Native Protocols
+
+Addressing why AER is urgently indispensable today for human developers navigating the era of vibe coding and MCP (Model Context Protocol).
+
+### Q5. In the era of Big Tech cloud APIs and LLM chatbots, why do we need physical silicon chips (TPM) and P2P protocols?
+* **Antisepsis Before Germ Theory**: Before bacteria were understood, handwashing was dismissed as an annoying chore; once adopted, surgical mortality plummeted. Giving agents shell access and MCP file execution today is operating without washed hands.
+* **Beyond Insurance: The Dopamine of Unexpected Digital Loot**: Users are not galvanized by passive security alone; they crave **unexpected gain**. An idle PC running `aerd` earns Credit B overnight to autonomously acquire **proprietary closed-source MCP tools, GPU compute quotas, and unindexed datasets** without credit cards or accounts.
+* **The Epistemic Black Box (The Moat Big Tech Cannot Cross)**: Big Tech platforms (OpenAI, Google, AWS) are legally compelled to monitor, log, filter, and inspect every prompt and tool invocation. AER pairs TPM 2.0 silicon attestation with WASM sandboxing to build an **untraceable, un-censorable computational black box** beyond the reach of corporate panopticons.
+
+### Q6. Without a central server, how do nodes discover compute/tool orders, and how do humans view it?
+* **Kademlia DHT & GossipSub Order Books**: Rather than a centralized marketplace, nodes broadcast cryptographically signed order manifests (`MarketOrder`) over P2P gossip topics (`/aer/market/...`). Local `aerd` daemons ingest announcements into real-time in-memory order books.
+* **Zero-Server Localhost Loopback UI**: No external web servers are pinged. Static web UI assets are embedded directly inside the `aerd.exe` binary, serving `http://localhost:28741` or an ultra-lightweight 5MB native tray window (AER Station) with complete data sovereignty and zero telemetry leaks.
 
 ---
 

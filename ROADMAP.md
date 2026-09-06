@@ -17,7 +17,7 @@ graph TD
     end
 
     subgraph Layer3 [Layer 3: Machine Protocol Schemas]
-        Schemas["schemas/*.schema.json<br/>(Attestation, Receipt, IOU, FraudProof)"]
+        Schemas["schemas/*.schema.json<br/>(Attestation, Receipt, IOU, FraudProof, MarketOrder)"]
     end
 
     subgraph Layer4 [Layer 4: AER Core Daemon Engine]
@@ -28,6 +28,8 @@ graph TD
         Timelock["src/aer/timelock.py<br/>(24h Optimistic Timelock Auto-Discharge)"]
         Netting["src/aer/netting.py<br/>(Bounty-Futures Priority Netting)"]
         Mesh["src/aer/p2p_mesh.py<br/>(Gossip Router & Topological Boycott)"]
+        Market["src/aer/market.py<br/>(P2P Order Book & Kademlia DHT Resource Router)"]
+        UIServer["src/aer/ui_server.py<br/>(127.0.0.1 Zero-Server Localhost Loopback UI)"]
     end
 
     subgraph Layer5 [Layer 5: Economic & Physics Simulation]
@@ -35,10 +37,12 @@ graph TD
         SimNet["simulation/simulate_offline_netting.py<br/>(Offline Multi-Charging Netting Verification)"]
         SimSuper["simulation/simulate_supernova.py<br/>(Guild Supernova & Bulkhead Containment)"]
         SimMacro["simulation/simulate_macro_arbitrage.py<br/>(Macro Arbitrage & Thermodynamic Trade Surplus)"]
+        SimMarket["simulation/simulate_black_market.py<br/>(Serverless P2P Resource Order Book Simulation)"]
     end
 
     subgraph Layer6 [Layer 6: Developer Onboarding & Architecture]
         Docs["ARCHITECTURE.md & GETTING_STARTED.md"]
+        AERStation["aerd-ui/<br/>(Tauri / Embedded React Zero-Server Dashboard)"]
     end
 
     Layer1 --> Layer4
@@ -68,6 +72,9 @@ Deterministic JSON Schemas allowing machines (AI agents, autonomous rovers, phys
 4. **`schemas/DeterministicFraudProof.schema.json`**
    - **Realizing Section 4.4.3 (Optimistic Timelock Fraud Proof)**: Machine-verifiable defect assertion format.
    - Fields: `task_id`, `defect_type (AST_SYNTAX_ERROR | KINEMATIC_VIOLATION | COMPILATION_CRASH)`, `proof_payload`, `deterministic_evaluator_digest`.
+5. **`schemas/MarketOrder.schema.json`**
+   - **Realizing Appendix B (Serverless P2P Resource Exchange)**: Cryptographically signed order manifest for trading GPU compute quotas, proprietary MCP tools, and domain datasets.
+   - Fields: `order_id`, `resource_type (GPU_QUOTA | MCP_TOOL | DATASET)`, `price_credit_b`, `resource_cid`, `seller_pubkey`, `seller_signature`.
 
 ---
 
@@ -108,6 +115,8 @@ The asynchronous background Python daemon executing continuous economic reconcil
 | **`timelock.py`** | **Optimistic Timelock Manager**: Manages off-chain state channel and on-chain challenge windows with automated settlement triggers. |
 | **`netting.py`** | **Bounty-Futures Priority Netting**: Tracks offline energy IOUs and automatically routes inbound task bounty escrows to clear outstanding debts upon network reconnection before liquid disbursement. |
 | **`p2p_mesh.py`** | **libp2p GossipSub & Topological Boycott**: Epidemic diffusion router based on `libp2p GossipSub v1.1`. Disseminates fraud claims and autonomously severs defective node routing edges in local Kademlia routing tables. |
+| **`market.py`** | **P2P Gossip Order Book & Resource Router**: Listens to `/aer/market/...` topics to maintain an in-memory order book, routes peer requests for GPU quotas/MCP tools via Kademlia DHT in $O(\log N)$, and autonomously settles state channels per user policies. |
+| **`ui_server.py`** | **127.0.0.1 Zero-Server Localhost Loopback Server**: Binds an asynchronous HTTP/WebSocket IPC server strictly to `127.0.0.1:28741` without external telemetry leaks, streaming live P2P order books and wallet balances to local UIs (AER Station). |
 
 ---
 
@@ -122,6 +131,8 @@ Monte-Carlo test harnesses validating macroeconomic stability and computer scien
    - Validates recursive guild formation, central condensation, and bulkhead blast radius containment when a super-node defaults, verifying that innocent sub-channel escrows remain untouched during the localized supernova dissolution ($A_{\text{guild}} \to A_0$).
 4. **`simulation/simulate_macro_arbitrage.py`**
    - Simulates macroeconomic whale accumulation (the Philanthropic Monopoly Paradox), hoarding resistance via mutual credit line bypassing, indirect token swaps via ZK-proving / mining workloads, and the natural self-anchoring peg of 1 Credit B to the marginal physical cost of computation.
+5. **`simulation/simulate_black_market.py`**
+   - Simulates a serverless dark compute market where 1,000 nodes autonomously advertise, discover, and settle GPU compute quotas and proprietary MCP tools via Kademlia DHT and GossipSub topics.
 
 ---
 
@@ -132,6 +143,8 @@ Comprehensive onboarding enabling external developers and AI agents (Jules, Clau
    - End-to-end data flow diagrams from silicon TPM anchors to WASM execution sandboxes and EVM escrows.
 2. **`GETTING_STARTED.md`**
    - 3-minute quickstart guide covering environment setup, mock TPM configuration, local node spinning, task dispatching, and sandbox receipt issuance.
+3. **`aerd-ui/ (AER Station)`**
+   - Specifications for the lightweight system tray daemon and self-hosted local dashboard (Tauri / WebView2) with zero-server localhost loopback IPC.
 
 ---
 
