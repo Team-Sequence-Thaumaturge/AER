@@ -1,0 +1,42 @@
+{
+  "network": "test_chain",
+  "deployed_at": 1788737000.5435987,
+  "is_dry_run": true,
+  "contracts": {
+    "VendorCARegistry": {
+      "contract": "VendorCARegistry",
+      "address": "0x820F43CEAD07B8CE304C2099B7976F536135A3AC",
+      "tx_hash": "0x8a282ac24231b5335db4c20bda7a49f542d308d64007d57b525b74c3f28fe30b",
+      "gas_used": 1250000,
+      "bytecode_hash": "06ae30396144809f8d028bdf40119bb17d884aa47c496e1a6c02c17ffc2a85c8"
+    },
+    "DisputeVerifier": {
+      "contract": "DisputeVerifier",
+      "address": "0xACE69F854B3F3091BB4672C559B7C4FCC7F0A193",
+      "tx_hash": "0x63d5b246c8fd7413df54130ec8c3dd0d93d0a5a95a2f24c61ad7ba9e599f0e62",
+      "gas_used": 1850000,
+      "bytecode_hash": "4eb7f009339eca9dacd96af3a447689c46160f0cfb16c6abd9b83e858fbb3a5f"
+    },
+    "PerimeterGateway": {
+      "contract": "PerimeterGateway",
+      "address": "0x64481FAF86F067A19511ACD237C08C30A9EA705C",
+      "tx_hash": "0x8941b21b5b78e790bb490c0ea99a2f240d20e54548582335551c61af515a5d8e",
+      "gas_used": 1450000,
+      "bytecode_hash": "d3eeb3d862041f649fa73afc3ecc4c0900aa5a0c9aa13b3b7c7e8624178c6187"
+    },
+    "AEREscrow": {
+      "contract": "AEREscrow",
+      "address": "0x20D309C788D62C4500BBDF04BD763177DB817FD5",
+      "tx_hash": "0xb8491870093fe2c3c38199aa7d42db475fc87d2dbe96031faf0874c021f4f9ff",
+      "gas_used": 2650000,
+      "bytecode_hash": "856caed5064bd323aebcb9e5e3754bf03b4fb2d9fe21a9b8981fc8a300d0e66c"
+    },
+    "AERAccount": {
+      "contract": "AERAccount",
+      "address": "0xEBA7B40AF1B1924CCC5B5258C5852EB2E1AEE52B",
+      "tx_hash": "0x47afe9534c34a4b017e8acdc146e5bd33fe2a3b67a2a287f4a233f5b9b974d51",
+      "gas_used": 1950000,
+      "bytecode_hash": "745322e8750ee823ca78cb019277fcfeae8c202b852982b02107abf58546c8f9"
+    }
+  }
+}

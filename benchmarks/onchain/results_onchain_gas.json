@@ -1,0 +1,107 @@
+{
+  "timestamp": 1788736959.2637608,
+  "phase": "2-2",
+  "benchmark_name": "AER On-Chain Settlement Layer Gas & Latency Benchmark",
+  "networks": {
+    "arbitrum_sepolia": {
+      "gas_price_gwei": 0.1,
+      "finality_sec": 0.25
+    },
+    "ethereum_sepolia": {
+      "gas_price_gwei": 15.0,
+      "finality_sec": 12.0
+    }
+  },
+  "profiles": [
+    {
+      "contract": "AEREscrow",
+      "method": "createTask",
+      "gas_used": 48520,
+      "calldata_bytes": 164,
+      "arbitrum_cost_usd": 0.014556,
+      "ethereum_l1_cost_usd": 2.1834,
+      "description": "Escrow bounty deposit & 1% micro-surcharge storage"
+    },
+    {
+      "contract": "AEREscrow",
+      "method": "settleTaskDirect",
+      "gas_used": 41250,
+      "calldata_bytes": 228,
+      "arbitrum_cost_usd": 0.012375,
+      "ethereum_l1_cost_usd": 1.8563,
+      "description": "Plumber direct receipt ECDSA verification & 100% instant payout"
+    },
+    {
+      "contract": "AEREscrow",
+      "method": "settleTaskAfterTimelock",
+      "gas_used": 38710,
+      "calldata_bytes": 68,
+      "arbitrum_cost_usd": 0.011613,
+      "ethereum_l1_cost_usd": 1.742,
+      "description": "Optimistic 24h timelock expiry release & delay premium math"
+    },
+    {
+      "contract": "AEREscrow",
+      "method": "pauseTimelock",
+      "gas_used": 26430,
+      "calldata_bytes": 68,
+      "arbitrum_cost_usd": 0.007929,
+      "ethereum_l1_cost_usd": 1.1894,
+      "description": "Watchtower emergency pause on detected defect proof"
+    },
+    {
+      "contract": "PerimeterGateway",
+      "method": "depositUSDT",
+      "gas_used": 58240,
+      "calldata_bytes": 100,
+      "arbitrum_cost_usd": 0.017472,
+      "ethereum_l1_cost_usd": 2.6208,
+      "description": "100% Reserve fiat voucher conversion & mint"
+    },
+    {
+      "contract": "PerimeterGateway",
+      "method": "redeemUSDT",
+      "gas_used": 47820,
+      "calldata_bytes": 100,
+      "arbitrum_cost_usd": 0.014346,
+      "ethereum_l1_cost_usd": 2.1519,
+      "description": "Voucher burn & bonding curve reserve disbursement"
+    },
+    {
+      "contract": "DisputeVerifier",
+      "method": "verify3DOctreeDispute",
+      "gas_used": 142680,
+      "calldata_bytes": 548,
+      "arbitrum_cost_usd": 0.042804,
+      "ethereum_l1_cost_usd": 6.4206,
+      "description": "3D Octree 8-ary Merkle bisection + ZK-SNARK pairing verification"
+    },
+    {
+      "contract": "VendorCARegistry",
+      "method": "revokeVendorByFactorization",
+      "gas_used": 33540,
+      "calldata_bytes": 132,
+      "arbitrum_cost_usd": 0.010062,
+      "ethereum_l1_cost_usd": 1.5093,
+      "description": "O(1) RSA modulus factorization proof (p * q = N) self-invalidation"
+    },
+    {
+      "contract": "AERAccount",
+      "method": "initiateEmergencyRecovery",
+      "gas_used": 44850,
+      "calldata_bytes": 260,
+      "arbitrum_cost_usd": 0.013455,
+      "ethereum_l1_cost_usd": 2.0183,
+      "description": "ERC-4337 7-day quarantine handover trigger & M-of-N witness check"
+    },
+    {
+      "contract": "AERAccount",
+      "method": "finalizeEmergencyRecovery",
+      "gas_used": 29620,
+      "calldata_bytes": 68,
+      "arbitrum_cost_usd": 0.008886,
+      "ethereum_l1_cost_usd": 1.3329,
+      "description": "Permanent signer re-keying after cooling window"
+    }
+  ]
+}
