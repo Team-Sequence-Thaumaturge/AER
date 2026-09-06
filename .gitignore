@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.pid
+.aerd.pid
+.aerd.sock
+build/
+dist/
+*.egg-info/
+.coverage
+htmlcov/
+.pytest_cache/

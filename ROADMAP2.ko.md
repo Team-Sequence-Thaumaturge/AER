@@ -1,7 +1,7 @@
 # AER 프로토콜 실측 및 실증 마스터 로드맵 (Roadmap 2)
 
 > **AER Empirical Verification, Live Profiling & Formal Proof Master Roadmap**  
-> 본 문서는 로드맵 1(`v1.9.5-Master`)을 통해 완성된 AER 프로토콜 엔진, 스마트 컨트랙트, 데이터 스키마 및 경제학 시뮬레이터를 바탕으로, **실제 물리 실리콘(TPM 2.0), 라이브 EVM 테스트넷, 10,000 노드 대규모 파티션 스트레스 및 수학적 형식 불변성 검증(Formal Verification)을 통해 시스템의 극한 성능과 정합성을 실측(Empirical Measurement)하고 입증(Proof)하기 위한 2단계 프로덕션 마스터플랜**입니다.
+> 본 문서는 로드맵 1(`v1.9.5-Master`)을 통해 완성된 AER 프로토콜 엔진, 스마트 컨트랙트, 데이터 스키마 및 경제학 시뮬레이터를 바탕으로, **실제 상주 데몬 오케스트레이션(Phase 2-0), 물리 실리콘(TPM 2.0), 라이브 EVM 테스트넷, 10,000 노드 대규모 파티션 스트레스 및 수학적 형식 불변성 검증(Formal Verification)을 통해 시스템의 극한 성능과 정합성을 실측(Empirical Measurement)하고 입증(Proof)하기 위한 2단계 프로덕션 마스터플랜**입니다.
 
 ---
 
@@ -9,6 +9,10 @@
 
 ```mermaid
 graph TD
+    subgraph R2_0 [Phase 2-0: 자율 상주 데몬 오케스트레이터 & 라이프사이클]
+        Daemon_Core["src/aer/daemon.py<br/>통합 asyncio 비동기 상주 루프<br/>aerd run / start / stop / status<br/>Graceful Shutdown & PID 수명주기 관리"]
+    end
+
     subgraph R2_1 [Phase 2-1: 물리 실리콘 하드웨어 앵커 실측]
         TPM_Live["실제 하드웨어 TPM 2.0 바인딩<br/>(Windows TBS / Linux tpm2-tss)<br/>EK Quote 추출 & 서명 레이턴시/지터 실측"]
     end
@@ -33,6 +37,7 @@ graph TD
         BenchmarkReport["AER Empirical Benchmark Report 사출<br/>실측 CSV/JSON 데이터, 논문급 실측 기술보고서<br/>v2.0-Production 릴리즈 선언"]
     end
 
+    R2_0 --> R2_1
     R2_1 --> R2_2
     R2_2 --> R2_3
     R2_3 --> R2_4
@@ -46,6 +51,7 @@ graph TD
 
 | 단계 (Phase) | 대상 실측 영역 | 핵심 엔지니어링 산출물 | 목표 릴리즈 태그 | 검증 상태 |
 | :--- | :--- | :--- | :---: | :---: |
+| **Phase 2-0** | **자율 상주 데몬 오케스트레이터** (`src/aer/daemon.py`) | 통합 asyncio 무한 상주 루프, Graceful Shutdown, PID/IPC 관리, `aerd run/start/stop/status`, OS 서비스 유닛 | `v2.0.0-Daemon` | 계획 수립 (대기) |
 | **Phase 2-1** | **물리 실리콘 하드웨어 실측** (`benchmarks/hardware/`) | Windows TBS / Linux `/dev/tpmrm0` 실물 바인딩, 레이턴시/지터 벤치마크 러너 | `v2.0.1-Silicon` | 계획 수립 (대기) |
 | **Phase 2-2** | **온체인 가스 & 지연 실측** (`benchmarks/onchain/`) | Arbitrum Sepolia 배포, 플러머 vs 타임락 가스 실측, 3D 옥트리 이분탐색 한계 가스 검증 | `v2.0.2-Testnet` | 계획 수립 (대기) |
 | **Phase 2-3** | **대규모 분산 파티션 실측** (`benchmarks/network/`) | 10,000 노드 비동기 메시 스트레스, 50:50 고립 분할 IOU 한도 실측, 복구 네팅 벤치마크 | `v2.0.3-Mesh` | 계획 수립 (대기) |
@@ -56,6 +62,30 @@ graph TD
 ---
 
 ## 🏛️ 계층별 세부 실측 및 증명 사양서
+
+### Phase 2-0. 자율 상주 데몬 오케스트레이터 및 라이프사이클 엔진 (`src/aer/daemon.py`, `aerd`)
+분산되어 있던 10대 백엔드 엔진을 하나의 살아 숨 쉬는 단일 프로세스 비동기 상주 루프(`asyncio loop`)로 통합하여 무중단 24/7 백그라운드 노드 서비스를 실현합니다.
+
+1. **통합 상주 오케스트레이터 (`src/aer/daemon.py`)**:
+   - `P2PMeshRouter` (GossipSub 리스너 및 피어 디스커버리)
+   - `AERLocalUIServer` (`127.0.0.1:28741` 로컬 루프백 소켓 및 텔레메트리 스트림)
+   - `TimelockScheduler` (24시간 낙관적 타임락 만료 주기적 감시 태스크)
+   - `PriorityNettingEngine` (오프라인 IOU 채무 큐 폴러 및 자동 정산기)
+   - `LSMStateGarbageCollector` (상태 수명 만료 및 비트시프트 반감기 컴팩션)
+   - 위 모든 서브시스템을 단일 `asyncio.gather` 비동기 메인 루프로 묶어 영구 구동.
+2. **프로세스 라이프사이클 및 IPC 제어**:
+   - **Graceful Shutdown**: `SIGINT`, `SIGTERM` 인터럽트 수신 시 모든 소켓과 채널을 닫고 인메모리 장부와 상태 머신을 디스크에 안전하게 플러시.
+   - **PID 관리**: 실행 시 `.aerd.pid`를 안전하게 기록하고 중복 구동 방지(Singleton Process Guard).
+3. **CLI 상주 서브커맨드 전면 확장 (`src/aer/cli.py`)**:
+   - `aerd run`: 터미널 실시간 로그 출력 포그라운드 개발/디버그 모드.
+   - `aerd start`: 백그라운드 백그라운드 분기 데몬 모드(Daemonized Process).
+   - `aerd stop`: 실행 중인 데몬 PID를 조회하여 안전한 정상 종료 시그널 전달.
+   - `aerd status`: 데몬의 실시간 프로세스 생존 여부, PID, 업타임, 메모리 사용량, P2P 피어 수 진단.
+4. **운영체제 서비스 데몬화 규격**:
+   - Linux: `/etc/systemd/system/aerd.service` 유닛 템플릿 제공.
+   - Windows: 백그라운드 런처 배치 스크립트(`scripts/run_daemon.bat`).
+
+---
 
 ### Phase 2-1. 물리 실리콘 하드웨어 앵커 실측 (`benchmarks/hardware/`)
 소프트웨어 모의 객체(`SoftwareMockTPMProvider`)를 넘어, 호스트 시스템의 실제 하드웨어 TPM 2.0 칩셋과 물리적으로 통신하여 성능과 보안 특성을 실측합니다.

@@ -1,7 +1,7 @@
 # AER Protocol Empirical Verification & Live Telemetry Master Roadmap (Roadmap 2)
 
 > **AER Empirical Verification, Live Profiling & Formal Proof Master Roadmap**  
-> Building upon the foundational core protocol engine, smart contracts, data schemas, and economic simulations delivered in Roadmap 1 (`v1.9.5-Master`), this document establishes the **Phase 2 Production Master Plan to empirically measure, benchmark, and formally verify the system under physical silicon (TPM 2.0), live EVM testnets, 10,000-node partition stress scenarios, and Z3 mathematical invariant proofs.**
+> Building upon the foundational core protocol engine, smart contracts, data schemas, and economic simulations delivered in Roadmap 1 (`v1.9.5-Master`), this document establishes the **Phase 2 Production Master Plan to orchestrate the resident daemon engine (Phase 2-0), empirically measure and benchmark physical silicon (TPM 2.0), live EVM testnets, 10,000-node partition stress scenarios, and Z3 mathematical invariant proofs.**
 
 ---
 
@@ -9,6 +9,10 @@
 
 ```mermaid
 graph TD
+    subgraph R2_0 [Phase 2-0: Core Resident Daemon Orchestrator & Lifecycle]
+        Daemon_Core["src/aer/daemon.py<br/>Unified Asyncio Infinite Daemon Loop<br/>aerd run / start / stop / status<br/>Graceful Shutdown & PID Lifecycle Management"]
+    end
+
     subgraph R2_1 [Phase 2-1: Physical Silicon Hardware Telemetry]
         TPM_Live["Physical TPM 2.0 Hardware Binding<br/>(Windows TBS / Linux tpm2-tss)<br/>EK Quote Extraction & Signature Latency/Jitter Profiling"]
     end
@@ -33,6 +37,7 @@ graph TD
         BenchmarkReport["AER Empirical Benchmark Report Export<br/>Empirical CSV/JSON Datasets, Academic-Grade Tech Report<br/>v2.0-Production Release Declaration"]
     end
 
+    R2_0 --> R2_1
     R2_1 --> R2_2
     R2_2 --> R2_3
     R2_3 --> R2_4
@@ -46,6 +51,7 @@ graph TD
 
 | Phase | Empirical Focus Area | Core Engineering Deliverables | Target Release Tag | Verification Status |
 | :--- | :--- | :--- | :---: | :---: |
+| **Phase 2-0** | **Resident Daemon Orchestrator** (`src/aer/daemon.py`) | Unified asyncio daemon loop, Graceful Shutdown, PID/IPC management, `aerd run/start/stop/status`, OS service unit | `v2.0.0-Daemon` | Planned (Pending) |
 | **Phase 2-1** | **Physical Silicon Hardware Telemetry** (`benchmarks/hardware/`) | Windows TBS / Linux `/dev/tpmrm0` physical driver binding, latency/jitter benchmark runner | `v2.0.1-Silicon` | Planned (Pending) |
 | **Phase 2-2** | **On-Chain Gas & Latency Profiling** (`benchmarks/onchain/`) | Arbitrum Sepolia deployment, Plumber vs Timelock gas profiling, 3D Octree bisection gas ceiling test | `v2.0.2-Testnet` | Planned (Pending) |
 | **Phase 2-3** | **Large-Scale Partition & Netting Stress** (`benchmarks/network/`) | 10,000-node async mesh stress test, 50:50 isolation IOU accumulation limit, recovery netting benchmark | `v2.0.3-Mesh` | Planned (Pending) |
@@ -56,6 +62,30 @@ graph TD
 ---
 
 ## 🏛️ Layer-by-Layer Technical Specifications
+
+### Phase 2-0. Core Resident Daemon Orchestrator & Lifecycle (`src/aer/daemon.py`, `aerd`)
+Unify the 10 standalone backend engines into a living, single-process, asynchronous background loop (`asyncio loop`) to provide continuous, 24/7 autonomous node operations.
+
+1. **Unified Resident Daemon Orchestrator (`src/aer/daemon.py`)**:
+   - `P2PMeshRouter` (GossipSub message listener & peer discovery)
+   - `AERLocalUIServer` (`127.0.0.1:28741` local loopback socket & telemetry stream)
+   - `TimelockScheduler` (Periodic 24h optimistic timelock expiration scanner)
+   - `PriorityNettingEngine` (Offline IOU debt queue poller & auto-settlement engine)
+   - `LSMStateGarbageCollector` (State expiry compaction & bit-shift half-life decay)
+   - Bundle all subsystems into a single concurrent `asyncio.gather` main event loop.
+2. **Process Lifecycle & IPC Control**:
+   - **Graceful Shutdown**: On receiving `SIGINT` or `SIGTERM`, terminate all listening sockets, cleanly flush in-memory ledgers and state machines to disk.
+   - **PID Management**: Maintain `.aerd.pid` and enforce singleton execution guards.
+3. **Expanded CLI Daemon Subcommands (`src/aer/cli.py`)**:
+   - `aerd run`: Foreground development & debug mode with real-time console logging.
+   - `aerd start`: Background daemon mode spawning detached process.
+   - `aerd stop`: Gracefully terminate running background daemon via PID lookup and signal delivery.
+   - `aerd status`: Live process health-check, PID, uptime, memory footprint, and connected P2P peer count.
+4. **OS Daemonization Specifications**:
+   - Linux: `/etc/systemd/system/aerd.service` unit template.
+   - Windows: Background runner script (`scripts/run_daemon.bat`).
+
+---
 
 ### Phase 2-1. Physical Silicon Hardware Telemetry (`benchmarks/hardware/`)
 Moving beyond the virtual mock provider (`SoftwareMockTPMProvider`), bind directly to physical host TPM 2.0 hardware to profile attestation speed and cryptographic entropy.
