@@ -6,7 +6,7 @@ WASM fuel-metered execution sandboxes, non-linear trust phase transitions,
 collateral-credit continuums, and peer-to-peer resource allocation.
 """
 
-__version__ = "2.0.0"
+__version__ = "2.0.1"
 __protocol_version__ = "v2"
 
 from .attestation import AttestationEngine, SoftwareMockTPMProvider
@@ -26,6 +26,14 @@ from .daemon import (
     AERAutonomousDaemon,
     create_autonomous_daemon,
     get_daemon_telemetry,
+)
+from .hardware_tpm import (
+    TPMDeviceMetadata,
+    PhysicalTPMProvider,
+    TPMTelemetrySnapshot,
+    TPMBenchmarkEngine,
+    create_physical_tpm_provider,
+    run_silicon_attestation_benchmark,
 )
 
 __all__ = [
@@ -47,4 +55,10 @@ __all__ = [
     "AERAutonomousDaemon",
     "create_autonomous_daemon",
     "get_daemon_telemetry",
+    "TPMDeviceMetadata",
+    "PhysicalTPMProvider",
+    "TPMTelemetrySnapshot",
+    "TPMBenchmarkEngine",
+    "create_physical_tpm_provider",
+    "run_silicon_attestation_benchmark",
 ]

@@ -1,0 +1,47 @@
+{
+  "timestamp": 1788736375.9996774,
+  "phase": "2-1",
+  "benchmark_name": "Physical Silicon TPM 2.0 Telemetry Benchmark",
+  "physical_silicon": {
+    "metadata": {
+      "is_hardware_present": true,
+      "is_ready": true,
+      "manufacturer_id": "0x414d4400",
+      "manufacturer_name": "AMD_fTPM",
+      "spec_version": "TPM 2.0 (ISO/IEC 11889)",
+      "driver_interface": "WINDOWS_TBS_API"
+    },
+    "metrics": {
+      "total_iterations": 1000,
+      "mean_latency_ms": 4.5312,
+      "std_dev_ms": 0.4696,
+      "p50_ms": 4.5132,
+      "p95_ms": 4.5554,
+      "p99_ms": 4.6073,
+      "min_ms": 4.1953,
+      "max_ms": 15.0403,
+      "throughput_quotes_per_sec": 220.33
+    }
+  },
+  "software_mock": {
+    "metadata": {
+      "is_hardware_present": false,
+      "is_ready": true,
+      "manufacturer_id": "0x0",
+      "manufacturer_name": "EMULATED_MOCK_SILICON",
+      "spec_version": "2.0-Mock",
+      "driver_interface": "SOFTWARE_FALLBACK"
+    },
+    "metrics": {
+      "total_iterations": 1000,
+      "mean_latency_ms": 0.0021,
+      "std_dev_ms": 0.0002,
+      "p50_ms": 0.0021,
+      "p95_ms": 0.0023,
+      "p99_ms": 0.0034,
+      "min_ms": 0.002,
+      "max_ms": 0.0068,
+      "throughput_quotes_per_sec": 315179.03
+    }
+  }
+}

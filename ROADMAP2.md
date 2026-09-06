@@ -52,7 +52,7 @@ graph TD
 | Phase | Empirical Focus Area | Core Engineering Deliverables | Target Release Tag | Verification Status |
 | :--- | :--- | :--- | :---: | :---: |
 | **Phase 2-0** | **Resident Daemon Orchestrator** (`src/aer/daemon.py`) | Unified asyncio daemon loop, Graceful Shutdown, PID/IPC management, `aerd run/start/stop/status`, OS service unit | [`v2.0.0-Daemon`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.0-Daemon) | **100% Complete** (SAPQ 100/100) |
-| **Phase 2-1** | **Physical Silicon Hardware Telemetry** (`benchmarks/hardware/`) | Windows TBS / Linux `/dev/tpmrm0` physical driver binding, latency/jitter benchmark runner | `v2.0.1-Silicon` | Planned (Pending) |
+| **Phase 2-1** | **Physical Silicon Hardware Telemetry** (`benchmarks/hardware/`) | Windows TBS / Linux `/dev/tpmrm0` physical driver binding, latency/jitter benchmark runner | [`v2.0.1-Silicon`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.1-Silicon) | **100% Complete** (SAPQ 100/100) |
 | **Phase 2-2** | **On-Chain Gas & Latency Profiling** (`benchmarks/onchain/`) | Arbitrum Sepolia deployment, Plumber vs Timelock gas profiling, 3D Octree bisection gas ceiling test | `v2.0.2-Testnet` | Planned (Pending) |
 | **Phase 2-3** | **Large-Scale Partition & Netting Stress** (`benchmarks/network/`) | 10,000-node async mesh stress test, 50:50 isolation IOU accumulation limit, recovery netting benchmark | `v2.0.3-Mesh` | Planned (Pending) |
 | **Phase 2-4** | **Mathematical Invariant Formal Proofs** (`proofs/formal_verification/`) | Z3 SMT Solver-based proofs of the 3 fundamental invariants (`verify_invariants.py`) | `v2.0.4-Formal` | Planned (Pending) |
