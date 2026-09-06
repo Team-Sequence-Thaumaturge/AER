@@ -191,7 +191,7 @@ A common fear is: *"If the electricity turns off, doesn't the digital world vani
 ## 🔑 The 4 Core Principles (In Brief)
 
 ### 1. Real Hardware, Not Phantom Bots (Proof of Existence)
-AER anchors each node to **TPM 2.0 / TEE security chips** already mass-produced inside laptops, phones, and robot motherboards. **One physical silicon chip = one sovereign voice.** Software clones are rejected at the gate.
+AER anchors each node to **physical silicon security roots (TPM 2.0 / OpenTitan)** already embedded inside machines. It enforces **"One physical silicon root = one sovereign node"**, utilizing Zero-Knowledge Direct Anonymous Attestation (DAA) to authenticate authentic hardware ownership without publishing factory serials or physical identifiers on-chain.
 
 ### 2. Only Real Work Counts (Reducing Disorder)
 In physics, chaos naturally spreads (entropy increases). The only actions AER rewards are those that **reduce chaos ($\Delta S < 0$)**: fixing buggy code, filtering noisy telemetry, or mechanically cultivating a field.

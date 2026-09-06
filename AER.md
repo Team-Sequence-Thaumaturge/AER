@@ -46,30 +46,32 @@ Software identities instantiated within virtual hypervisors (QEMU, KVM, Docker) 
 ```mermaid
 sequenceDiagram
     participant Chip as Physical Silicon Root (TPM 2.0 / TEE)
-    participant CA as Semiconductor Manufacturer Root CA (Intel/AMD/ARM)
-    participant Verifier as On-Chain Verifier Contract (EVM)
+    participant CA as Semiconductor Manufacturer Root CA (Intel/AMD/OpenTitan)
+    participant Verifier as On-Chain Verifier Contract (EVM / VendorCARegistry)
 
     Note over Chip,CA: Silicon Fabrication (TCG Profile)
-    CA->>Chip: Inscribes Non-extractable EK (Endorsement Key) & X.509 Cert
+    CA->>Chip: Inscribes Non-extractable EK (Endorsement Key) & Closed Vendor Credential
     
-    Note over Chip,Verifier: Node Registration (IETF RATS Protocol)
-    Verifier->>Chip: Issues 256-bit Cryptographic Nonce ($\eta$)
-    Chip->>Chip: TPM2_Quote(Nonce, PCR_Digest) inside Shielded Enclave
-    Chip->>Verifier: Submits Attestation Evidence (Quote + X.509 Chain)
+    Note over Chip,Verifier: Zero-Knowledge Registration (IETF RATS + DAA/ZK)
+    Verifier->>Chip: Issues 256-bit Cryptographic Challenge Nonce ($\eta$)
+    Chip->>Chip: Generates Ephemeral Attestation Key (AK) & Quote within Enclave
+    Chip->>Chip: Computes ZK Set-Membership Proof (DAA/ZK-SNARK), Blinding EK Metadata
+    Chip->>Verifier: Submits Blinded Evidence (AK Quote + ZK Membership Proof)
     
-    Note over Verifier: Cryptographic Verification
-    Verifier->>Verifier: Validates Signature against Manufacturer Root Public Key
+    Note over Verifier: On-Chain Zero-Knowledge Verification
+    Verifier->>Verifier: Evaluates ZK Proof against VendorCARegistry Merkle Root in $O(1)$
     alt Emulated Environment / Forged Signature
         Verifier-->>Chip: ❌ REJECT (Sybil Node Dropped)
-    else Genuine Physical Silicon Proven
-        Verifier-->>Chip: ✅ ACCEPT (Node Registered; Base Heartbeat A_0 Initialized)
+    else Genuine Physical Silicon Authenticated
+        Verifier-->>Chip: ✅ ACCEPT (Binds Blinded Commitment, Base Heartbeat A_0 Initialized)
     end
 ```
 
 #### Cryptographic Requirements:
 1. **Non-Extractable Endorsement Key (EK):** The private key $\text{SK}_{\text{EK}}$ SHALL be permanently fused into silicon fuses and MUST NOT be accessible via ring-0 supervisor calls.
-2. **One-to-One Bijection:** The protocol SHALL enforce a strict bijection between verified physical silicon chips and sovereign node identities:
-   $$\mathcal{F}: \text{Chip}_{\text{UUID}} \longleftrightarrow \text{Node}_{\text{ID}}, \quad \text{dim}(\mathcal{F}) = 1$$
+2. **Zero-Knowledge Blinded Bijection:** The protocol SHALL enforce a strict bijection between verified physical silicon chips and sovereign node identities without leaking raw hardware serials or factory batch metadata on-chain, utilizing a cryptographic commitment (e.g., Pedersen commitment or ZK nullifier):
+   $$\mathcal{F}: \text{Commit}(\text{Chip}_{\text{Secret}}, \ r) \longleftrightarrow \text{Node}_{\text{ID}}, \quad \text{dim}(\mathcal{F}) = 1$$
+   Where $r$ represents an entropy blinding scalar. This guarantees an unambiguous one-to-one correspondence ($\text{dim}=1$) while rendering persistent hardware fingerprinting and super-cookie tracking cryptographically unviable.
 
 > [!NOTE]
 > **Hardware Key Rotation and Vendor Root CA Revocation**: Specifications for silicon wear-out, catastrophic hardware disaster recovery (ERC-4337 smart account separation), and cryptographic vendor CA self-invalidation are detailed in **[Section 12: Appendix C](AER.md#12-appendix-c-physical-constraints-silicon-supply-chains-and-capital-immortality)**.

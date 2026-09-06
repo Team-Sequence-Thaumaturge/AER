@@ -46,30 +46,32 @@ graph LR
 ```mermaid
 sequenceDiagram
     participant Chip as 물리 실리콘 칩 (TPM 2.0 / TEE)
-    participant CA as 반도체 제조사 Root CA (Intel/AMD/ARM)
-    participant Verifier as 온체인 검증 컨트랙트 (EVM)
+    participant CA as 반도체 제조사 Root CA (Intel/AMD/OpenTitan)
+    participant Verifier as 온체인 검증 컨트랙트 (EVM / VendorCARegistry)
 
     Note over Chip,CA: 반도체 제조 공정 (TCG 규격)
-    CA->>Chip: 비추출 개인키(EK) 영구 융착 및 X.509 인증서 발급
+    CA->>Chip: 비추출 고유 비밀키(EK) 하드웨어 결착 & 폐쇄형 제조사 인증서 발급
     
-    Note over Chip,Verifier: 노드 등록 프로토콜 (IETF RATS)
-    Verifier->>Chip: 256비트 암호학적 챌린지 난수(Nonce, \eta) 발행
-    Chip->>Chip: 보안 구역 내부에서 TPM2_Quote(Nonce, PCR) 서명 생성
-    Chip->>Verifier: 원격 증명 Quote 증거 + X.509 인증서 체인 제출
+    Note over Chip,Verifier: 영지식 노드 등록 절차 (IETF RATS + DAA/ZK)
+    Verifier->>Chip: 256비트 암호학적 챌린지 난수(Nonce, \eta) 제시
+    Chip->>Chip: 보안 엔클레이브 내부에서 가명 어테스테이션 키(AK) 생성 및 Quote 서명
+    Chip->>Chip: ZK 집합 소속 증명(DAA/ZK-SNARK)으로 제조사 인증서 체인 블라인딩
+    Chip->>Verifier: 익명 증거 제출 (AK Quote + ZK Set-Membership Proof)
     
-    Note over Verifier: 온체인 암호학적 무결성 검증
-    Verifier->>Verifier: 제조사 공식 Root CA 공개키로 서명 대조
-    alt 에뮬레이터 / 가상머신 복제 서명
-        Verifier-->>Chip: ❌ 기각 (시빌 노드 등록 원천 차단)
-    else 정품 물리 실리콘 칩 확인
-        Verifier-->>Chip: ✅ 등록 완료 (1 실리콘 = 1 주권 노드, 기저 호흡권 A_0 부여)
+    Note over Verifier: 온체인 영지식 검증 (메타데이터 노출 0비트)
+    Verifier->>Verifier: VendorCARegistry 머클 루트 기반 ZK 유효성 대조 ($O(1)$)
+    alt 복제 서명 / 비공인 실리콘
+        Verifier-->>Chip: ❌ 등록 거부 (시빌 노드 차단)
+    else 정품 하드웨어 소유권 영지식 확증
+        Verifier-->>Chip: ✅ 등록 승인 (블라인드 커밋먼트 결박, 기저 호흡권 A_0 부여)
     end
 ```
 
 #### 암호학적 요구사항:
 1. **비추출 고유키 (Non-Extractable EK):** 개인키 $\text{SK}_{\text{EK}}$는 반도체 제조 시 퓨즈에 영구 결착되어야 하며, 운영체제 메모리 덤프로 유출될 수 없다.
-2. **단사 매핑 보증:** 프로토콜은 검증된 물리 실리콘 칩과 소버린 노드 식별자 간의 엄밀한 단사 함수를 강제한다:
-   $$\mathcal{F}: \text{Chip}_{\text{UUID}} \longleftrightarrow \text{Node}_{\text{ID}}, \quad \text{dim}(\mathcal{F}) = 1$$
+2. **영지식 블라인드 단사 매핑 (Blinded Bijection):** 프로토콜은 검증된 물리 실리콘 칩과 소버린 노드 식별자 간의 엄밀한 단사 관계를 보장하되, 칩 고유 시리얼이나 하드웨어 지문이 온체인에 평문으로 노출되는 것을 차단하기 위해 페더슨 커밋먼트(Pedersen Commitment) 또는 ZK 널리파이어(Nullifier) 기반의 암호학적 서약을 사용한다:
+   $$\mathcal{F}: \text{Commit}(\text{Chip}_{\text{Secret}}, \ r) \longleftrightarrow \text{Node}_{\text{ID}}, \quad \text{dim}(\mathcal{F}) = 1$$
+   여기서 $r$은 로컬 블라인딩 난수이며, $\text{Node}_{\text{ID}}$는 온체인에서 실리콘 칩과의 1:1 물리적 결속을 증명하되 외부 관측자의 하드웨어 영구 추적(Super-Cookie Tracking)을 배제한다.
 
 > [!NOTE]
 > **하드웨어 갱신 및 반도체 벤더 Root CA 폐기 메커니즘**: 물리 실리콘 칩의 수명 만료, 파손 시의 계정 승계(ERC-4337 분리) 및 벤더 Root CA 암호학적 자가 무효화 규격은 **[제12절 부록 C](AER.ko.md#12-부록-c--물리-세계의-한계-실리콘-공급망-그리고-기계-자본의-불멸성-appendix-c)**에 상술되어 있다.

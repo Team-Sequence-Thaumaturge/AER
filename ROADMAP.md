@@ -64,9 +64,9 @@ graph TD
 Deterministic JSON Schemas allowing machines (AI agents, autonomous rovers, physical nodes) to sign, serialize, and verify payloads without human ambiguity.
 
 1. **`schemas/HardwareAttestation.schema.json`**
-   - **Realizing Axiom 1**: Hardware remote attestation structure based on IETF RATS (RFC 9334) for TPM 2.0 / TEE.
-   - Fields: `platform_pcr_digest`, `endorsement_pubkey (EKPub)`, `attestation_key_quote`, `silicon_firmware_version`.
-   - Purpose: Physically bound Sybil defense at the silicon level, preventing software VM multiplication attacks.
+   - **Realizing Axiom 1**: Hardware remote attestation structure based on IETF RATS (RFC 9334) with DAA/ZK blinded commitments.
+   - Fields: `platform_pcr_digest`, `blinded_silicon_commitment`, `attestation_key_quote`, `zk_vendor_membership_proof`, `silicon_firmware_version`.
+   - Purpose: Physically bound Sybil defense at the silicon level while mathematically preventing persistent hardware fingerprinting via zero-knowledge commitment.
 2. **`schemas/ExecutionReceipt.schema.json`**
    - **Realizing Section 5 (The Plumber Principle)**: Beneficiary cryptographic execution receipt.
    - Fields: `task_id`, `worker_pubkey`, `solution_hash (H(Output))`, `execution_success (bool)`, `timestamp`, `beneficiary_ecdsa_signature`.

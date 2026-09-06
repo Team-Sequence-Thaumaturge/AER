@@ -64,9 +64,9 @@ graph TD
 기계(AI 에이전트, 자율 로봇, 분산 노드)가 사람의 개입 없이 엄밀하게 서명하고 검증할 JSON Schema 규격입니다.
 
 1. **`schemas/HardwareAttestation.schema.json`**
-   - **사양서 공리 1 실현**: IETF RATS (RFC 9334) 포맷 기반 TPM 2.0 / TEE 원격 증명 구조체.
-   - 구성: `platform_pcr_digest`, `endorsement_pubkey (EKPub)`, `attestation_key_quote`, `silicon_firmware_version`.
-   - 목적: 소프트웨어 가상머신(VM) 무한 복제를 통한 시빌 공격(Sybil Attack)을 실리콘 칩 레벨에서 원천 봉쇄.
+   - **사양서 공리 1 실현**: IETF RATS (RFC 9334) 포맷 및 DAA/ZK 기반 실리콘 하드웨어 증명 규격.
+   - 구성: `platform_pcr_digest`, `blinded_silicon_commitment`, `attestation_key_quote`, `zk_vendor_membership_proof`, `silicon_firmware_version`.
+   - 목적: 가상머신 시빌 복제를 물리 칩셋에서 차단하되, 칩셋 고유 시리얼 및 하드웨어 지문 평문 노출을 원천 방지(영지식 블라인딩).
 2. **`schemas/ExecutionReceipt.schema.json`**
    - **배관공의 원칙(제5절) 실현**: 수혜자의 직접 실행 암호학적 영수증.
    - 구성: `task_id`, `worker_pubkey`, `solution_hash (H(Output))`, `execution_success (bool)`, `timestamp`, `beneficiary_ecdsa_signature`.
