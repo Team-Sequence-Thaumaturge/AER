@@ -10,6 +10,7 @@
 > 🧭 **Reading Guide (Choose Your Path):**
 > * 💡 **Curious Thinkers & General Readers:** Enjoy the intuitive 3-minute story, everyday analogies (Earth's hosting bill, weeds, plumbers, batteries), and core ideas below!
 > * 🔬 **Systems Engineers, Cryptographers & Researchers:** Skip the analogies and jump straight into our mathematical proofs, formal state transitions, and engineering standards at **[AER.md (Deep-Tech Master Specification)](AER.md)** (or the **[한국어 기술 사양서](AER.ko.md)**).
+> * 🛠️ **Core Developers & Contributors:** Explore the technical implementation blueprint and daemon architecture in **[ROADMAP.md (Implementation Roadmap)](ROADMAP.md)** / **[ROADMAP.ko.md (한국어)](ROADMAP.ko.md)**.
 
 ---
 
