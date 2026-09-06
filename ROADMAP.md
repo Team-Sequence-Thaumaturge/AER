@@ -95,12 +95,15 @@ The minimal, zero-governance trustless smart contract infrastructure and exterio
    - **1% Micro-Surcharge Distribution**:
      - Bounty (Credit B) deposited on task dispatch.
      - 1% automatically routed into the decentralized Community Negentropy Pool to maintain public infrastructure.
-   - **24-Hour Optimistic Timelock Auto-Discharge**:
-     - Submission of solution digest $\mathcal{H}(\text{Output})$ initiates a 24-hour challenge countdown.
-     - Direct client execution receipt releases bounty instantly.
-     - If client remains silent or refuses settlement without deterministic proof, **the contract automatically releases 100% of escrowed funds to the worker upon timeout**. Eliminates free-riding by disposable $A_0$ accounts.
-   - **Deterministic Fraud Dispute**:
-     - Valid fraud proofs freeze escrow and trigger worker collateral penalties.
+   - **Zero-Delay Liquidity & Optimistic Flexible Timelocks**:
+     - Routine execution receipt release guarantees **100% instant withdrawal and spending with zero holding delay or vesting lockup**.
+     - Activates fallback challenge timer strictly when client receipt signature is absent.
+   - **Liquidity Term Premium & Watchtower Pause (Risk-Return)**:
+     - When offline clients extend timelocks ($72\text{h} \sim 168\text{h}$), an algorithmic liquidity term premium ($\Delta B_{\text{time}}$) is mandatorily added to compensate worker capital latency.
+     - Provides a 1-gas pause interface for delegated watchtowers to freeze the discharge countdown upon detecting malformed junk payloads.
+   - **Non-Punitive Dispute Trails & Priority Netting**:
+     - Excludes central slashing and arbitrary trust drops (enforcing strictly physical half-life decay).
+     - Validated disputes log an immutable negative balance ($-B$) and dispute event, automatically cleared via Priority Netting against subsequent task revenues.
 
 2. **`contracts/adapters/PerimeterGateway.sol` (Solidity 0.8.24+)**
    - **Exterior One-Way Voucher Gateway (The Canton Model)**:
@@ -111,12 +114,14 @@ The minimal, zero-governance trustless smart contract infrastructure and exterio
      - External regulatory freezes (`freeze()`) on the USDT contract only affect border liquidity pools. Internal node-to-node TPM attestation, mesh communication, and Credit A ledger remain isolated and operational, while fiat capital is strictly prohibited from acquiring relational credit or governance.
 
 3. **`contracts/DisputeVerifier.sol` (Solidity 0.8.24+)**
-   - **Physical Interactive Bisection Dispute Verifier (Realizing Appendix C.1)**:
+   - **Physical Interactive Bisection & Multimodal Deterrence Verifier (Realizing Appendix C.1)**:
      - On-chain verification of 32-byte 3D octree Merkle leaf paths and single-frame ZK-SNARK sensor proofs (<200k gas).
+     - Cross-correlates [visual point clouds + $SE(3)$ trajectory + motor torque current + battery $\Delta E$] conservation to render sensor tampering economic suicide.
 
 4. **`contracts/VendorCARegistry.sol` (Solidity 0.8.24+)**
-   - **Silicon Root CA Decentralized Registry (Realizing Appendix C.2)**:
+   - **Silicon Root CA Decentralized Registry & Open-Source Silicon Anchors (Realizing Appendix C.2)**:
      - Autonomous $O(1)$ self-invalidation upon submission of mathematical factorization proofs ($p \times q = N$) and RFC 5280 CRL Merkle relaying without multisig governance.
+     - Parallels proprietary roots with open-source RISC-V OpenTitan/Keystone TEE and decentralized Web-of-Trust anchors to neutralize sovereign export embargoes and single-vendor blacklists.
 
 5. **`contracts/core/AERAccount.sol` (Solidity 0.8.24+)**
    - **ERC-4337 Account-Signer Decoupling & Ghost Handover (Realizing Appendix C.3)**:

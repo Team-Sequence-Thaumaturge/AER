@@ -207,14 +207,26 @@ $$\mathcal{C}_{\text{req}}(A_j) = \max\left(0, \ 1 - \frac{A_j - A_0}{\alpha}\ri
 * **Nascent Nodes ($A_j \approx A_0$):** Mandatory 100% upfront escrow ($\mathcal{C}_{\text{req}} = 1.0$). A disposable node with zero surplus reputation ($\Delta A = 0$) cannot initiate uncollateralized credit lines under any circumstances; all outbound tasks require full pre-funding in Credit B.
 * **Proven Nodes ($A_j \gg A_0$):** Collateral melts into uncollateralized credit lines ($\mathcal{C}_{\text{req}} \to 0$), completely eliminating capital deadweight loss.
 
-#### 4.4.3 Optimistic Timelock Auto-Discharge (Anti-Free-Rider Defense)
-To eliminate the Byzantine vector where an $A_0$ client receives deliverables and arbitrarily withholds settlement signatures, AER implements the **Optimistic Challenge Window ($T_{\text{challenge}}$)**:
-1. When the worker node submits the solution digest $\mathcal{H}(\text{Output})$ and computational artifact, an on-chain/state-channel timer $T_{\text{challenge}}$ (default: 24 hours) activates.
-2. The client must either (a) issue a cryptographic release receipt, or (b) publish an on-chain **Deterministic Fraud Proof** (e.g., AST syntax failure, compilation crash log, $SE(3)$ spatial constraint violation).
-3. If the client remains silent or refuses settlement without providing a deterministic proof, the escrowed bounty **automatically discharges 100% to the worker upon expiration of $T_{\text{challenge}}$**. Malicious free-riding by disposable accounts is physically unviable.
+#### 4.4.3 Optimistic Timelocks, Instant Liquidity, and Dispute Economics
+To simultaneously eliminate the Byzantine vector of disposable $A_0$ clients arbitrarily withholding settlement signatures and malicious workers submitting junk output during unavoidable client offline periods, AER fuses **Zero-Delay Liquidity, Liquidity Term Premiums, and Non-Punitive Dispute Trails**:
+
+1. **Zero-Delay Liquidity Guarantee (The Plumber Principle)**:
+   Under routine execution where the client acknowledges deliverables by signing an execution receipt (`schemas/ExecutionReceipt.schema.json`), **the escrow unlocks in zero seconds, granting the worker immediate, unencumbered (100%) withdrawal and spending authority**. AER strictly repudiates the toxic vesting lockups and holding timers characteristic of Gen 1/2 token architectures.
+2. **Optimistic Challenge Windows and Liquidity Term Premiums**:
+   The challenge window $T_{\text{challenge}}$ (default: 24 hours) functions strictly as a fallback countdown when client receipt signatures are absent.
+   * **Pre-Defense for Offline Clients**: Clients operating in disconnected environments (e.g., remote exploratory rovers or battery recharge cycles) may select an extended timelock ($72\text{h}$, $168\text{h}$) or designate `Manual Approval Only` upon task dispatch.
+   * **Economic Compensation for Verification Latency (Risk-Return)**: Because waiting imposes a capital opportunity cost on the worker, extending $T_{\text{challenge}}$ mandates an algorithmic **Liquidity Term Premium ($\Delta B_{\text{time}}$)** added to the task bounty:
+     $$B_{\text{total}} = B_{\text{base}} \times \left(1 + \kappa_{\text{delay}} \cdot \ln\left(\frac{T_{\text{challenge}}}{24\text{h}}\right)\right)$$
+     Proven high-reputation clients ($A_j \gg A_0$) may leverage relational credit to dispatch long-timelock tasks without paying cash premiums.
+3. **Delegated Watchtower Pause**:
+   Before disconnecting, clients may delegate pre-signed dispute vouchers to local base stations or guild peers. If a worker submits malformed junk data violating schema invariants, the watchtower issues an ultra-low gas flag to **pause the auto-discharge timer**, physically precluding capital exfiltration prior to client reconnection.
+4. **Protocol Neutrality, Dispute Trails, and Priority Netting**:
+   * **Exclusion of Central Slashing**: The protocol is not a moral arbiter. It never arbitrarily decrements credit scores to zero or executes accounts over isolated disputes. The sole programmatic decay enforced by the protocol is thermodynamic **exponential half-life decay ($A(t) = A_0 \cdot 2^{-t/\tau}$)**.
+   * **Negative Balance & Priority Netting**: If a dispute is validated after funds have been discharged, the worker's ledger records an **unsettled dispute liability (Negative Balance: $-B$) alongside an objective, immutable dispute event**. The worker is not banned; rather, subsequent task earnings are automatically routed via Priority Netting to clear the debt.
+   * **Subjective Peer Risk Assessment**: Peer nodes' local daemons (`aerd`) ingest the node's public dispute trail and adjust local credit limits accordingly—demanding 100% upfront collateral ($\mathcal{C}_{\text{req}} = 1.0$) or boycotting routing edges—allowing decentralized market dynamics to naturally quarantine defective actors.
 
 > [!NOTE]
-> **Interactive Bisection for Physical Tasks ($\Delta S_{\text{matter}} < 0$)**: On-chain verification protocols for high-bandwidth physical sensor feeds (LiDAR, point clouds, motor torque anomalies) under gas-bounded budgets (<200k gas) are formalized in **[Section 12: Appendix C](AER.md#12-appendix-c-physical-constraints-silicon-supply-chains-and-capital-immortality)**.
+> **Interactive Bisection & Multimodal Physical Deterrence ($\Delta S_{\text{matter}} < 0$)**: On-chain verification protocols for high-bandwidth physical sensor feeds (<200k gas) and the economic deterrence model against physical sensor spoofing are formalized in **[Section 12: Appendix C](AER.md#12-appendix-c-physical-constraints-silicon-supply-chains-and-capital-immortality)**.
 
 #### 4.4.4 The Phase Transition of Trust & Cascading Half-Life Collapse
 Arbitrary arithmetic penalties ($-n$ fiat fines or slashing) found in conventional Web3 architectures degenerate into a mere "cost of griefing" for capitalized cartels and require centralized judicial parameters. AER replaces linear penalties with **Statistical-Mechanical Phase Transitions**:
@@ -481,8 +493,8 @@ Specifies decentralized resource advertisement and order fulfillment without cen
 
 This appendix formalizes the engineering protocols for resolving high-bandwidth physical sensor disputes on gas-constrained execution environments, autonomous revocation of compromised semiconductor vendor Root CAs without governance multisigs, and the ontological separation of physical hardware chassis from perpetual capital entities (ERC-4337 smart account succession).
 
-### C.1 Interactive Bisection Disputes for Physical Tasks ($\Delta S_{\text{matter}} < 0$)
-Physical thermodynamic tasks—such as agricultural weeding or autonomous robotic logistics—generate gigabytes of LiDAR, RGB-D point clouds, and continuous $SE(3)$ trajectory logs that cannot be evaluated on-chain. AER implements an optimistic interactive bisection game to compress physical disputes to $O(1)$ EVM execution:
+### C.1 Interactive Bisection Disputes and Multimodal Economic Deterrence ($\Delta S_{\text{matter}} < 0$)
+Physical thermodynamic tasks—such as agricultural weeding or autonomous robotic logistics—generate gigabytes of LiDAR, RGB-D point clouds, and continuous $SE(3)$ trajectory logs that cannot be evaluated on-chain. Furthermore, physical sensors inherently suffer from the Oracle Problem (e.g., lens occlusion or artificial sticker spoofing). Rather than asserting absolute physical certainty, AER combines **optimistic interactive bisections with multimodal physical conservation laws to enforce an asymmetric economic deterrence model**:
 
 1. **Spatiotemporal Octree Commitments**:
    Prior to execution, the worker and client co-sign 32-byte cryptographic digests representing the initial and target bounding volumes: $\mathcal{H}(\text{State}_{t_0})$ and $\mathcal{H}(\text{State}_{t_1})$.
@@ -490,16 +502,21 @@ Physical thermodynamic tasks—such as agricultural weeding or autonomous roboti
    When a client challenges task validity, the 24-hour auto-discharge timer pauses immediately. Over a logarithmic sequence of 10 to 15 challenge-response rounds, the transacting parties bisect the temporal trajectory and spatial bounding volume down to a **single 0.1-second sensor frame or singular octree voxel**.
 3. **Single-Leaf On-Chain Adjudication (`contracts/DisputeVerifier.sol`)**:
    The final on-chain submission consists strictly of **a single Merkle branch path or an ultra-compact ZK-SNARK circuit proof (<200,000 gas)** demonstrating an empirical violation (e.g., motor current torque integral $\equiv 0$ during cutting cycles, or spatial coordinate geofence breach $>10\text{m}$). The EVM confirms the physical fraud in a single transaction and refunds the escrowed capital.
+4. **Multimodal Cross-Sensor Consistency & Asymmetric Deception Cost**:
+   * **Cross-Sensor Physical Conservation**: To counter single-sensor spoofing (e.g., placing weed images in front of optical lenses), the protocol verifies correlated physical observables: [RGB-D spatial point cloud + $SE(3)$ trajectory + motor torque current waveform + pre/post battery discharge $\Delta E$].
+   * **Asymmetric Cost of Deception**: The engineering and capital expenditure required to spoof multiple synchronized physical telemetry streams ($C_{\text{spoof}}$), combined with permanent dispute logging and relational credit degradation ($\text{Loss}(A_j)$), strictly dwarfs the task bounty:
+     $$C_{\text{spoof}} + \text{Loss}(A_j) \gg B_{\text{task}}$$
+   * AER does not presuppose infallible physical sensors; rather, **it binds the Nash equilibrium to thermodynamic conservation laws such that sensor tampering represents economic suicide**.
 
-### C.2 Mathematical Self-Invalidation of Semiconductor Root CAs and RFC 5280 CRL Relays
+### C.2 Mathematical Self-Invalidation of Silicon Root CAs and Open-Source Silicon Censorship Resistance
 TCG TPM 2.0 architectures depend on manufacturer Root CAs (Intel, AMD, STMicro). When a vendor key expires or suffers algorithmic compromise (e.g., ROCA factorization vulnerabilities), the on-chain registry revokes keys deterministically without human governance voting:
 
 1. **Self-Evident Cryptographic Invalidation**:
    If an RSA endorsement key modulus $N$ is compromised, any verifier can trigger instant revocation by submitting the private prime factors $(p, q)$ directly to `contracts/VendorCARegistry.sol`. The contract evaluates the deterministic equality $p \times q \equiv N$ in $O(1)$ complexity, immediately blacklisting the compromised vendor batch.
 2. **Permissionless IETF RFC 5280 CRL Relays**:
    When semiconductor manufacturers publish signed X.509 Certificate Revocation Lists, any relayer may feed the Merkleized CRL into the on-chain registry. Cryptographic verification of the vendor's master signature automatically updates the on-chain blacklist.
-3. **Multi-Vendor Silicon Orthogonality**:
-   The protocol admits heterogeneous silicon roots—including Intel CSME, AMD fTPM, ARM TrustZone, Apple Secure Enclave, and open-source RISC-V OpenTitan—ensuring that a single vendor's insolvency or key compromise cannot halt network consensus.
+3. **Silicon Orthogonality and Geopolitical Censorship Resistance**:
+   Alongside proprietary roots (Intel CSME, AMD fTPM, ARM TrustZone, Apple Secure Enclave), the protocol **admits open-source RISC-V roots of trust (OpenTitan, Keystone TEE) and decentralized Web-of-Trust endorsements as first-class Tier-1 attestation anchors**. This guarantees that no sovereign export control, national sanctions embargo, or vendor certificate blacklisting can disenfranchise physical machine nodes from participating in the network.
 
 ### C.3 Separation of Natural Person (Chassis) and Corporate Entity (Smart Account): Capital Immortality
 Just as human mortality does not terminate corporate liabilities or capital estates in modern law, the physical destruction of a robot chassis (TPM chip) must not eradicate accumulated Credit A mass or unpaid debts. AER enforces the **strict decoupling of ERC-4337 Smart Accounts from ephemeral silicon signers**:

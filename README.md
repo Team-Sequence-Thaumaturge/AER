@@ -275,6 +275,17 @@ How the protocol withstands physical wear, semiconductor vulnerabilities, and ro
 ### Q8. How do we resolve physical disputes ("Weeds were cleared" vs "No, they weren't") without on-chain gas explosions?
 * **Interactive Bisection Game**: Uploading gigabytes of raw LiDAR or 4K video to a blockchain causes catastrophic gas exhaustion. The client and worker engage in an off-chain logarithmic bisection game, narrowing the dispute down to a single 0.1-second sensor frame or singular octree voxel in 10-15 rounds.
 * **Single-Leaf Merkle On-Chain Adjudication**: The only artifact submitted on-chain is a 32-byte Merkle leaf proof demonstrating that motor current was zero (idle) or that a geofence was breached. A single transaction under 200,000 gas confirms the fraud and refunds the client's escrowed bounty instantly.
+* **Multimodal Physical Deterrence (Addressing the Oracle Problem)**: To prevent single-sensor tampering (e.g., placing stickers in front of camera lenses), AER cross-verifies correlated physical observables: [RGB-D spatial point clouds + $SE(3)$ trajectory + motor torque current waveforms + battery discharge $\Delta E$]. The engineering cost of simultaneously spoofing multiple physical conservation quantities ($C_{\text{spoof}}$), paired with permanent dispute logging and relational credit loss, strictly dwarfs the task bounty, rendering sensor fraud economic suicide.
+
+### Q9. If a worker submits junk output and the client is offline/blacked out for 24 hours, can the escrow be stolen?
+* **Zero-Delay Liquidity**: When a client issues a receipt signature, the worker can withdraw and spend 100% of the funds with zero seconds of artificial holding delay or vesting lockups.
+* **Offline Client Pre-Defense & Liquidity Term Premium (Risk-Return)**: Clients operating in remote areas with high disconnection risk can select extended timelocks ($72\text{h}$ or $168\text{h}$) upon task dispatch. Because waiting imposes a capital opportunity cost on the worker, the client must pay an algorithmic **Liquidity Term Premium (additional bounty)** or post high reputation ($A_j$) as collateral.
+* **Delegated Watchtower Pause**: Before going offline, clients may delegate pre-signed dispute vouchers to nearby base stations or guild peers. If a worker submits malformed junk data violating schema invariants, the watchtower issues a lightweight flag to **freeze the discharge timer**, preventing capital exfiltration prior to client reconnection.
+* **Non-Punitive Protocol & Dispute Netting**: The protocol never executes central slashing or forces credit scores to zero over isolated disputes. Instead, it logs an immutable **Dispute Event and Negative Balance ($-B$)** on the ledger, which is cleared via Priority Netting against subsequent task earnings. Peer nodes autonomously scan this dispute trail and demand 100% upfront collateral or boycott routing edges.
+
+### Q10. What if a superpower government forces Intel/AMD to revoke or blacklist security certificates for specific regions?
+* **Open-Source Silicon & Web-of-Trust Anchors**: In addition to commercial vendors (Intel, AMD, STMicro), AER **admits open-source RISC-V roots of trust (OpenTitan, Keystone TEE) and decentralized Web-of-Trust attestations as first-class Tier-1 anchors**.
+* Consequently, unilateral export embargoes or vendor certificate blacklists cannot disenfranchise physical machine nodes from participating in the network.
 
 ---
 
