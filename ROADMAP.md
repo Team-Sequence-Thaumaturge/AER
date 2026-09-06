@@ -1,7 +1,8 @@
 # AER Autonomous Daemon (`aerd`) Master Implementation Roadmap
 
 > **Engineering Blueprint for Completing the AER Autonomous Daemon Engine**  
-> This document formalizes the engineering roadmap to transition the axioms, game theory, and thermodynamic mathematics of the AER Whitepaper (`README.md`) and Technical Specification (`AER.md`) into an operational, decentralized, autonomous daemon (`aerd`).
+> This document formalizes the engineering roadmap to transition the axioms, game theory, and thermodynamic mathematics of the AER Whitepaper (`README.md`) and Technical Specification (`AER.md`) into an operational, decentralized, autonomous daemon (`aerd`).  
+> 💡 **Subsequent Roadmap**: For empirical physical silicon (TPM 2.0), live EVM testnets, 10,000-node partition stress testing, and formal invariant proofs, see **[Roadmap 2 (ROADMAP2.md)](ROADMAP2.md)**.
 
 ---
 
