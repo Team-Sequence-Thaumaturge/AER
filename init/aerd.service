@@ -1,0 +1,19 @@
+[Unit]
+Description=AER Autonomous Resident Daemon (aerd)
+After=network.target
+
+[Service]
+Type=simple
+User=aer
+Group=aer
+WorkingDirectory=/opt/aer
+ExecStart=/usr/bin/python3 -m aer.cli run
+ExecStop=/usr/bin/python3 -m aer.cli stop
+Restart=always
+RestartSec=5s
+LimitNOFILE=65536
+Environment=PYTHONUNBUFFERED=1
+PIDFile=/opt/aer/.aerd.pid
+
+[Install]
+WantedBy=multi-user.target

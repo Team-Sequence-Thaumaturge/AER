@@ -10,3 +10,5 @@ dist/
 .coverage
 htmlcov/
 .pytest_cache/
+*.log
+.aerd.log
