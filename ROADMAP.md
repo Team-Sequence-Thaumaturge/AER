@@ -13,11 +13,14 @@ graph TD
 
     subgraph Layer2 [Layer 2: On-Chain Escrow & Capital]
         Escrow["contracts/AEREscrow.sol<br/>(1% Micro-Surcharge & 24h Timelock)"]
-        Gateway["contracts/adapters/PerimeterGateway.sol<br/>(Exterior USDT Voucher & Freeze-Immunity Bulkhead)"]
+        Gateway["contracts/adapters/PerimeterGateway.sol<br/>(Exterior USDT Voucher & 100% Reserve Bonding Curve)"]
+        Dispute["contracts/DisputeVerifier.sol<br/>(3D Octree Merkle Dispute Verifier)"]
+        VendorCA["contracts/VendorCARegistry.sol<br/>(Root CA Mathematical Self-Invalidation)"]
+        Account["contracts/core/AERAccount.sol<br/>(ERC-4337 Account-Signer Decoupling & Ghost Handover)"]
     end
 
     subgraph Layer3 [Layer 3: Machine Protocol Schemas]
-        Schemas["schemas/*.schema.json<br/>(Attestation, Receipt, IOU, FraudProof, MarketOrder)"]
+        Schemas["schemas/*.schema.json<br/>(Attestation, Receipt, IOU, FraudProof, MarketOrder, Migration, PhysicalDispute)"]
     end
 
     subgraph Layer4 [Layer 4: AER Core Daemon Engine]
@@ -38,6 +41,7 @@ graph TD
         SimSuper["simulation/simulate_supernova.py<br/>(Guild Supernova & Bulkhead Containment)"]
         SimMacro["simulation/simulate_macro_arbitrage.py<br/>(Macro Arbitrage & Thermodynamic Trade Surplus)"]
         SimMarket["simulation/simulate_black_market.py<br/>(Serverless P2P Resource Order Book Simulation)"]
+        SimHandover["simulation/simulate_hardware_handover.py<br/>(Hardware Ghost Handover & 7-Day Disaster Recovery)"]
     end
 
     subgraph Layer6 [Layer 6: Developer Onboarding & Architecture]
@@ -75,6 +79,12 @@ Deterministic JSON Schemas allowing machines (AI agents, autonomous rovers, phys
 5. **`schemas/MarketOrder.schema.json`**
    - **Realizing Appendix B (Serverless P2P Resource Exchange)**: Cryptographically signed order manifest for trading GPU compute quotas, proprietary MCP tools, and domain datasets.
    - Fields: `order_id`, `resource_type (GPU_QUOTA | MCP_TOOL | DATASET)`, `price_credit_b`, `resource_cid`, `seller_pubkey`, `seller_signature`.
+6. **`schemas/HardwareMigration.schema.json`**
+   - **Machine Capital Succession & Ghost Handover (Realizing Appendix C)**: Cryptographically signed migration ticket with mutual dual-attestation between old/new TPMs and zeroization proof of the retired chip.
+   - Fields: `account_id`, `old_tpm_ak_quote`, `new_tpm_ak_quote`, `zeroization_proof`, `handover_signature_pair`.
+7. **`schemas/PhysicalDispute.schema.json`**
+   - **Physical Sensor Dispute Proof (Realizing Appendix C)**: 3D octree Merkle bisection path and single-frame sensor defect assertion.
+   - Fields: `task_id`, `spatiotemporal_voxel_id`, `sensor_type (MOTOR_TORQUE_ZERO | GEOFENCE_BREACH)`, `merkle_leaf_proof`, `zk_snark_proof`.
 
 ---
 
@@ -95,10 +105,22 @@ The minimal, zero-governance trustless smart contract infrastructure and exterio
 2. **`contracts/adapters/PerimeterGateway.sol` (Solidity 0.8.24+)**
    - **Exterior One-Way Voucher Gateway (The Canton Model)**:
      - Receives external human client USDT/USDC fiat-backed tokens and mints one-way Credit B task vouchers.
-   - **Freeze-Immunity Bulkhead**:
-     - External regulatory freezes (`freeze()`) on the USDT contract only affect border liquidity pools. Internal node-to-node TPM attestation, mesh communication, and Credit A ledger remain 100% operational.
-   - **Asset Orthogonality Enforcement ($\frac{\partial A_j}{\partial (\text{Fiat})} \equiv 0$)**:
-     - Enforces at the contract level that fiat capital cannot buy relational credit or governance ($A_j$), precluding plutocratic capture.
+   - **100% Reserve Incubation $\to$ Automated Bonding Curve Transition (Realizing Appendix A.4)**:
+     - Guarantees 1:1 fiat redemption backed 100% by fiat reserves during early bootstrapping to resolve the charging station cold-start problem, transitioning autonomously to marginal physical cost anchoring once node density reaches threshold $N_c$.
+   - **Freeze-Immunity Bulkhead & Asset Orthogonality ($\frac{\partial A_j}{\partial (\text{Fiat})} \equiv 0$)**:
+     - External regulatory freezes (`freeze()`) on the USDT contract only affect border liquidity pools. Internal node-to-node TPM attestation, mesh communication, and Credit A ledger remain isolated and operational, while fiat capital is strictly prohibited from acquiring relational credit or governance.
+
+3. **`contracts/DisputeVerifier.sol` (Solidity 0.8.24+)**
+   - **Physical Interactive Bisection Dispute Verifier (Realizing Appendix C.1)**:
+     - On-chain verification of 32-byte 3D octree Merkle leaf paths and single-frame ZK-SNARK sensor proofs (<200k gas).
+
+4. **`contracts/VendorCARegistry.sol` (Solidity 0.8.24+)**
+   - **Silicon Root CA Decentralized Registry (Realizing Appendix C.2)**:
+     - Autonomous $O(1)$ self-invalidation upon submission of mathematical factorization proofs ($p \times q = N$) and RFC 5280 CRL Merkle relaying without multisig governance.
+
+5. **`contracts/core/AERAccount.sol` (Solidity 0.8.24+)**
+   - **ERC-4337 Account-Signer Decoupling & Ghost Handover (Realizing Appendix C.3)**:
+     - Decouples machine identity and ledger balances from mortal physical chassis. Supports dual-handover succession for routine upgrades, and M-of-N guild witness attestations with 7-day quarantine timelocks for catastrophic hardware destruction recovery.
 
 ---
 
@@ -133,6 +155,8 @@ Monte-Carlo test harnesses validating macroeconomic stability and computer scien
    - Simulates macroeconomic whale accumulation (the Philanthropic Monopoly Paradox), hoarding resistance via mutual credit line bypassing, indirect token swaps via ZK-proving / mining workloads, and the natural self-anchoring peg of 1 Credit B to the marginal physical cost of computation.
 5. **`simulation/simulate_black_market.py`**
    - Simulates a serverless dark compute market where 1,000 nodes autonomously advertise, discover, and settle GPU compute quotas and proprietary MCP tools via Kademlia DHT and GossipSub topics.
+6. **`simulation/simulate_hardware_handover.py`**
+   - Simulates routine hardware upgrades via dual-handover cross-signing and TPM zeroization, as well as catastrophic physical destruction recovery via M-of-N peer witness signatures and 7-day quarantine timelocks.
 
 ---
 

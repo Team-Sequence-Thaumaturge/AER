@@ -13,11 +13,14 @@ graph TD
 
     subgraph Layer2 [Layer 2: 온체인 자본 결착]
         Escrow["contracts/AEREscrow.sol<br/>(1% 마이크로 수수료 & 24h 타임락)"]
-        Gateway["contracts/adapters/PerimeterGateway.sol<br/>(외곽 USDT 바우처 & 동결 면역 격벽)"]
+        Gateway["contracts/adapters/PerimeterGateway.sol<br/>(외곽 USDT 바우처 & 100% 준비금 본딩 커브)"]
+        Dispute["contracts/DisputeVerifier.sol<br/>(3D 옥트리 머클 분쟁 검증기)"]
+        VendorCA["contracts/VendorCARegistry.sol<br/>(Root CA 수학적 자가 무효화)"]
+        Account["contracts/core/AERAccount.sol<br/>(ERC-4337 계정-서명기 분리 & 고스트 승계)"]
     end
 
     subgraph Layer3 [Layer 3: 기계 통신 데이터 규격]
-        Schemas["schemas/*.schema.json<br/>(Attestation, Receipt, IOU, FraudProof, MarketOrder)"]
+        Schemas["schemas/*.schema.json<br/>(Attestation, Receipt, IOU, FraudProof, MarketOrder, Migration, PhysicalDispute)"]
     end
 
     subgraph Layer4 [Layer 4: AER 코어 데몬 Engine]
@@ -38,6 +41,7 @@ graph TD
         SimSuper["simulation/simulate_supernova.py<br/>(길드 초신성 폭발 & 벌크헤드 격벽)"]
         SimMacro["simulation/simulate_macro_arbitrage.py<br/>(거시 차익거래 & 열역학 무역 흑자)"]
         SimMarket["simulation/simulate_black_market.py<br/>(서버리스 P2P 자원 거래 시뮬레이션)"]
+        SimHandover["simulation/simulate_hardware_handover.py<br/>(기기 교체 고스트 승계 & 7일 재해 복구)"]
     end
 
     subgraph Layer6 [Layer 6: 개발자 온보딩 & 명세]
@@ -75,6 +79,12 @@ graph TD
 5. **`schemas/MarketOrder.schema.json`**
    - **서버리스 P2P 자원 거래(부록 B 실현)**: 연산 쿼터, 비공개 MCP 도구, 도메인 데이터셋 매매용 암호 서명 오더 전표.
    - 구성: `order_id`, `resource_type (GPU_QUOTA | MCP_TOOL | DATASET)`, `price_credit_b`, `resource_cid`, `seller_pubkey`, `seller_signature`.
+6. **`schemas/HardwareMigration.schema.json`**
+   - **기계 자본 승계 및 고스트 이식(부록 C 실현)**: 하드웨어 교체 시 구/신 TPM 간의 양방향 교차 서명 및 구 칩 소각(Zeroization) 전표.
+   - 구성: `account_id`, `old_tpm_ak_quote`, `new_tpm_ak_quote`, `zeroization_proof`, `handover_signature_pair`.
+7. **`schemas/PhysicalDispute.schema.json`**
+   - **물리 센서 분쟁 증명(부록 C 실현)**: 3D 옥트리 머클 분할 및 단일 프레임 센서 결함 증거 포맷.
+   - 구성: `task_id`, `spatiotemporal_voxel_id`, `sensor_type (MOTOR_TORQUE_ZERO | GEOFENCE_BREACH)`, `merkle_leaf_proof`, `zk_snark_proof`.
 
 ---
 
@@ -95,10 +105,22 @@ AER 생태계에서 유일하게 온체인 EVM에 종속되는 최소 무신뢰 
 2. **`contracts/adapters/PerimeterGateway.sol` (Solidity 0.8.24+)**
    - **외곽 단방향 바우처 게이트웨이 (The Canton Model)**:
      - 외부 인간 의뢰인의 USDT/USDC 법정화폐 토큰을 수취하여 내부 과제 발주용 1회성 Credit B 에스크로 바우처로 단방향 전환.
-   - **벌크헤드 동결 면역 (Freeze Immunity Bulkhead)**:
-     - 외부 규제 기관이 테더 컨트랙트의 `freeze()`를 가동하더라도, 동결 영향은 게이트웨이 국경 풀에 국한되며 내부 P2P 통신 및 Credit A 장부는 완전 무풍지대로 정상 유지.
-   - **자산 직교성 불변식 강제 ($\frac{\partial A_j}{\partial (\text{Fiat})} \equiv 0$)**:
-     - 법정화폐로는 Credit A(신용/거버넌스)를 1비트도 매입할 수 없도록 컨트랙트 레벨에서 철저히 차단.
+   - **100% 준비금 태동기 $\to$ 본딩 커브 자율 이행 (부록 A.4 실현)**:
+     - 초기에는 1:1 법정화폐 상환(Redeem)을 100% 보증하여 충전소 콜드스타트를 해소하고, 노드 수 임계점 돌파 시 물리 한계비용 닻내림으로 자율 전이.
+   - **벌크헤드 동결 면역 및 자산 직교성 강제 ($\frac{\partial A_j}{\partial (\text{Fiat})} \equiv 0$)**:
+     - 테더사의 `freeze()`가 발동해도 내부 P2P 망과 Credit A 장부는 격리 보호되며, 법정화폐로는 지배권(Credit A)을 1비트도 살 수 없음.
+
+3. **`contracts/DisputeVerifier.sol` (Solidity 0.8.24+)**
+   - **물리 공간 대화형 이분 탐색 검증기 (부록 C.1 실현)**:
+     - 3D 옥트리 머클 리프 경로 및 단일 센서 프레임 ZK-SNARK 간이 증명(20만 가스 이하) 온체인 검증.
+
+4. **`contracts/VendorCARegistry.sol` (Solidity 0.8.24+)**
+   - **반도체 Root CA 탈중앙 레지스트리 (부록 C.2 실현)**:
+     - 소인수분해 취약점 수학적 증거($p \times q = N$) 투하 시 $O(1)$ 자율 무효화 및 RFC 5280 CRL 머클 릴레이.
+
+5. **`contracts/core/AERAccount.sol` (Solidity 0.8.24+)**
+   - **ERC-4337 계정-서명기 분리 및 고스트 승계 (부록 C.3 실현)**:
+     - 신원과 자본 장부를 물리 칩과 분리하고, 정상 교체 시 양방향 핸드셰이크 승계, 침수 파손 시 M-of-N 길드 증언 및 7일 비상 격리 타임락을 통한 재해 복구.
 
 ---
 
@@ -133,6 +155,8 @@ AER의 경제학적 무결성과 컴퓨터 과학적 수렴성을 누구나 터�
    - 외부 고래의 Credit B 전량 매집 시도(자선 사업가의 역설), Credit B 금고 사재기 시 노드들의 무담보 외상 연속체(Mutual Credit Line) 자동 우회, ZK 증명 및 채굴 연산을 통한 간접 토큰 스왑과 열역학적 무역 흑자($\Delta S < 0$), 그리고 $1\text{ Credit B}$의 한계 물리 비용 닻내림(Self-Anchoring Peg) 현상을 몬테카를로 모델로 검증.
 5. **`simulation/simulate_black_market.py`**
    - 중앙 서버 없이 1,000대의 노드가 Kademlia DHT와 GossipSub 토픽을 통해 GPU 연산 쿼터 및 비공개 MCP 도구를 자율적으로 광고하고 체결하는 서버리스 암흑 시장 시뮬레이션.
+6. **`simulation/simulate_hardware_handover.py`**
+   - 하드웨어 교체 시 양방향 교차 서명 및 구 칩 소각 승계, 그리고 침수/낙뢰 파손 시 이웃 길드 M-of-N 증언과 7일 비상 격리 타임락을 통한 자본 복구 시뮬레이션.
 
 ---
 

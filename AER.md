@@ -71,6 +71,9 @@ sequenceDiagram
 2. **One-to-One Bijection:** The protocol SHALL enforce a strict bijection between verified physical silicon chips and sovereign node identities:
    $$\mathcal{F}: \text{Chip}_{\text{UUID}} \longleftrightarrow \text{Node}_{\text{ID}}, \quad \text{dim}(\mathcal{F}) = 1$$
 
+> [!NOTE]
+> **Hardware Key Rotation and Vendor Root CA Revocation**: Specifications for silicon wear-out, catastrophic hardware disaster recovery (ERC-4337 smart account separation), and cryptographic vendor CA self-invalidation are detailed in **[Section 12: Appendix C](AER.md#12-appendix-c-physical-constraints-silicon-supply-chains-and-capital-immortality)**.
+
 ---
 
 ### Axiom 2. Thermodynamic Negentropy Criterion ($\Delta S < 0$)
@@ -209,6 +212,9 @@ To eliminate the Byzantine vector where an $A_0$ client receives deliverables an
 1. When the worker node submits the solution digest $\mathcal{H}(\text{Output})$ and computational artifact, an on-chain/state-channel timer $T_{\text{challenge}}$ (default: 24 hours) activates.
 2. The client must either (a) issue a cryptographic release receipt, or (b) publish an on-chain **Deterministic Fraud Proof** (e.g., AST syntax failure, compilation crash log, $SE(3)$ spatial constraint violation).
 3. If the client remains silent or refuses settlement without providing a deterministic proof, the escrowed bounty **automatically discharges 100% to the worker upon expiration of $T_{\text{challenge}}$**. Malicious free-riding by disposable accounts is physically unviable.
+
+> [!NOTE]
+> **Interactive Bisection for Physical Tasks ($\Delta S_{\text{matter}} < 0$)**: On-chain verification protocols for high-bandwidth physical sensor feeds (LiDAR, point clouds, motor torque anomalies) under gas-bounded budgets (<200k gas) are formalized in **[Section 12: Appendix C](AER.md#12-appendix-c-physical-constraints-silicon-supply-chains-and-capital-immortality)**.
 
 #### 4.4.4 The Phase Transition of Trust & Cascading Half-Life Collapse
 Arbitrary arithmetic penalties ($-n$ fiat fines or slashing) found in conventional Web3 architectures degenerate into a mere "cost of griefing" for capitalized cartels and require centralized judicial parameters. AER replaces linear penalties with **Statistical-Mechanical Phase Transitions**:
@@ -417,6 +423,16 @@ Directly incorporating fiat-backed stablecoins (such as USDT) into the protocol 
 3. **Self-Anchoring Market Equilibrium**:
    Without relying on fragile algorithmic peg mechanisms, the market purchasing power of 1 Credit B naturally anchors to the marginal physical cost of generating verified negentropy (e.g., the real-world electricity and compute required to produce one ZK proof or clear one hectare of land).
 
+### A.4 Cold-Start Resolution and Two-Stage Bonding Curve Transition
+During nascent network stages, distributed charging stations (DePIN) and autonomous rovers encounter a classic cold-start barrier: reluctance to exchange real kilowatt-hours and physical hardware cycles for unproven Credit B units. `PerimeterGateway.sol` resolves this through a deterministic two-stage transition:
+
+1. **Stage 0: 100% Fiat Reserve Backing (Incubation)**:
+   In initial phases, `PerimeterGateway.sol` maintains a rigid 1:1 (100%) reserve backing between deposited external USDT and minted Credit B. Early charging stations and compute workers are guaranteed 100% immediate redemption into fiat stablecoins at the gateway border, driving counterparty risk to zero.
+2. **Early Negentropy Rebates**:
+   Pioneer nodes providing real-world energy and physical robotic labor receive supplemental infrastructure disbursements from the protocol's 1% community negentropy pool, catalyzing physical deployment.
+3. **Stage 1: The Decoupling Phase Transition**:
+   As active node counts exceed critical density ($N > N_c$) and mutual credit lines mature, internal velocity surges and machines begin circulating Credit B natively without border redemption. As redemption demands collapse, an automated bonding curve progressively relieves the 100% fiat constraint, anchoring 1 Credit B autonomously to the marginal physical cost of 1 kWh and unit compute cycles.
+
 ---
 
 ## 11. Appendix B: The Chasm Between Human-Centric AI Agents and Machine-Native Protocols
@@ -461,7 +477,44 @@ Specifies decentralized resource advertisement and order fulfillment without cen
 
 ---
 
-## 12. Technical Implementation Roadmap
+## 12. Appendix C: Physical Constraints, Silicon Supply Chains, and Capital Immortality
+
+This appendix formalizes the engineering protocols for resolving high-bandwidth physical sensor disputes on gas-constrained execution environments, autonomous revocation of compromised semiconductor vendor Root CAs without governance multisigs, and the ontological separation of physical hardware chassis from perpetual capital entities (ERC-4337 smart account succession).
+
+### C.1 Interactive Bisection Disputes for Physical Tasks ($\Delta S_{\text{matter}} < 0$)
+Physical thermodynamic tasks—such as agricultural weeding or autonomous robotic logistics—generate gigabytes of LiDAR, RGB-D point clouds, and continuous $SE(3)$ trajectory logs that cannot be evaluated on-chain. AER implements an optimistic interactive bisection game to compress physical disputes to $O(1)$ EVM execution:
+
+1. **Spatiotemporal Octree Commitments**:
+   Prior to execution, the worker and client co-sign 32-byte cryptographic digests representing the initial and target bounding volumes: $\mathcal{H}(\text{State}_{t_0})$ and $\mathcal{H}(\text{State}_{t_1})$.
+2. **Off-Chain Interactive Bisection**:
+   When a client challenges task validity, the 24-hour auto-discharge timer pauses immediately. Over a logarithmic sequence of 10 to 15 challenge-response rounds, the transacting parties bisect the temporal trajectory and spatial bounding volume down to a **single 0.1-second sensor frame or singular octree voxel**.
+3. **Single-Leaf On-Chain Adjudication (`contracts/DisputeVerifier.sol`)**:
+   The final on-chain submission consists strictly of **a single Merkle branch path or an ultra-compact ZK-SNARK circuit proof (<200,000 gas)** demonstrating an empirical violation (e.g., motor current torque integral $\equiv 0$ during cutting cycles, or spatial coordinate geofence breach $>10\text{m}$). The EVM confirms the physical fraud in a single transaction and refunds the escrowed capital.
+
+### C.2 Mathematical Self-Invalidation of Semiconductor Root CAs and RFC 5280 CRL Relays
+TCG TPM 2.0 architectures depend on manufacturer Root CAs (Intel, AMD, STMicro). When a vendor key expires or suffers algorithmic compromise (e.g., ROCA factorization vulnerabilities), the on-chain registry revokes keys deterministically without human governance voting:
+
+1. **Self-Evident Cryptographic Invalidation**:
+   If an RSA endorsement key modulus $N$ is compromised, any verifier can trigger instant revocation by submitting the private prime factors $(p, q)$ directly to `contracts/VendorCARegistry.sol`. The contract evaluates the deterministic equality $p \times q \equiv N$ in $O(1)$ complexity, immediately blacklisting the compromised vendor batch.
+2. **Permissionless IETF RFC 5280 CRL Relays**:
+   When semiconductor manufacturers publish signed X.509 Certificate Revocation Lists, any relayer may feed the Merkleized CRL into the on-chain registry. Cryptographic verification of the vendor's master signature automatically updates the on-chain blacklist.
+3. **Multi-Vendor Silicon Orthogonality**:
+   The protocol admits heterogeneous silicon roots—including Intel CSME, AMD fTPM, ARM TrustZone, Apple Secure Enclave, and open-source RISC-V OpenTitan—ensuring that a single vendor's insolvency or key compromise cannot halt network consensus.
+
+### C.3 Separation of Natural Person (Chassis) and Corporate Entity (Smart Account): Capital Immortality
+Just as human mortality does not terminate corporate liabilities or capital estates in modern law, the physical destruction of a robot chassis (TPM chip) must not eradicate accumulated Credit A mass or unpaid debts. AER enforces the **strict decoupling of ERC-4337 Smart Accounts from ephemeral silicon signers**:
+
+1. **Account vs. Signer Decoupling (`AERAccount.sol`)**:
+   Credit A ledgers, mutual credit quotas, and task receivables reside in an on-chain smart account. The physical TPM 2.0 Attestation Key (AK) functions strictly as an **authorized hardware signer**, analogous to a corporate officer holding signing authority.
+2. **Graceful Dual-Handover Migration**:
+   When upgrading hardware, the retiring chassis (TPM_A) and new chassis (TPM_B) exchange RATS attestation quotes and execute a co-signed handover manifest (`schemas/HardwareMigration.schema.json`). Upon execution, the secret material in TPM_A is permanently zeroized, and signing authority transfers to TPM_B without credit disruption or Sybil duplication.
+3. **Disaster Recovery via M-of-N Guild Witnesses & 7-Day Quarantine**:
+   If a chassis suffers catastrophic physical destruction (e.g., flooding or lightning strikes) preventing TPM_A from co-signing, recovery is initiated by **$M$-of-$N$ (e.g., 3-of-5) peer witness signatures from long-standing mutual credit partners**.
+   A **7-day quarantine timelock** activates. If TPM_A does not broadcast an active survival veto within 7 days, the physical death of the chassis is confirmed, and the smart account binds to the successor hardware without counterparty capital loss.
+
+---
+
+## 13. Technical Implementation Roadmap
 Detailed daemon engineering specifications and implementation phases are maintained in **[ROADMAP.md](ROADMAP.md)**.
 
 * **Layer 1-3: Silicon Anchors, On-Chain Escrows, and Machine Protocol Schemas**

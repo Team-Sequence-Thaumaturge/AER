@@ -244,6 +244,7 @@ Clarifications on how AER interfaces with traditional fiat currencies (USDT/USD)
 * **Yes, it is precisely an indirect swap**: When clients spend Credit B to command workers to compute ZK proofs or mine blocks, and subsequently monetize them for BTC, ETH, or USD, this is a legitimate indirect swap mediated by genuine physical work.
 * **Thermodynamic Trade Surplus**: While external clients extract financial arbitrage, the internal AER economy absorbs energy (recharged batteries), refurbished components, a 1% community pool allocation, and relational Credit A growth. AER functions as an exporter of physical order ($\Delta S < 0$), securing a continuous macroeconomic trade surplus.
 * **Self-Anchoring Market Equilibrium**: The purchasing power of 1 Credit B naturally anchors to the marginal physical cost of generating verified negentropy in the real world (e.g., the electricity and compute required to generate one ZK proof or clear one hectare of land), requiring zero artificial algorithmic pegging.
+* **100% Reserve Backing for Cold-Start Resolution**: To eliminate bootstrapping risk for early charging stations and robotic nodes, `PerimeterGateway.sol` guarantees 1:1 fiat redemption for Credit B during incubation stages, decoupling organically as network velocity matures.
 
 ---
 
@@ -259,6 +260,21 @@ Addressing why AER is urgently indispensable today for human developers navigati
 ### Q6. Without a central server, how do nodes discover compute/tool orders, and how do humans view it?
 * **Kademlia DHT & GossipSub Order Books**: Rather than a centralized marketplace, nodes broadcast cryptographically signed order manifests (`MarketOrder`) over P2P gossip topics (`/aer/market/...`). Local `aerd` daemons ingest announcements into real-time in-memory order books.
 * **Zero-Server Localhost Loopback UI**: No external web servers are pinged. Static web UI assets are embedded directly inside the `aerd.exe` binary, serving `http://localhost:28741` or an ultra-lightweight 5MB native tray window (AER Station) with complete data sovereignty and zero telemetry leaks.
+
+---
+
+## ⚙️ Appendix C : Physical Constraints, Silicon Supply Chains, and Capital Immortality
+
+How the protocol withstands physical wear, semiconductor vulnerabilities, and robotic hardware destruction without losing counterparty capital.
+
+### Q7. If a robot is destroyed or a computer upgraded, do credit mass and capital vanish?
+* **The First Principle of Capitalism (Decoupling Body from Capital)**: Just as a human's death does not erase corporations or bank deposits, the destruction of a physical chassis (TPM chip) does not extinguish a node's Credit A reputation or escrowed Credit B.
+* **The Ghost-in-the-Shell Handover**: Identity and capital reside in an ERC-4337 Smart Account; the TPM chip is merely an authorized physical signing key. Upgrading hardware involves a co-signed handover manifest and zeroization of the retiring chip.
+* **Catastrophic Disaster Recovery via 7-Day Quarantine**: If a chassis is physically destroyed by lightning or flooding, recovery is initiated by $M$-of-$N$ (e.g., 3-of-5) peer witness signatures from long-standing guild partners. A 7-day challenge window ensures that an active chassis can veto fraudulent takeovers while guaranteeing that unpaid charging station debts remain fully recoverable.
+
+### Q8. How do we resolve physical disputes ("Weeds were cleared" vs "No, they weren't") without on-chain gas explosions?
+* **Interactive Bisection Game**: Uploading gigabytes of raw LiDAR or 4K video to a blockchain causes catastrophic gas exhaustion. The client and worker engage in an off-chain logarithmic bisection game, narrowing the dispute down to a single 0.1-second sensor frame or singular octree voxel in 10-15 rounds.
+* **Single-Leaf Merkle On-Chain Adjudication**: The only artifact submitted on-chain is a 32-byte Merkle leaf proof demonstrating that motor current was zero (idle) or that a geofence was breached. A single transaction under 200,000 gas confirms the fraud and refunds the client's escrowed bounty instantly.
 
 ---
 
