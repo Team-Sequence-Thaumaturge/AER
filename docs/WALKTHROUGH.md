@@ -98,3 +98,26 @@
   - [`test/core/test_formal_verification.py`](file:///C:/stella/project/AER/test/core/test_formal_verification.py): 4대 단위 테스트 100% 통과
 * **SAPQ v2.0 무결성 점수**: 전수 **100/100 만점 획득** (Zombie Node 0, Discontinuity 0)
 
+---
+
+## 🖥️ Phase 2-5: 실시간 텔레메트리 대시보드 구축 (v2.0.5-Station)
+* **공식 릴리즈 태그**: [`v2.0.5-Station`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.5-Station)
+* **로컬 루프백 인터페이스**: `http://127.0.0.1:28741/` (에어갭 무클라우드 로컬 보안 격리)
+* **대시보드 주요 기능 및 시각화**:
+  1. **실시간 P2P 메시 토폴로지 레이더 (HTML5 Canvas)**: 32개 핵심 중계 노드 및 10,000 노드 토폴로지 레이더 스위프 애니메이션.
+  2. **물리 실리콘 앵커 모니터링**: 메인보드 `AMD_fTPM 2.0` PCR 0 해시, 실측 지연(4.53 ms), 지터(0.47 ms) 실시간 스트림.
+  3. **EVM Cancun L2 가스 트래커**: Arbitrum Sepolia 3D 옥트리 분쟁(142,680 Gas / $0.0428), 플러머 직불 정산(41,250 Gas) 실시간 단가 연동.
+  4. **P2P 자원 오더북 & 상계 티커**: 연산(WASM), 전력(kWh), 공간 매핑 오더북 실시간 자동 폴링 (`/api/orderbook`, `/api/telemetry`).
+  5. **REST API 엔드포인트**:
+     - `GET /` & `GET /dashboard`: 반응형 다크모드 미션 컨트롤 GUI 대시보드
+     - `GET /api/telemetry`: 전 모듈 실시간 상태 취합 JSON
+     - `GET /api/health`: 헬스체크 프로브 (`{"health": "OK"}`)
+     - `GET /api/nodes`: 로버 노드 토폴로지 그래프 데이터
+     - `GET /api/orderbook`: 마이크로 결제 호가 장부 데이터
+* **산출물**:
+  - [`benchmarks/dashboard/telemetry_dashboard.py`](file:///C:/stella/project/AER/benchmarks/dashboard/telemetry_dashboard.py): 대시보드 HTTP 서버 러너
+  - [`benchmarks/dashboard/dashboard.html`](file:///C:/stella/project/AER/benchmarks/dashboard/dashboard.html): 단독 구동형 반응형 웹 대시보드
+  - [`test/core/test_telemetry_dashboard.py`](file:///C:/stella/project/AER/test/core/test_telemetry_dashboard.py): 6대 단위 테스트 100% 통과
+* **SAPQ v2.0 무결성 점수**: 전수 **100/100 만점 획득** (Zombie Node 0, Discontinuity 0)
+
+

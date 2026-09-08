@@ -56,7 +56,7 @@ graph TD
 | **Phase 2-2** | **On-Chain Gas & Latency Profiling** (`benchmarks/onchain/`) | Arbitrum Sepolia deployment, Plumber vs Timelock gas profiling, 3D Octree bisection gas ceiling test | [`v2.0.2-Testnet`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.2-Testnet) | **100% Complete** (SAPQ 100/100) |
 | **Phase 2-3** | **Large-Scale Partition & Netting Stress** (`benchmarks/network/`) | 10,000-node async mesh stress test, 50:50 isolation IOU accumulation limit, recovery netting benchmark | [`v2.0.3-Mesh`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.3-Mesh) | **100% Complete** (SAPQ 100/100) |
 | **Phase 2-4** | **Mathematical Invariant Formal Proofs** (`proofs/formal_verification/`) | Z3 SMT Solver-based proofs of the 3 fundamental invariants (`verify_invariants.py`) | [`v2.0.4-Formal`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.4-Formal) | **100% Complete** (SAPQ 100/100) |
-| **Phase 2-5** | **Live Telemetry Dashboard** (`benchmarks/dashboard/`) | 127.0.0.1:28741 WebSocket loopback dashboard, real-time P2P topology / TPS visualizer | `v2.0.5-Station` | Planned (Pending) |
+| **Phase 2-5** | **Live Telemetry Dashboard** (`benchmarks/dashboard/`) | 127.0.0.1:28741 WebSocket loopback dashboard, real-time P2P topology / TPS visualizer | [`v2.0.5-Station`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.5-Station) | **100% Complete** (SAPQ 100/100) |
 | **Phase 2-6** | **Empirical Technical Report & Master** (`docs/`) | `EMPIRICAL_BENCHMARK.md`, `FORMAL_PROOFS.md`, full dataset packaging, 4-way workspace sync | `v2.0-Production` | Planned (Pending) |
 
 ---
