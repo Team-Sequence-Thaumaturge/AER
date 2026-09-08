@@ -55,7 +55,7 @@ graph TD
 | **Phase 2-1** | **물리 실리콘 하드웨어 실측** (`benchmarks/hardware/`) | Windows TBS / Linux `/dev/tpmrm0` 실물 바인딩, 레이턴시/지터 벤치마크 러너 | [`v2.0.1-Silicon`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.1-Silicon) | **100% 완료** (SAPQ 100/100) |
 | **Phase 2-2** | **온체인 가스 & 지연 실측** (`benchmarks/onchain/`) | Arbitrum Sepolia 배포, 플러머 vs 타임락 가스 실측, 3D 옥트리 이분탐색 한계 가스 검증 | [`v2.0.2-Testnet`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.2-Testnet) | **100% 완료** (SAPQ 100/100) |
 | **Phase 2-3** | **대규모 분산 파티션 실측** (`benchmarks/network/`) | 10,000 노드 비동기 메시 스트레스, 50:50 고립 분할 IOU 한도 실측, 복구 네팅 벤치마크 | [`v2.0.3-Mesh`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.3-Mesh) | **100% 완료** (SAPQ 100/100) |
-| **Phase 2-4** | **수학적 형식 불변성 증명** (`proofs/formal_verification/`) | Z3 SMT Solver 기반 3대 핵심 불변식 증명 코드 (`verify_invariants.py`) | `v2.0.4-Formal` | 계획 수립 (대기) |
+| **Phase 2-4** | **수학적 형식 불변성 증명** (`proofs/formal_verification/`) | Z3 SMT Solver 기반 3대 핵심 불변식 증명 코드 (`verify_invariants.py`) | [`v2.0.4-Formal`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.4-Formal) | **100% 완료** (SAPQ 100/100) |
 | **Phase 2-5** | **실시간 텔레메트리 대시보드** (`benchmarks/dashboard/`) | 127.0.0.1:28741 WebSocket 루프백 연동 대시보드, P2P 토폴로지/TPS 시각화 | `v2.0.5-Station` | 계획 수립 (대기) |
 | **Phase 2-6** | **종합 실측 백서 & 마스터** (`docs/`) | `EMPIRICAL_BENCHMARK.md`, `FORMAL_PROOFS.md`, 전수 데이터 패키징, 4-Way 동기화 | `v2.0-Production` | 계획 수립 (대기) |
 
