@@ -1,40 +1,40 @@
 {
   "network": "test_chain",
-  "deployed_at": 1788847666.3360937,
+  "deployed_at": 1788848123.1719377,
   "is_dry_run": true,
   "contracts": {
     "VendorCARegistry": {
       "contract": "VendorCARegistry",
       "address": "0x820F43CEAD07B8CE304C2099B7976F536135A3AC",
-      "tx_hash": "0xe6fcae434d6b8be8d137a6ee39d3ec8d62615be7a491e0c7d6792776835773bf",
+      "tx_hash": "0x42fea6c21535c64ac692026f1526c2512789ce70d72e792b80c41d7802094c27",
       "gas_used": 1250000,
       "bytecode_hash": "06ae30396144809f8d028bdf40119bb17d884aa47c496e1a6c02c17ffc2a85c8"
     },
     "DisputeVerifier": {
       "contract": "DisputeVerifier",
       "address": "0xACE69F854B3F3091BB4672C559B7C4FCC7F0A193",
-      "tx_hash": "0xdeccafa4c175a0d28cc8571ec1afce249fdd62dd9f65f9678cba0c5ebd5a215a",
+      "tx_hash": "0x72eebd28d3d8b140dadfdcf76a8dc59ed9424cf2c4f3f5791990b870fdf7a23b",
       "gas_used": 1850000,
       "bytecode_hash": "4eb7f009339eca9dacd96af3a447689c46160f0cfb16c6abd9b83e858fbb3a5f"
     },
     "PerimeterGateway": {
       "contract": "PerimeterGateway",
       "address": "0x64481FAF86F067A19511ACD237C08C30A9EA705C",
-      "tx_hash": "0x49ea004a441bb412b61e10a5d40e3df0d67e0a0449432c454e9c0b24f32c291a",
+      "tx_hash": "0xab6a2c9b9e20c21fb2206386b3306e8858c6cc73391075de4868d784a5e0b705",
       "gas_used": 1450000,
       "bytecode_hash": "d3eeb3d862041f649fa73afc3ecc4c0900aa5a0c9aa13b3b7c7e8624178c6187"
     },
     "AEREscrow": {
       "contract": "AEREscrow",
       "address": "0x20D309C788D62C4500BBDF04BD763177DB817FD5",
-      "tx_hash": "0x84940403039ed9c4dd86b2ddd6b4b04a87c82cf401961c45f12ebd1d1fd36099",
+      "tx_hash": "0x603cbb1df3d88e994b147013eee65637eda2a71a2ca296532819322a5bd4fd00",
       "gas_used": 2650000,
       "bytecode_hash": "856caed5064bd323aebcb9e5e3754bf03b4fb2d9fe21a9b8981fc8a300d0e66c"
     },
     "AERAccount": {
       "contract": "AERAccount",
       "address": "0xEBA7B40AF1B1924CCC5B5258C5852EB2E1AEE52B",
-      "tx_hash": "0x7bff53e83c5670893eabb800ad07f84136f805ae98b46bb101d29e971ecad723",
+      "tx_hash": "0xee2a7ad1d77bb001224ecf90a45b71c354fc6b72c88680d809ebcff85c95d3a6",
       "gas_used": 1950000,
       "bytecode_hash": "745322e8750ee823ca78cb019277fcfeae8c202b852982b02107abf58546c8f9"
     }

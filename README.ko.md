@@ -12,10 +12,13 @@
 > * 🔬 **시스템 엔지니어, 암호학자 및 연구자:** 일상 비유를 건너뛰고 수학적 증명, 상태 전이 방정식, 하드웨어 표준 규격을 담은 **[AER.md (영문 딥테크 사양서)](AER.md)** 또는 **[AER.ko.md (국문 기술 사양서)](AER.ko.md)**로 바로 이동하세요.
 > * 🛠️ **코어 개발자 & 기여자:** 자율 데몬 엔진(`aerd`) 구현 청사진과 단계별 개발 명세를 담은 **[ROADMAP.ko.md (구현 로드맵)](ROADMAP.ko.md)** / **[ROADMAP2.ko.md (실측 및 실증 로드맵)](ROADMAP2.ko.md)** / **[ROADMAP3.ko.md (삼위일체 상호작용 로드맵)](ROADMAP3.ko.md)** / **[ROADMAP4.ko.md (자율 경제 & 점진적 탈중앙화 로드맵)](ROADMAP4.ko.md)**를 확인하세요.
 >
-> 🏆 **AER Protocol v2.0-Production 공식 릴리즈 완료 (`v2.0-Production`):**
+> 🏆 **AER Protocol v3.0-Trinity 공식 마스터 릴리즈 완료 (`v3.0-Trinity`):**
+> * 🕹️ **삼위일체 종합 명세서 (Trinity Specification):** TTY BBS 콘솔, 무의존성 상용 MCP 게이트웨이, 웹 미션 컨트롤 액션 패널 통합 명세 **[TRINITY_SPECIFICATION.ko.md](docs/TRINITY_SPECIFICATION.ko.md)** / **[English](docs/TRINITY_SPECIFICATION.md)**
 > * 🔬 **실측 기술 백서 (Empirical Benchmark):** 물리 TPM 2.0 실리콘 텔레메트리, EVM Cancun 온체인 가스 실측, 10,000 노드 파티션 스트레스 전수 데이터 **[EMPIRICAL_BENCHMARK.ko.md](docs/EMPIRICAL_BENCHMARK.ko.md)** / **[English](docs/EMPIRICAL_BENCHMARK.md)**
 > * 📐 **수학적 형식 증명서 (Formal Proofs):** Z3 SMT Solver 기반 3대 핵심 불변식 수학적 정형 증명 **[FORMAL_PROOFS.ko.md](docs/FORMAL_PROOFS.ko.md)** / **[English](docs/FORMAL_PROOFS.md)**
-> * 🖥️ **실시간 텔레메트리 대시보드:** 에어갭 로컬 루프백 미션 컨트롤 대시보드 (`http://127.0.0.1:28741/`)
+> * 🖥️ **웹 미션 컨트롤 대시보드:** 에어갭 로컬 루프백 원클릭 제어판 (`http://127.0.0.1:28741/`)
+> * 📟 **레트로 사이버펑크 콘솔:** `python src/aer/cli.py console [--sound]` (90년대 모뎀 음향 커플러 핸드셰이크)
+> * 🤖 **무의존성 상용 MCP 게이트웨이:** `python src/aer/cli.py mcp` (Claude / Gemini stdio JSON-RPC 2.0)
 
 ---
 

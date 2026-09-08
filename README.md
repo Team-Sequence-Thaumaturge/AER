@@ -12,10 +12,13 @@
 > * 🔬 **Systems Engineers, Cryptographers & Researchers:** Skip the analogies and jump straight into our mathematical proofs, formal state transitions, and engineering standards at **[AER.md (Deep-Tech Master Specification)](AER.md)** (or the **[한국어 기술 사양서](AER.ko.md)**).
 > * 🛠️ **Core Developers & Contributors:** Explore the technical implementation blueprint and daemon architecture in **[ROADMAP.md (Implementation Roadmap)](ROADMAP.md)** / **[ROADMAP2.md (Empirical Roadmap)](ROADMAP2.md)** / **[ROADMAP3.md (Trinity Interaction Roadmap)](ROADMAP3.md)** / **[ROADMAP4.md (Autonomous Economy & Decentralization Roadmap)](ROADMAP4.md)**.
 >
-> 🏆 **AER Protocol v2.0-Production Official Master Release (`v2.0-Production`):**
+> 🏆 **AER Protocol v3.0-Trinity Official Master Release (`v3.0-Trinity`):**
+> * 🕹️ **Trinity Master Specification:** Unified spec for TTY BBS Console, Zero-Dep MCP Gateway, and Web Action Dashboard **[TRINITY_SPECIFICATION.md](docs/TRINITY_SPECIFICATION.md)** / **[한국어](docs/TRINITY_SPECIFICATION.ko.md)**
 > * 🔬 **Empirical Benchmark Whitepaper:** Physical TPM 2.0 silicon telemetry, EVM Cancun onchain gas telemetry, and 10,000-node partition stress test dataset **[EMPIRICAL_BENCHMARK.md](docs/EMPIRICAL_BENCHMARK.md)** / **[한국어](docs/EMPIRICAL_BENCHMARK.ko.md)**
 > * 📐 **Mathematical Formal Proofs:** Z3 SMT Solver refutation proofs for the 3 core invariants **[FORMAL_PROOFS.md](docs/FORMAL_PROOFS.md)** / **[한국어](docs/FORMAL_PROOFS.ko.md)**
-> * 🖥️ **Live Telemetry Mission Dashboard:** Air-gapped local loopback telemetry dashboard (`http://127.0.0.1:28741/`)
+> * 🖥️ **Web Mission Control Dashboard:** Air-gapped local loopback 1-click action panel (`http://127.0.0.1:28741/`)
+> * 📟 **Retro Cyberpunk Console:** `python src/aer/cli.py console [--sound]` (90s acoustic coupler modem handshake)
+> * 🤖 **Zero-Dep MCP Gateway:** `python src/aer/cli.py mcp` (Claude / Gemini stdio JSON-RPC 2.0)
 
 ---
 
