@@ -21,7 +21,7 @@ import time
 import random
 import threading
 from pathlib import Path
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, ThreadingHTTPServer, BaseHTTPRequestHandler
 from typing import Dict, Any, List, Optional
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "src")))
@@ -51,10 +51,16 @@ class AERTelemetryProvider:
             "timestamp": time.time(),
             "uptime_seconds": uptime,
             "reputation_mass": 100,
-            "balance_credit_b": 90000,
+            "balance_credit_b": 0,
+            "operator_wallet": {
+                "node_id": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                "aer_a": 100,
+                "aer_b": 0,
+                "credit_limit_b": 1000
+            },
             "daemon": {
                 "name": "aerd",
-                "version": "2.0.5",
+                "version": "3.0.0",
                 "status": "ONLINE",
                 "loopback": "127.0.0.1:28741"
             },
@@ -93,6 +99,7 @@ class AERDashboardHTTPHandler(BaseHTTPRequestHandler):
         self.send_response(status_code)
         self.send_header("Content-Type", content_type)
         self.send_header("Access-Control-Allow-Origin", "http://127.0.0.1")
+        self.send_header("Connection", "close")
         self.end_headers()
 
     def do_GET(self) -> None:
@@ -173,7 +180,7 @@ class AERDashboardServer:
     def start(self) -> bool:
         """Start local dashboard server in background thread."""
         try:
-            self.httpd = HTTPServer((self.host, self.port), AERDashboardHTTPHandler)
+            self.httpd = ThreadingHTTPServer((self.host, self.port), AERDashboardHTTPHandler)
             self.httpd.provider = self.provider
             self.server_thread = threading.Thread(target=self.httpd.serve_forever, daemon=True)
             self.server_thread.start()

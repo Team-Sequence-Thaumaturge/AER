@@ -40,7 +40,16 @@
     <h2>AER STATION <span style="font-weight: normal; color: var(--text-muted);">// LIVE TELEMETRY</span></h2>
     <span class="badge">AIR-GAPPED 127.0.0.1:28741</span>
   </div>
-  <div style="color: var(--accent-green);">● SYSTEM OPERATIONAL</div>
+  <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+    <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 6px; padding: 6px 14px; font-size: 0.82rem; display: flex; gap: 14px; align-items: center;">
+      <div><span style="color: var(--text-muted);">OPERATOR:</span> <span style="color: var(--accent-blue); font-family: monospace;">0x7099...79C8</span></div>
+      <div style="border-left: 1px solid var(--border-color); height: 16px;"></div>
+      <div><span style="color: var(--text-muted);">AER-A:</span> <span style="color: #a78bfa; font-weight: bold;">100 A</span></div>
+      <div style="border-left: 1px solid var(--border-color); height: 16px;"></div>
+      <div><span style="color: var(--text-muted);">AER-B:</span> <span id="wallet_aer_b" style="color: #fff; font-weight: bold;">0 B</span> <span style="color: var(--accent-amber); font-size: 0.75rem;">(LINE: 1,000 B)</span></div>
+    </div>
+    <div style="color: var(--accent-green); font-size: 0.85rem; font-weight: bold;">● SYSTEM OPERATIONAL</div>
+  </div>
 </header>
 
 <div class="grid">
@@ -175,6 +184,10 @@
       fetch("/api/telemetry")
         .then(function(res) { return res.json(); })
         .then(function(data) {
+          let wb = document.getElementById("wallet_aer_b");
+          if(wb && data.operator_wallet) {
+            wb.innerHTML = data.operator_wallet.aer_b + " B";
+          }
           let bx = document.getElementById("ticker_log_box");
           if(bx) {
             let ts = new Date().toLocaleTimeString();

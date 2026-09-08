@@ -40,15 +40,16 @@ class CollateralCreditContinuum:
 
     def calculate_mutual_credit_limit(self, reputation_mass: int, base_unit: int = 1000) -> int:
         """
-        Calculate allowable unsecured credit limit in atomic Credit B units.
+        Calculate allowable unsecured credit limit in atomic Credit B (AER-B) units.
         Nodes at A_0 receive 0 unsecured credit.
+        Baseline node at A_j = 100 receives 1,000 AER-B credit line, scaling linearly.
         """
         if reputation_mass <= self.a_0:
             return 0
 
         excess_mass = reputation_mass - self.a_0
-        # Linear scaling with dampening
-        return int(excess_mass * base_unit)
+        # Baseline: at excess_mass = 90 (A_j = 100), limit is exactly 1,000 AER-B
+        return max(0, int((excess_mass / 90.0) * base_unit))
 
     def evaluate_task_collateral(
         self,

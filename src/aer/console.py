@@ -304,11 +304,11 @@ class AERInteractiveConsole:
         else:
             print(f"  Physical Latency   : 4.5312 ms (Verified Benchmark)")
 
-        print(f"  Reputation Mass (A): {MAGENTA}{node_state.reputation_mass}{RESET} (Ground State A_0: {node_state.ground_state})")
-        print(f"  Total Tasks Solved : {node_state.total_completed_tasks} completed, {node_state.total_betrayals} betrayed")
-        print(f"  Mutual Credit Quota: {BRIGHT_YELLOW}{collateral_info['max_credit_limit']:,} Credit B{RESET}")
-        print(f"  Required Collateral: {collateral_info['collateral_ratio']:.1%}")
-        print(f"  Gas per Dispute    : {CYAN}142,680 Gas (Arbitrum Sepolia Cancun L2){RESET}\n")
+        print(f"  Reputation Mass (AER-A): {MAGENTA}{node_state.reputation_mass} A{RESET} (Ground State A_0: {node_state.ground_state} A)")
+        print(f"  Total Tasks Solved     : {node_state.total_completed_tasks} completed, {node_state.total_betrayals} betrayed")
+        print(f"  Mutual Credit (AER-B)  : {BRIGHT_YELLOW}{collateral_info['max_credit_limit']:,} B (Credit Line){RESET}")
+        print(f"  Required Collateral    : {collateral_info['collateral_ratio']:.1%}")
+        print(f"  Gas per Dispute        : {CYAN}142,680 Gas (Arbitrum Sepolia Cancun L2){RESET}\n")
 
     def _cmd_peers(self) -> None:
         """List active mesh peers."""
