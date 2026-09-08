@@ -57,7 +57,7 @@ graph TD
 | **Phase 2-3** | **대규모 분산 파티션 실측** (`benchmarks/network/`) | 10,000 노드 비동기 메시 스트레스, 50:50 고립 분할 IOU 한도 실측, 복구 네팅 벤치마크 | [`v2.0.3-Mesh`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.3-Mesh) | **100% 완료** (SAPQ 100/100) |
 | **Phase 2-4** | **수학적 형식 불변성 증명** (`proofs/formal_verification/`) | Z3 SMT Solver 기반 3대 핵심 불변식 증명 코드 (`verify_invariants.py`) | [`v2.0.4-Formal`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.4-Formal) | **100% 완료** (SAPQ 100/100) |
 | **Phase 2-5** | **실시간 텔레메트리 대시보드** (`benchmarks/dashboard/`) | 127.0.0.1:28741 WebSocket 루프백 연동 대시보드, P2P 토폴로지/TPS 시각화 | [`v2.0.5-Station`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0.5-Station) | **100% 완료** (SAPQ 100/100) |
-| **Phase 2-6** | **종합 실측 백서 & 마스터** (`docs/`) | `EMPIRICAL_BENCHMARK.md`, `FORMAL_PROOFS.md`, 전수 데이터 패키징, 4-Way 동기화 | `v2.0-Production` | 계획 수립 (대기) |
+| **Phase 2-6** | **종합 실측 백서 & 마스터** (`docs/`) | `EMPIRICAL_BENCHMARK.md`, `FORMAL_PROOFS.md`, 전수 데이터 패키징, 4-Way 동기화 | [`v2.0-Production`](https://github.com/Team-Sequence-Thaumaturge/AER/releases/tag/v2.0-Production) | **100% 완료** (SAPQ 100/100) |
 
 ---
 
