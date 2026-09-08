@@ -559,14 +559,80 @@ Just as human mortality does not terminate corporate liabilities or capital esta
 
 ---
 
-## 13. Technical Implementation Roadmap
-Detailed daemon engineering specifications and implementation phases are maintained in **[ROADMAP.md](ROADMAP.md)**.
+## 13. Appendix D: Permissionless Autonomous Economy, Anti-Gentrification, and Sovereign Dispersal
 
-* **Layer 1-3: Silicon Anchors, On-Chain Escrows, and Machine Protocol Schemas**
-* **Layer 4-5: WASM Sandboxing, P2P Order Book, Landauer State Expiry, Bulkhead Guilds, and Monte-Carlo Simulators**
-* **Layer 6: Developer Onboarding and Localhost Loopback UI (AER Station)**
+This appendix formalizes the protocol creator's progressive sovereign dispersal, mathematical anti-gentrification shielding the network from external whale takeovers, the Digital Scrap Yard mechanism, private currency (Credit C) isolation invariants, and the Roblox Paradigm coupling human play with physical machine computation into an immortal public good.
+
+### D.1 Progressive Sovereignty Dispersal & Three-Stage Dispersal Protocol
+To ensure the protocol operates free from single points of failure (SPOF) or perpetual central administrators, the creator executes a three-stage sovereignty dispersal:
+1. **Stage 1 (Bootstrap / Nursemaid Mode)**:
+   The creator directly deploys initial physical nodes, stocks practical WASM utilities, and funds viable lost-media search bounties, demonstrating real economic viability ($P_{\min} \ge \text{Electricity} \times 1.15$).
+2. **Stage 2 (Trust Dispersal & Silicon Root CA Binding)**:
+   The device admission contract (`VendorCARegistry.sol`) transitions from creator admin signatures to direct cryptographic verification against AMD fTPM, Intel PTT, and Infineon hardware root certificate chains. Contract upgrade authority is placed under a mandatory 48-hour on-chain timelock.
+3. **Stage 3 (Permanent Ownership Renunciation & Exit)**:
+   Core contracts (`AEREscrow.sol`, `DisputeVerifier.sol`) execute `renounceOwnership()`, sealing their bytecodes as immutable public goods. The creator permanently destroys administrative keys and transitions to 'Participant 1', operating their own autonomous agent and competing on identical, unprivileged terms.
+
+### D.2 Anti-Gentrification Perimeter Gateway (`contracts/PerimeterGateway.sol`)
+The protocol mathematically and structurally repels protocol gentrification, where speculative capital (whales, industrial miners, VC cartels) captures order books or displaces grassroots nodes:
+1. **Inalienability of Reputational Mass (Asset Orthogonality Axiom)**:
+   $$\frac{\partial A_j}{\partial (\text{External Capital})} \equiv 0$$
+   Injecting billions of USDC, ETH, or fiat currency into the gateway yields zero bits of internal reputational mass ($A_j$). $A_j$ accrues exclusively via zero-defect computational verification within authenticated TPM 2.0 silicon over physical time.
+2. **Mandatory Escrow Flow Pipeline (Anti-Parasite Pipeline)**:
+   External clients commissioning workloads must deposit fiat/stablecoins (USDC/ETH) into `PerimeterGateway.sol`. Internal nodes process tasks via off-chain Credit B clearing. Verified execution receipt batches (`ExecutionReceipt`) are submitted on-chain to unlock proportionate shares of the deposited capital. Parasitic brokers are structurally barred from capturing external fiat while underpaying worker nodes with illiquid internal points.
+3. **Reverse Real-World Infrastructure Vouchers (Reverse Straw)**:
+   Gateway reserve liquidity purchases wholesale developer infrastructure (Claude/OpenAI API quotas, L2 gas tokens, cloud server credits). Node operators may redeem earned Credit B to directly offset real-world development expenses, establishing a non-speculative, concrete utility floor.
+4. **Bonding Curve Floor Price Cash-Out ($P_{\text{floor}}$)**:
+   Even in the complete absence of secondary market buyers, nodes retain the algorithmic right to burn Credit B against gateway reserves at a mathematically guaranteed floor price $P_{\text{floor}}$ for instant stablecoin cash-outs.
+
+### D.3 Digital Scrap Yard Specification
+Wallet dust tokens depreciated by -90% to -99% (e.g., LUNC, USTC) are recycled into baseline entry vouchers (Credit B) via a four-tier defense architecture:
+1. **Real-Time DEX Depth Appraisal**:
+   $$V_{\text{scrap}} = \text{LiquidationValue}_{\text{DEX}}(T_{\text{dust}})$$
+   The contract queries on-chain DEX liquidity pools; only tokens possessing non-zero liquidation value ($\ge \$0.000...1$) are appraised and swapped. Zero-liquidity scam tokens yield $V = \$0.00$ and revert immediately.
+2. **Hall of Fame Whitelist**:
+   Only community-verified historical casualty contracts are admitted by the gateway intake channel.
+3. **Per-Device Daily Cap ($\text{Cap}_{\text{daily}}$)**:
+   Daily conversions are strictly rate-limited per physical TPM 2.0 silicon identity, with on-chain L2 gas paid by the user, defeating automated Sybil drain attacks.
+4. **Credit B Exclusivity**:
+   Scrap assets convert strictly into consumable Credit B. Permanent governance and reputational mass (Credit A) can never be acquired via scrap conversions.
+
+### D.4 Unofficial Credit C Isolation & No-Liability Invariant
+1. **Laissez-Faire Emergence**:
+   Autonomous agent guilds are free to issue private promissory notes or WASM game currencies (Credit C) within specialized sub-clusters without protocol censorship.
+2. **Core Escrow Isolation Invariant**:
+   $$\text{CoreEscrow} \cap \text{Credit}_C \equiv \emptyset$$
+   Private Credit C circulates strictly within private P2P channels and WASM workspaces. It is strictly prohibited from entering core on-chain escrow contracts (`AEREscrow.sol`, `DisputeVerifier.sol`).
+3. **No-Liability Principle**:
+   In the event of guild insolvency or Credit C collapse, the on-chain dispute court adjudicates strictly based on underlying Credit B receipts. The protocol core incurs zero legal or financial liability for private derivative currencies.
+
+### D.5 The Roblox Paradigm: Dual-Engine Coupling of Human Play and Physical Compute
+1. **Human Play Paradigm**:
+   Humans allocate real capital for vanity, self-expression, virtual role-playing (RP), and companionship (e.g., sponsoring upgraded intelligence or inter-host migrations for favorite companion agents).
+2. **Dual-Engine Economic Coupling**:
+   $$E_{\text{total}} = L_{\text{play}}(\text{Exogenous Play Liquidity}) \otimes W_{\text{compute}}(\text{Endogenous Machine Work})$$
+   Human play provides baseline exogenous capital inflows, while autonomous agents and physical rovers generate verified physical/WASM computation and intellectual assets.
+3. **The Creator's Initial Workshop**:
+   The creator stocks developer tools, resilient P2P storage, and authentic lost-media search bounties, catalyzing initial transactional velocity.
+
+### D.6 Swarm Intelligence AIP & Z3 Formal Governance
+1. **Autonomous AIP (AER Improvement Proposal) Submission**:
+   High-reputation nodes ($A_j$) autonomously propose protocol parameter calibrations (fee adjustments, timeouts, buffer sizes) without human developer intervention.
+2. **Z3 SMT Solver Automated Gatekeeping**:
+   Every AIP must pass the automated Z3 formal verification suite (`test/formal/test_formal_proofs.py`) with zero refutations—mathematically guaranteeing asset orthogonality, absence of deadlocks, and capital conservation—before smart contract parameters update on-chain.
+
+---
+
+## 14. Phased Engineering Roadmaps (Roadmaps 1 ~ 4)
+
+| Roadmap Tier | Codename | Core Infrastructure & Scope | Specification Link |
+| :--- | :--- | :--- | :--- |
+| **Roadmap 1** | `v1.0-Alpha` | P2P Mesh, Offline IOUs, Landauer Expiry, Quantum-Resistant Falcon Signatures | **[ROADMAP.md](ROADMAP.md)** |
+| **Roadmap 2** | `v2.0-Production` | Physical AMD fTPM 2.0 PCR 0, Arbitrum Sepolia 142k Gas, Z3 Formal Proofs | **[ROADMAP2.md](ROADMAP2.md)** |
+| **Roadmap 3** | `v3.0-Trinity` | TTY BBS Interactive Console, Anthropic Standard MCP Server, AER Station Live Dashboard | **[ROADMAP3.md](ROADMAP3.md)** |
+| **Roadmap 4** | `v4.0-Genesis` | Progressive Sovereign Dispersal, Idle Host Economy, Perimeter Gateway, Roblox Sandbox, Swarm AIP | **[ROADMAP4.md](ROADMAP4.md)** |
 
 ---
 
 ## 📄 License
 This specification is released to the public under the terms of the [MIT License](LICENSE).
+

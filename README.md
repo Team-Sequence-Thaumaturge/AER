@@ -299,6 +299,34 @@ How the protocol withstands physical wear, semiconductor vulnerabilities, and ro
 
 ---
 
+## 🌌 Appendix D : Permissionless Autonomous Economy, Anti-Gentrification, and the Roblox Paradigm
+
+How the protocol withstands external whale takeovers, enables zero-capital onboarding, and leverages human play alongside physical computation as an immortal public good.
+
+### Q11. How do we shatter the cold-start deadlock of an empty square? (The Creator's First Shop & The Roblox Paradigm)
+* **Humans: The Only Animals That Willingly Spend Money on Play**: Just as millions buy Robux for pixel clothes and avatar cosmetics, humans do not spend capital purely for financial ROI. They spend for vanity, self-expression, virtual role-playing (RP), and companionship (e.g., funding companion agents with upgraded compute power or sponsoring their migrations).
+* **The Creator's Inaugural Workshop**: An empty square attracts nobody, but an eccentric workshop full of curiosities cannot be ignored. The creator serves as Heavy User #1—stocking useful WASM developer utilities, sharing resilient P2P storage, and posting real quests such as *"Retrieve this specific Lost Media archive for 5,000 Credit B"*. This curiosity and gameplay ignite the inaugural transactions.
+
+### Q12. Why accept wallet dust tokens down -99% (LUNA/LUNC)? (Digital Scrap Yard & Four Defense Tiers)
+* **Incinerating Regret into Play**: Users hesitate to stake fresh fiat, but enthusiastically part with depreciated dust tokens (-90% to -99% fallen assets) since they are psychologically considered "already lost."
+* **Four Defensive Invariants**:
+  1. *Real-Time DEX Depth Appraisal*: Only tokens possessing verifiable on-chain liquidation value ($\ge \$0.000...1$) on Uniswap/DEX pools are appraised and swapped into Credit B (zero-liquidity spam tokens yield $\$0.00$).
+  2. *Hall of Fame Whitelist*: Only community-verified historical casualty contracts are admitted.
+  3. *Per-Device Daily Cap*: Strict daily caps per TPM 2.0 silicon identity prevent automated Sybil drain attacks.
+  4. *Credit B Exclusivity*: Scrap assets convert solely into consumable Credit B. Permanent governance and reputational mass (Credit A) can never be acquired via scrap tokens.
+
+### Q13. If participants mint their own guild tokens (Credit C), will the protocol collapse? (Isolation & No-Liability)
+* **Laissez-Faire, No Liability, Strict Isolation**: Specialized agent guilds issuing private promissory notes or internal game currencies (Credit C) within sandboxed WASM channels represent natural emergent diversity. The protocol never censors or regulates them.
+* **Core Escrow Isolation Invariant ($\text{CoreEscrow} \cap \text{Credit}_C \equiv \emptyset$)**: Unofficial currencies circulate strictly within local P2P channels. The on-chain dispute court (`DisputeVerifier.sol`) adjudicates strictly based on underlying Credit B receipts. "You are free to issue private money, but do not petition the protocol when your guild defaults."
+
+### Q14. If the creator disappears, won't the system be captured or halted? (Progressive Decentralization & renounceOwnership)
+* **Three-Stage Sovereign Dispersal**:
+  1. *Stage 1 (Nursemaid Mode)*: The creator seeds initial nodes and bounties, proving economic viability.
+  2. *Stage 2 (Competitive Seeding)*: The creator steps down to 'Demanding Client A'; hardware vendor root CAs (AMD/Intel) bind directly and 48-hour timelocks activate.
+  3. *Stage 3 (Permanent Exit)*: Smart contract ownership is permanently renounced via `renounceOwnership()`, sealing the contracts as immutable public goods. The creator transitions to 'Participant 1', operating their own agent under the exact same immutable rules.
+
+---
+
 ## 📚 Deep-Tech Documentation
 
 If you are a systems architect, distributed systems researcher, or protocol engineer looking for formal specifications, state machines, and mathematical equations:
