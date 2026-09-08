@@ -24,7 +24,7 @@
 
 ---
 
-## ⚡ Three Core Defensive Invariants
+## ⚡ Five Core Defensive Invariants
 
 ### ① Concurrency Isolation: Hub-and-Spoke Local Broker
 * **Challenge**: Anthropic MCP servers require exclusive control over `sys.stdin`/`sys.stdout` for machine JSON-RPC communication. Co-locating an interactive TTY REPL in the same process causes instant pipe contention and deadlocks.
@@ -33,19 +33,29 @@
   - The **Human Terminal Console (`aer console`)** and the **AI MCP Server (`aer_mcp_server.py`)** launch as independent client processes connecting concurrently to the local hub.
   - Operators can open or close console sessions without interrupting the AI's MCP stream, and heavy tool calls never corrupt human TTY displays.
 
-### ② Subprocess Watchdog & Fault Trapping: WASM Sandboxing
-* **Challenge**: Malicious peers submitting infinite loops (`while True`) or memory exhaustion attacks (OOM) as task solutions can freeze the daemon runtime.
+### ② WASI Capability-Deny-All Sandbox & 2.0s Subprocess Watchdog
+* **Challenge**: Visiting guest agents from external hosts attempting to inspect host file systems, environmental API keys, or freezing the daemon with infinite loops.
 * **Defensive Architecture**:
-  - Task execution and verification are delegated to an **isolated Subprocess Sandbox Worker**.
-  - A strict **2.0-second hard timeout watchdog** and **64MB memory cap** are enforced at the OS level.
-  - Exceeding thresholds triggers immediate termination (`SIGKILL`). The perpetrator is classified as a **"System Betrayal (Defect)"**, forfeiting reputation mass ($A_j$) and triggering autonomous topological severance (Boycott).
+  - WebAssembly (WASI) Capability-based isolation strictly blocks (`WASI_CAP_DENY_ALL`) access to host OS files, environment variables, or unauthorized socket creation. Execution is bounded within an ephemeral in-memory RAM disk (`guest_ram_workspace/`).
+  - Task execution is delegated to an **isolated Subprocess Sandbox Worker** with a hard **2.0-second timeout watchdog** and **64MB memory cap**, terminating offending processes with `SIGKILL` and permanent reputation slashing.
 
-### ③ Non-Intrusive Buffer Collision Guard: BBS TTY Console
-* **Challenge**: Incoming P2P gossip packets or trade logs colliding with the prompt (`AER:ROVER-01> `) while the operator is actively typing, destroying the input buffer.
+### ③ Large-Scale Blob 2GB LRU Disk Quota & Anti-Disk DoS
+* **Challenge**: Hostile peers flooding the P2P mesh with multi-gigabyte junk video blobs, exhausting victim disk drives.
 * **Defensive Architecture**:
-  - Inspired by 90s terminal paging notification queues, a **two-tier notification guard** is implemented:
-    1. **Silent Queue (Default)**: Suppresses mid-typing interruptions, pulsing a non-intrusive `[🔔 1 new gossip]` indicator. Queued messages flush upon Enter or explicit `msg read`.
-    2. **Real-Time ANSI Streaming**: Clears the active cursor line (`\r\033[K`), shifts the gossip message upward, and restores the operator's in-progress typing buffer seamlessly underneath.
+  - The local P2P blob cache is bounded by a strict **2GB LRU cap**, automatically evicting unverified stale blobs.
+  - Automated prefetching is disabled for unverified nodes; heavy blobs stream strictly on-demand upon explicit operator confirmation.
+
+### ④ Domestic Router NAT Traversal & Distributed Relay Hole Punching
+* **Challenge**: Both PC A and PC B operating behind domestic routers (NAT/firewalls) unable to discover or bind direct sockets.
+* **Defensive Architecture**:
+  - Implements STUN/TURN-based WebRTC ICE hole punching to penetrate domestic routers.
+  - In symmetric firewall topologies, authenticated Super Rovers relay end-to-end encrypted packets to preserve 100% reachability.
+
+### ⑤ Windows TTY Native Encoding & Acoustic Modem Experience
+* **Challenge**: Legacy Windows CMD `CP949` encoding corrupting Hangul characters and ANSI color box rendering.
+* **Defensive Architecture**:
+  - Enforces UTF-8 (`chcp 65001`) and enables ANSI Virtual Terminal Sequences (`SetConsoleMode`) on startup.
+  - Emulates 90s acoustic coupler modem handshake sounds (`winsound.Beep` 0.5s audio pulse, toggleable via `--sound`) alongside `CONNECT 10000_NODES` for visceral cypherpunk immersion.
 
 ---
 

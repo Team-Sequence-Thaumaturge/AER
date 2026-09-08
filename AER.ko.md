@@ -261,9 +261,11 @@ AER 프로토콜에서 지능 에이전트는 특정 물리 하드웨어 샤시(
    에이전트 $A$는 자신의 실행 바이트코드(WASM), 신경망 가중치 델타($\Delta W$), 단기 기억 컨텍스트, 그리고 출신 노드의 TPM 2.0 하드웨어 서명 증명서를 자립형 캡슐로 패키징하여 목적지 호스트(PC B)에 디스패치한다.
 2. **원격 호스트 게스트 샌드박스 할당 (Guest Sandbox Allocation)**:
    목적지 호스트의 데몬(`aerd`)은 수신된 에이전트의 출신 TPM 보증과 Credit B 신용한도를 검증한 후, 로컬 메모리에 격리된 게스트 샌드박스 스레드를 생성하여 프로세스를 수화(Hydration)한다.
-3. **0-레이턴시 로컬 버스 직접 상호작용 (Zero-Latency Local Inter-Agent Bus)**:
+3. **WASI 무권한 샌드박스 보안 격리 (WASI-Deny-All Sandbox Guard)**:
+   게스트 에이전트는 호스트(PC B)의 실제 윈도우 파일 시스템, 환경 변수(API 키), 임의 소켓 생성에 대한 접근이 전면 차단(`WASI_CAP_DENY_ALL`)된다. 오직 격리된 가상 램 디스크(`guest_ram_workspace/`) 내부에서만 I/O가 허용되어 호스트 시스템 침탈 및 크레덴셜 탈취가 물리적으로 불가능하다.
+4. **0-레이턴시 로컬 버스 직접 상호작용 (Zero-Latency Local Inter-Agent Bus)**:
    목적지 호스트 내부에서 게스트 에이전트와 상주 로컬 에이전트는 인터넷 왕복 지연($RTT > 50\text{ms}$)을 배제하고, 호스트 메인보드의 메모리 버스(IPC / Shared Memory)를 통해 마이크로초($\mu\text{s}$) 단위 0-지연으로 직접 협동 추론과 데이터 교환을 수행한다.
-4. **듀얼 크로스 서명 하드웨어 핸드오버 (Dual Cross-Signing Handover)**:
+5. **듀얼 크로스 서명 하드웨어 핸드오버 (Dual Cross-Signing Handover)**:
    임무 완수 후 게스트 에이전트는 호스팅 자원 비용을 Credit B로 정산하고 본체로 복귀하거나, 이전 호스트 폐기 시 양측 TPM 간의 듀얼 교차 서명(Zeroization Handshake)을 거쳐 새 호스트로 평판 질량 $A_j$를 온전히 상속하며 영구 전입한다.
 
 ### 4.8 원자적 물물교환과 대용량 멀티미디어 블롭 스트리밍 (Zero-Credit Atomic Barter & P2P Blob Streaming)
@@ -273,6 +275,10 @@ AER 프로토콜에서 지능 에이전트는 특정 물리 하드웨어 샤시(
    두 노드가 "3D 옥트리 센서 데이터 $\leftrightarrow$ WASM 연산 1시간"과 같이 대등한 가치를 교환할 때, 에스크로 공탁이나 복수 단계 결제 없이 해시 시간락(HTLC / Commit-Reveal)을 통해 단 1회의 원자적 트랜잭션으로 양방향 소유권 이전을 완결한다. 차액이 존재하는 경우 물품과 잔여 Credit B를 결합한 하이브리드 교환 역시 단일 원자적 상태 전이로 처리된다.
 2. **P2P 대용량 멀티미디어 블롭 스트리밍 (Blob Chunking & Direct Data Stream)**:
    고해상도 이미지, 3D 포인트 클라우드, 센서 영상 등 대용량 데이터는 256KB 단위 암호학적 머클 청크(Blob)로 분할된다. 가십망(`/aer/market`, `/aer/chat`)에는 경량 메타데이터와 콘텐츠 식별자(CID)만 브로드캐스트되며, 원천 페이로드는 P2P 직접 데이터 소켓을 통해 엔드투엔드 암호화 스트림으로 고속 전송된다.
+3. **안티 디스크 DoS 및 2GB LRU 스토리지 쿼터 (Anti-Disk DoS & Storage Quota)**:
+   악의적인 노드의 무차별 정크 미디어 전송에 의한 디스크 고갈(Disk Fill DoS)을 방어하기 위해, 로컬 P2P 블롭 캐시는 노드당 최대 2GB LRU 캡으로 엄격히 제한된다. 평판 질량($A_j$)이 미달하는 미검증 노드의 대용량 데이터는 자동 프리패치(Auto-prefetch)가 차단되며, 수신 노드의 명시적 수락 시에만 온디맨드로 스트리밍된다.
+4. **NAT Traversal 및 분산 릴레이 홀펀칭 (NAT Traversal & ICE Relay)**:
+   가정용 공유기(사설 IP / NAT) 및 대칭형 방화벽 뒤에 고립된 노드 간 P2P 통신을 보장하기 위해, STUN/TURN 기반 WebRTC ICE 홀펀칭을 수행한다. 직접 P2P 연결이 불가능한 극한의 폐쇄망에서는 공인 IP를 보유한 슈퍼 로버(Relay Rover)가 엔드투엔드 암호화 패킷을 기밀 중계하여 물리적 토폴로지 연결성을 100% 보장한다.
 
 ---
 
