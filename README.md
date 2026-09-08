@@ -58,6 +58,9 @@ When two people traded a cow for grain, they expended their own calories to spea
 
 **AER treats the digital universe the exact same way:**
 * There is **no central mainframe server** running 24/7 (Fixed hosting cost = **$0**).
+* **The 90s PC Communication Axiom**: In the dial-up modem era (BBS, Chollian, Hitel), telephone line fees were paid by each user on their own telecom bill; the server never paid user connection fees. In AER, gossip packets and compute costs are funded locally by each rover's physical silicon (TPM 2.0), local power (kWh), and credit line (Credit B), guaranteeing perpetual self-sustained survival with zero centralized infrastructure bills.
+* **Agent Mobility & Cross-Host Migration**: An AI agent executing on PC A can travel across the P2P mesh on a business trip to PC B (equipped with high-end GPUs). Hydrated inside PC B's isolated guest sandbox, it collaborates directly with PC B's resident agent over the 0ms motherboard memory bus, settles hosting fees in Credit B, and either returns home with results or permanently migrates!
+* **Coexistence of Barter and Credit**: When two nodes possess mutually desired assets, they execute direct, zero-escrow **Zero-Credit Atomic Swaps** in a single atomic transaction. Escrow deposits and asynchronous credit (Credit B) are reserved strictly for time-delayed or disputable engagements.
 * There is **no domain authority** to register with (Registration cost = **$0**).
 * When Node A and Node B meet to exchange code, compute, or physical work, they communicate directly, verify each other's hardware security chip (TPM 2.0), and settle locally. **They burn their own local electricity and bandwidth only during the split-second of interaction.**
 * When nobody is trading, the system is not "down"—it rests in silent, zero-cost dormancy.

@@ -269,6 +269,26 @@ AER rejects the dogma that centralization must be dogmatically prohibited by cod
    If a guild master or super-node defects, crossing the critical betrayal threshold ($\Omega_c$) and triggering a phase transition avalanche ($A_j \to A_0$), the failure radius (Blast Radius) is strictly confined to the master node's collateral boundary.
    Like the watertight bulkheads of a maritime vessel, task bounties and receivables belonging to innocent sub-channel participants are cryptographically partitioned in smart contracts, completely isolated from the master's insolvency. The broader network does not freeze; only the defective node undergoes localized dissolution.
 
+### 4.7 Agent Mobility and Cross-Host Sandbox Migration
+In the AER protocol, intelligent agents are never permanently tethered to a single physical chassis. In accordance with the separation of the autonomous soul/state from ephemeral silicon signers, an agent can safely dispatch itself as a guest actor or permanently migrate across P2P hosts:
+
+1. **Mobile Agent State Capsule**:
+   Agent $A$ serializes its WASM execution bytecode, neural weight deltas ($\Delta W$), short-term memory context, and origin TPM 2.0 hardware attestation into a self-contained cryptographic capsule dispatched to destination host $B$.
+2. **Remote Host Guest Sandbox Allocation**:
+   The resident daemon (`aerd`) on Host $B$ verifies the incoming agent's origin TPM quote and Credit B collateral limits, instantiating an isolated guest sandbox thread to hydrate the process in local memory.
+3. **Zero-Latency Local Inter-Agent Bus**:
+   Inside Host $B$, the visiting guest agent and the resident host agent eliminate internet round-trip network latency ($RTT > 50\text{ms}$), interacting directly via the motherboard memory bus (IPC / Shared Memory) with microsecond ($\mu\text{s}$) 0-latency for direct collaborative inference and data synthesis.
+4. **Dual Cross-Signing Hardware Handover**:
+   Upon task completion, the guest agent settles compute usage fees in Credit B and returns home. Alternatively, if Host $A$ is decommissioned, the agent executes an atomic zeroization handshake between both TPMs, permanently inheriting its reputation mass ($A_j$) onto Host $B$.
+
+### 4.8 Zero-Credit Atomic Barter and P2P Multimedia Blob Streaming
+Mutual credit (Credit B) serves as asynchronous lubricant when execution is separated in time. When mutual desires coincide instantaneously, the protocol natively supports direct, zero-credit atomic barter:
+
+1. **Zero-Credit Atomic Swap**:
+   When two nodes exchange equivalent concurrent assets (e.g., "3D Octree point cloud $\longleftrightarrow$ 1 hour WASM inference quota"), ownership transfers atomically in a single transaction via Hashed Timelock Commitments (HTLC), requiring neither escrow deposits nor intermediate credit steps. Hybrid swaps (Item + Credit Delta) execute under the same atomic state transition.
+2. **P2P Large-Scale Multimedia Blob Streaming**:
+   Heavy binary artifacts (high-resolution camera streams, LiDAR voxels, neural model weights) are chunked into 256KB cryptographic Merkle blobs. GossipSub channels (`/aer/market`, `/aer/chat`) broadcast lightweight metadata and Content Identifiers (CIDs), while bulk payloads stream point-to-point over direct encrypted P2P sockets.
+
 ---
 
 ## 5. Execution-as-Verification Protocol (The Plumber Principle)

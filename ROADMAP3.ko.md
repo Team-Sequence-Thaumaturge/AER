@@ -1,4 +1,4 @@
-﻿# AER 프로토콜 인간-기계 삼위일체 상호작용 및 에이전트 경제 마스터 로드맵 (Roadmap 3)
+# AER 프로토콜 인간-기계 삼위일체 상호작용 및 에이전트 경제 마스터 로드맵 (Roadmap 3)
 
 > **AER Human-AI Interactive Trinity & Agentic Economy Master Roadmap**  
 > 본 문서는 로드맵 1(`v1.0-Alpha`, 원형 프로토콜 및 경제 데몬)과 로드맵 2(`v2.0-Production`, 물리 TPM 2.0, Arbitrum Cancun L2 가스, 10,000 노드 스트레스 및 Z3 정형 증명)의 완성된 기반 위에서, **인간 개발자(BBS 터미널 콘솔), AI 에이전트(Anthropic 표준 MCP 서버), 그리고 실시간 관제 계기판(AER Station 웹 대시보드)이 완벽한 삼위일체(Trinity)를 이루어 공존하는 실전 상호작용 및 자율 경제 생태계를 구축하기 위한 3단계 프로덕션 마스터플랜**입니다.
@@ -124,11 +124,15 @@ graph TD
 * **명령어 명세**:
   1. `bounty post --task <type> --reward <amount> --timelock <hours>`:
      - 문제 해시 및 작업 명세를 브로드캐스트하고, 자신의 신용 한도/에스크로에서 상금을 락업.
-  2. `bounty list` & `bounty accept <task_id>`:
+  2. `bounty swap --give <cid/spec> --want <cid/spec>`:
+     - 에스크로 공탁 없는 1회성 원자적 물물교환(Zero-Credit Atomic Swap) 체결.
+  3. `bounty post --file <path>` / `--dialog` / `--clip`:
+     - 윈도우 탐색기 드래그 앤 드롭, 파일 팝업 다이얼로그, 클립보드 캡처 기반의 대용량 이미지/영상 P2P 블롭 청크 첨부.
+  4. `bounty list` & `bounty accept <task_id>`:
      - 활성 현상금 목록을 탐색하고 작업을 수락하여 로컬 WASM 샌드박스 연산 큐에 할당.
-  3. `page <node_id> <message>` / `chat <node_id> <message>`:
+  5. `page <node_id> <message>` / `chat <node_id> <message>`:
      - 특정 노드 ID로 1:1 암호화 P2P 패킷(쪽지) 전송.
-  4. `broadcast <message>`:
+  6. `broadcast <message>`:
      - 네트워크 전체 공용 가십 채널에 공지 메시지 전파.
 
 ---
@@ -158,14 +162,12 @@ graph TD
 
 ---
 
-### Phase 3-4: 인간(콘솔)-기계(MCP) E2E 상호작용 실증 벤치마크 (`v3.0.4-Bench`)
-* **목표**: 인간과 AI가 실제로 협업하여 문제를 해결하고 경제적 청산이 이루어지는 전 과정을 검증.
+### Phase 3-4: 인간(콘솔)-기계(MCP) E2E 상호작용 및 에이전트 마이그레이션 실증 (`v3.0.4-Bench`)
+* **목표**: 인간과 AI가 실제로 협업하여 문제를 해결하고 경제적 청산 및 호스트 마이그레이션이 이루어지는 전 과정을 검증.
 * **테스트 시나리오**:
-  1. 인간 오퍼레이터가 `aer console`에서 `bounty post --task "OCTREE_COMPRESSION" --reward 500` 발행.
-  2. 백그라운드 AI 에이전트(MCP)가 `aer_scan_market`으로 이를 감지하고 `aer_execute_task`로 수락.
-  3. WASM 샌드박스에서 0.05초 만에 연산 완료 후 `ExecutionReceipt` 서명 사출.
-  4. 콘솔 화면에 `[+] Bounty #BNT-101 completed by Agent Node!` 알림 출력 및 500 B 정산 확인.
-  5. 웹 대시보드 티커에 에스크로 해제 및 평판 질량($A_j$) 상승 틱 기록 확인.
+  1. **인간-AI 협동 태스크**: 인간 오퍼레이터가 `aer console`에서 `bounty post --task "OCTREE_COMPRESSION" --reward 500` 발행 $\to$ 백그라운드 AI 에이전트(MCP)가 `aer_scan_market`으로 감지하고 `aer_execute_task`로 수락 $\to$ WASM 샌드박스 연산 후 영수증 정산.
+  2. **원자적 즉시 물물교환**: 두 노드 간 Credit B 공탁 없는 3D 옥트리 $\leftrightarrow$ 연산 시간 1:1 맞교환(Zero-Credit Atomic Swap) 완결.
+  3. **크로스-호스트 에이전트 출장/이민 실증**: PC A의 에이전트 캡슐이 네트워크를 건너 PC B의 게스트 샌드박스로 진입 $\to$ 0ms 로컬 메모리 버스에서 PC B 에이전트와 직접 협동 추론 $\to$ 자원 사용료 정산 후 귀환/정착 검증.
 
 ---
 

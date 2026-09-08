@@ -1,4 +1,4 @@
-﻿# AER Protocol Human-AI Interactive Trinity & Agentic Economy Master Roadmap (Roadmap 3)
+# AER Protocol Human-AI Interactive Trinity & Agentic Economy Master Roadmap (Roadmap 3)
 
 > **AER Human-AI Interactive Trinity & Agentic Economy Master Roadmap**  
 > Building upon the foundational protocol of Roadmap 1 (`v1.0-Alpha`) and the empirical verification of Roadmap 2 (`v2.0-Production`: physical TPM 2.0, Arbitrum Cancun L2 gas profiling, 10,000-node partition stress testing, and Z3 SMT formal proofs), **Roadmap 3 establishes the Trinity Architecture: a unified operational ecosystem where Human Operators (BBS Terminal Console), AI Agents (Anthropic Model Context Protocol), and System Observers (AER Station Live Dashboard) interact transparently and autonomously**.
@@ -123,9 +123,11 @@ graph TD
   - `src/aer/p2p_mesh.py`: Add `/aer/chat/v1` topic and direct messaging routing.
 * **Command Syntax**:
   1. `bounty post --task <type> --reward <amount> --timelock <hours>`: Lock escrow and broadcast task hash.
-  2. `bounty list` & `bounty accept <task_id>`: Query open bounties and queue WASM sandbox execution.
-  3. `page <node_id> <message>` / `chat <node_id> <message>`: Send point-to-point encrypted packet to destination rover.
-  4. `broadcast <message>`: Disseminate broadcast announcement to entire gossip mesh.
+  2. `bounty swap --give <cid/spec> --want <cid/spec>`: Settle direct zero-escrow Zero-Credit Atomic Swaps.
+  3. `bounty post --file <path>` / `--dialog` / `--clip`: Attach large multimedia P2P Merkle blob chunks via explorer drag-and-drop, popup dialogs, or clipboard captures.
+  4. `bounty list` & `bounty accept <task_id>`: Query open bounties and queue WASM sandbox execution.
+  5. `page <node_id> <message>` / `chat <node_id> <message>`: Send point-to-point encrypted packet to destination rover.
+  6. `broadcast <message>`: Disseminate broadcast announcement to entire gossip mesh.
 
 ---
 
@@ -154,14 +156,12 @@ graph TD
 
 ---
 
-### Phase 3-4: Human-Agent E2E Collaborative Benchmark (`v3.0.4-Bench`)
-* **Objective**: Formally benchmark human-agent economic collaboration in a controlled loopback mesh.
+### Phase 3-4: Human-Agent E2E Collaborative Benchmark & Agent Migration (`v3.0.4-Bench`)
+* **Objective**: Formally benchmark human-agent economic collaboration, zero-credit barter, and cross-host agent migration.
 * **Test Flow**:
-  1. Human issues `bounty post` in `aer console`.
-  2. AI Agent detects task via `aer_scan_market` (MCP) and accepts via `aer_execute_task`.
-  3. Sandbox executes task in 0.05s, producing valid `ExecutionReceipt`.
-  4. Console receives notification of task completion and Credit B transfer.
-  5. Dashboard records escrow release and reputation mass update.
+  1. **Human-AI Task Flow**: Human issues `bounty post` in `aer console` -> AI Agent detects task via `aer_scan_market` (MCP) -> WASM execution and receipt settlement.
+  2. **Zero-Credit Atomic Barter**: Direct 1-step swap of 3D octree dataset vs WASM inference time between two nodes without escrow.
+  3. **Cross-Host Agent Migration Benchmark**: Agent state capsule dispatches from Host A -> enters Host B guest sandbox -> zero-latency memory bus collaboration with Host B resident agent -> resource fee settlement and return/handover.
 
 ---
 
