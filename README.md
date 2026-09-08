@@ -10,7 +10,7 @@
 > 🧭 **Reading Guide (Choose Your Path):**
 > * 💡 **Curious Thinkers & General Readers:** Enjoy the intuitive 3-minute story, everyday analogies (Earth's hosting bill, weeds, plumbers, batteries), and core ideas below!
 > * 🔬 **Systems Engineers, Cryptographers & Researchers:** Skip the analogies and jump straight into our mathematical proofs, formal state transitions, and engineering standards at **[AER.md (Deep-Tech Master Specification)](AER.md)** (or the **[한국어 기술 사양서](AER.ko.md)**).
-> * 🛠️ **Core Developers & Contributors:** Explore the technical implementation blueprint and daemon architecture in **[ROADMAP.md (Implementation Roadmap)](ROADMAP.md)** / **[ROADMAP2.md (Empirical Roadmap)](ROADMAP2.md)**.
+> * 🛠️ **Core Developers & Contributors:** Explore the technical implementation blueprint and daemon architecture in **[ROADMAP.md (Implementation Roadmap)](ROADMAP.md)** / **[ROADMAP2.md (Empirical Roadmap)](ROADMAP2.md)** / **[ROADMAP3.md (Trinity Interaction Roadmap)](ROADMAP3.md)**.
 >
 > 🏆 **AER Protocol v2.0-Production Official Master Release (`v2.0-Production`):**
 > * 🔬 **Empirical Benchmark Whitepaper:** Physical TPM 2.0 silicon telemetry, EVM Cancun onchain gas telemetry, and 10,000-node partition stress test dataset **[EMPIRICAL_BENCHMARK.md](docs/EMPIRICAL_BENCHMARK.md)** / **[한국어](docs/EMPIRICAL_BENCHMARK.ko.md)**

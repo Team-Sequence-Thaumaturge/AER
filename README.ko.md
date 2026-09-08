@@ -10,7 +10,7 @@
 > 🧭 **독서 안내 (원하시는 경로를 선택하세요):**
 > * 💡 **비개발자 및 일반 독자:** 아래에 준비된 3분짜리 직관적 비유(지구의 서버비, 잡초, 배관공, 배터리)와 일상 언어 스토리텔링을 편안하게 읽어보세요!
 > * 🔬 **시스템 엔지니어, 암호학자 및 연구자:** 일상 비유를 건너뛰고 수학적 증명, 상태 전이 방정식, 하드웨어 표준 규격을 담은 **[AER.md (영문 딥테크 사양서)](AER.md)** 또는 **[AER.ko.md (국문 기술 사양서)](AER.ko.md)**로 바로 이동하세요.
-> * 🛠️ **코어 개발자 & 기여자:** 자율 데몬 엔진(`aerd`) 구현 청사진과 단계별 개발 명세를 담은 **[ROADMAP.ko.md (구현 로드맵)](ROADMAP.ko.md)** / **[ROADMAP2.ko.md (실측 및 실증 로드맵)](ROADMAP2.ko.md)**를 확인하세요.
+> * 🛠️ **코어 개발자 & 기여자:** 자율 데몬 엔진(`aerd`) 구현 청사진과 단계별 개발 명세를 담은 **[ROADMAP.ko.md (구현 로드맵)](ROADMAP.ko.md)** / **[ROADMAP2.ko.md (실측 및 실증 로드맵)](ROADMAP2.ko.md)** / **[ROADMAP3.ko.md (삼위일체 상호작용 로드맵)](ROADMAP3.ko.md)**를 확인하세요.
 >
 > 🏆 **AER Protocol v2.0-Production 공식 릴리즈 완료 (`v2.0-Production`):**
 > * 🔬 **실측 기술 백서 (Empirical Benchmark):** 물리 TPM 2.0 실리콘 텔레메트리, EVM Cancun 온체인 가스 실측, 10,000 노드 파티션 스트레스 전수 데이터 **[EMPIRICAL_BENCHMARK.ko.md](docs/EMPIRICAL_BENCHMARK.ko.md)** / **[English](docs/EMPIRICAL_BENCHMARK.md)**
