@@ -236,6 +236,13 @@ def build_cli_parser() -> argparse.ArgumentParser:
     sub_verify = subparsers.add_parser("verify-task", help="Run sandboxed task verification")
     sub_verify.set_defaults(func=cmd_verify_task)
 
+    sub_console = subparsers.add_parser("console", help="Launch interactive AER BBS terminal console (Phase 3-0)")
+    sub_console.add_argument("--sound", action="store_true", help="Enable 90s acoustic coupler modem handshake sound")
+    sub_console.set_defaults(func=lambda args: __import__("aer.console", fromlist=["launch_console"]).launch_console(enable_sound=args.sound))
+
+    sub_mcp = subparsers.add_parser("mcp", help="Run Anthropic standard MCP Gateway stdio server (Phase 3-2)")
+    sub_mcp.set_defaults(func=lambda args: __import__("aer.mcp_server", fromlist=["main"]).main())
+
     return parser
 
 

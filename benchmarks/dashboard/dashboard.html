@@ -92,13 +92,24 @@
       <div>[TPM] PCR 0 verification completed in 4.53ms</div>
     </div>
   </div>
+
+  <!-- Card: Interactive Operator Action Control Panel (Phase 3-3) -->
+  <div class="card" style="grid-column: 1 / -1;">
+    <div class="card-title"><span>Interactive Operator Action Control Panel (Phase 3-3)</span><span>Instant Local Execution</span></div>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+      <button id="btn_netting" onclick="triggerAction('netting')" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold;">⚡ 1,000 로버 순환 상계 강제 실행</button>
+      <button id="btn_z3" onclick="triggerAction('z3')" style="background: rgba(0, 210, 255, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold;">📐 Z3 정형 검증 즉각 재실행</button>
+      <button id="btn_bounty" onclick="triggerAction('bounty')" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid var(--accent-amber); padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold;">📜 P2P 현상금/오더북 실시간 조회</button>
+    </div>
+    <div id="action_feedback" style="margin-top: 12px; font-size: 0.85rem; color: var(--accent-green); display: none;"></div>
+  </div>
 </div>
 
 <script>
   (function() {
     var c = document.getElementById("mesh_radar_canvas");
     var ctx = c.getContext("2d");
-    var radarAngle = 0;
+    window.radarAngle = 0;
 
     function resizeCanvas() {
       c.width = c.parentElement.clientWidth - 40;
@@ -107,13 +118,13 @@
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    var nodePoints = [];
-    for(var i=0; i<32; i++) {
-      var theta = (i / 32.0) * Math.PI * 2;
-      var dist = 30 + (i * 3.5) % 80;
-      nodePoints.push({
-        x: Math.cos(theta) * dist,
-        y: Math.sin(theta) * dist,
+    window.nodePoints = [];
+    for(let i=0; i<32; i++) {
+      let t = (i / 32.0) * Math.PI * 2;
+      let d = 30 + (i * 3.5) % 80;
+      window.nodePoints.push({
+        x: Math.cos(t) * d,
+        y: Math.sin(t) * d,
         r: 3 + (i % 3),
         col: i < 16 ? "#00d2ff" : "#10b981"
       });
@@ -127,9 +138,9 @@
 
       ctx.strokeStyle = "#1f2937";
       ctx.lineWidth = 1;
-      for(var radius=40; radius<=120; radius+=40) {
+      for(let rad=40; rad<=120; rad+=40) {
         ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.arc(cx, cy, rad, 0, Math.PI * 2);
         ctx.stroke();
       }
 
@@ -137,20 +148,20 @@
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + Math.cos(radarAngle) * 130, cy + Math.sin(radarAngle) * 130);
+      ctx.lineTo(cx + Math.cos(window.radarAngle) * 130, cy + Math.sin(window.radarAngle) * 130);
       ctx.stroke();
-      radarAngle += 0.03;
+      window.radarAngle += 0.03;
 
       ctx.strokeStyle = "rgba(31, 41, 55, 0.8)";
       ctx.beginPath();
-      for(var j=0; j<nodePoints.length; j+=2) {
-        ctx.moveTo(cx + nodePoints[j].x, cy + nodePoints[j].y);
-        ctx.lineTo(cx + nodePoints[(j+1)%nodePoints.length].x, cy + nodePoints[(j+1)%nodePoints.length].y);
+      for(let j=0; j<window.nodePoints.length; j+=2) {
+        ctx.moveTo(cx + window.nodePoints[j].x, cy + window.nodePoints[j].y);
+        ctx.lineTo(cx + window.nodePoints[(j+1)%window.nodePoints.length].x, cy + window.nodePoints[(j+1)%window.nodePoints.length].y);
       }
       ctx.stroke();
 
-      for(var k=0; k<nodePoints.length; k++) {
-        var pt = nodePoints[k];
+      for(let k=0; k<window.nodePoints.length; k++) {
+        let pt = window.nodePoints[k];
         ctx.fillStyle = pt.col;
         ctx.beginPath();
         ctx.arc(cx + pt.x, cy + pt.y, pt.r, 0, Math.PI * 2);
@@ -164,18 +175,48 @@
       fetch("/api/telemetry")
         .then(function(res) { return res.json(); })
         .then(function(data) {
-          var box = document.getElementById("ticker_log_box");
-          if(box) {
-            var timeStr = new Date().toLocaleTimeString();
-            var row = document.createElement("div");
-            row.innerHTML = "<span style='color: var(--text-muted); font-size: 0.75rem;'>[" + timeStr + "]</span> " +
-                            "P2P Orderbook: Gas " + data.onchain.dispute_verifier_gas + " | TPM " + data.tpm.mean_latency_ms + "ms";
-            box.prepend(row);
+          let bx = document.getElementById("ticker_log_box");
+          if(bx) {
+            let ts = new Date().toLocaleTimeString();
+            let rw = document.createElement("div");
+            rw.innerHTML = "<span style='color: var(--text-muted); font-size: 0.75rem;'>[" + ts + "]</span> " +
+                           "P2P Orderbook: Gas " + data.onchain.dispute_verifier_gas + " | TPM " + data.tpm.mean_latency_ms + "ms";
+            bx.prepend(rw);
           }
         })
         .catch(function(e) {});
     }
     setInterval(pollMetrics, 3000);
+
+    window.triggerAction = function(actionType) {
+      window.feedback = document.getElementById("action_feedback");
+      if(window.feedback) {
+        window.feedback.style.display = "block";
+        window.feedback.style.color = "var(--accent-blue)";
+        window.feedback.innerHTML = "Executing " + actionType + "...";
+      }
+      fetch("/api/action/" + actionType, { method: "POST" })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if(window.feedback) {
+            window.feedback.style.color = "var(--accent-green)";
+            window.feedback.innerHTML = "✅ " + data.message;
+          }
+          let bx = document.getElementById("ticker_log_box");
+          if(bx) {
+            let ts = new Date().toLocaleTimeString();
+            let rw = document.createElement("div");
+            rw.innerHTML = "<span style='color: var(--accent-amber); font-weight: bold;'>[" + ts + " ACTION]</span> " + data.message;
+            bx.prepend(rw);
+          }
+        })
+        .catch(function(err) {
+          if(window.feedback) {
+            window.feedback.style.color = "#ef4444";
+            window.feedback.innerHTML = "❌ Action error: " + err;
+          }
+        });
+    };
   })();
 </script>
 </body>

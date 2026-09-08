@@ -342,8 +342,9 @@ def test_p2p_resource_market() -> bool:
 
 def test_local_ui_server() -> bool:
     """Module 10: Test 127.0.0.1 zero-server local loopback interface."""
-    print("\n[Test 10] Testing Zero-Server Local Loopback UI Server (127.0.0.1:28741)...")
-    server = AERLocalUIServer(host="127.0.0.1", port=28741)
+    test_port = 28743
+    print(f"\n[Test 10] Testing Zero-Server Local Loopback UI Server (127.0.0.1:{test_port})...")
+    server = AERLocalUIServer(host="127.0.0.1", port=test_port)
 
     telemetry_mock = {
         "reputation_mass": 100,
@@ -358,7 +359,7 @@ def test_local_ui_server() -> bool:
 
     try:
         # Query /api/status via urllib
-        req = urllib.request.Request("http://127.0.0.1:28741/api/status")
+        req = urllib.request.Request(f"http://127.0.0.1:{test_port}/api/status")
         with urllib.request.urlopen(req, timeout=3) as resp:
             data = resp.read().decode("utf-8")
             if "aerd" not in data or "reputation_mass" not in data:
