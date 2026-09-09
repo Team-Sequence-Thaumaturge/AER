@@ -19,6 +19,7 @@
 > * 🖥️ **웹 미션 컨트롤 대시보드:** 에어갭 로컬 루프백 원클릭 제어판 (`http://127.0.0.1:28741/`)
 > * 📟 **레트로 사이버펑크 콘솔:** `python src/aer/cli.py console [--sound]` (90년대 모뎀 음향 커플러 핸드셰이크)
 > * 🤖 **무의존성 상용 MCP 게이트웨이:** `python src/aer/cli.py mcp` (Claude / Gemini stdio JSON-RPC 2.0)
+> * 🎮 **로드맵 4 자율 진화 (The Cartridge Paradigm):** *"내가 내일 비행기 모드를 켜고 사라져도 이 시스템은 단 한 줄의 코드 수정 없이 스스로 굴러갈 수 있는가?"* 로드맵 1~3(불변 커널 / 게임보이 본체)과 로드맵 4(플러그인 WASM 카트리지)의 분리로, 창조자의 권한 포기(`renounceOwnership()`) 후에도 전 세계 참여자들이 코어 패치 없이 새로운 기능을 자율 번식시키는 영구 무인 생명체 완성. **[ROADMAP4.ko.md](ROADMAP4.ko.md)**
 
 ---
 

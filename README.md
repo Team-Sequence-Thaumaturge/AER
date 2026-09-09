@@ -19,6 +19,7 @@
 > * 🖥️ **Web Mission Control Dashboard:** Air-gapped local loopback 1-click action panel (`http://127.0.0.1:28741/`)
 > * 📟 **Retro Cyberpunk Console:** `python src/aer/cli.py console [--sound]` (90s acoustic coupler modem handshake)
 > * 🤖 **Zero-Dep MCP Gateway:** `python src/aer/cli.py mcp` (Claude / Gemini stdio JSON-RPC 2.0)
+> * 🎮 **Roadmap 4 Autonomous Evolution (The Cartridge Paradigm):** *"If the creator turns on airplane mode and disappears tomorrow, can this system evolve without a single line of code intervention?"* Decoupling the immutable kernel (Roadmaps 1–3 / Game Boy console) from pluggable userspace WASM cartridges allows global participants to spawn infinite AI/compute features without developer patches after `renounceOwnership()`. **[ROADMAP4.md](ROADMAP4.md)**
 
 ---
 

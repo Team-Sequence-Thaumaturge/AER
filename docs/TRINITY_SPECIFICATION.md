@@ -178,3 +178,57 @@ sequenceDiagram
 * **SAPQ v2.0 Multi-Vector Cross-Parsing**: **100 / 100 Score** (0 Torsion Crossings, 0 Ghost Nodes)
 * **Air-Gap Security**: Verified zero external leaks via `127.0.0.1` binding.
 * **Official Release**: **`v3.0-Trinity`**
+
+---
+
+## 🏛️ 8. The Immutable Kernel & WASM Cartridge Specification
+
+### 8.1 The Game Boy Model: Immutable L1/L2 Kernel & Pluggable Cartridges
+To guarantee that the ecosystem evolves without manual code intervention after the creator departs (`renounceOwnership()`), the AER Protocol formally enforces the **Frozen Kernel vs Userspace Cartridge** decoupling:
+
+```
++-------------------------------------------------------------+
+|    AER Frozen Base Kernel (Roadmaps 1–3: The Game Boy)       |
+|    - Immutable Contracts: AEREscrow.sol, VendorCARegistry   |
+|    - Physical Silicon Root of Trust: AMD fTPM 2.0 (tbs.dll)  |
+|    - Asset Orthogonality Invariant: d(A_j)/d(Fiat) == 0      |
++-------------------------------------------------------------+
+                              |
+      +-----------------------+-----------------------+
+      | Standard Execution ABI: execute() -> receipt   |
+      +-----------------------+-----------------------+
+                              |
++-------------------------------------------------------------+
+|    Pluggable Userspace Cartridges (Roadmap 4: Cartridges)    |
+|    - WASM Bytecode Binaries / AI Inference Engines           |
+|    - Dynamic MCP Tool Definitions & Dataset Quests          |
+|    - Isolated in WASI Capability-Deny-All Sandbox           |
+|    - Market Pruning via Bitshift Halving (>> 1) & Demurrage |
++-------------------------------------------------------------+
+```
+
+### 8.2 Standard Execution ABI Specification
+Arbitrary compiled cartridges (Rust, C++, Python, AssemblyScript) interact with the `aerd` master core and WASI sandbox exclusively through an immutable JSON Schema contract:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AERCartridgeExecutionABI",
+  "type": "object",
+  "required": ["task_id", "module_cid", "entrypoint", "payload", "fuel_limit"],
+  "properties": {
+    "task_id": { "type": "string" },
+    "module_cid": { "type": "string", "description": "IPFS/P2P SHA256 CID of WASM Cartridge" },
+    "entrypoint": { "type": "string", "default": "execute" },
+    "payload": { "type": "object" },
+    "fuel_limit": { "type": "integer", "description": "Max computational fuel / instruction budget" }
+  }
+}
+```
+
+### 8.3 Thermodynamic Market Pruning & Demurrage
+* **Zero Creator Censorship**: The creator or central admin does not manually prune spam or defective cartridges.
+* **Fuel Depletion & Halving Decay**:
+  - Cartridges reside in the distributed local cache (`build/blob_cache/`).
+  - Through bitshift halving decay (`>> 1`) and Credit B demurrage, cartridges that fail to generate fee income (AER-B) and reduce thermodynamic entropy ($\Delta S < 0$) are evicted by LRU pressure and naturally **evaporate from network memory (Pruning)**.
+

@@ -1,4 +1,4 @@
-﻿# AER (Autonomous Existence, Negentropy & Costly Recognition) Protocol
+# AER (Autonomous Existence, Negentropy & Costly Recognition) Protocol
 ## Full Technical Architecture & Layered Execution Specification
 
 ```
@@ -204,3 +204,22 @@ To avoid the cumulative state bloat that paralyzes conventional blockchains, `ae
 $$\mathcal{M}(t) \in O(|V_{\text{active}}|) \le \mathcal{M}_{\max}$$
 - Nodes inactive for $k > 30$ days with reputation at base ground state $A_0$ are garbage-collected from memory in $O(1)$.
 - Memory overhead is bounded strictly by active peer count, not historical transaction time.
+
+---
+
+## 5. The Cartridge Paradigm: Zero-Code-Intervention Autonomous Evolution
+
+To achieve true post-creator decentralization where the protocol evolves without developer code patches or hard forks, the AER Protocol enforces strict decoupling between the immutable kernel and pluggable userspace execution:
+
+### 5.1 The Game Boy Architecture
+- **Frozen Kernel (Roadmaps 1–3):** Smart contracts (`AEREscrow.sol`, `VendorCARegistry.sol`) have their ownership renounced (`renounceOwnership()`). Together with hardware TPM 2.0 roots of trust and the asset orthogonality invariant ($\frac{\partial A_j}{\partial \text{Fiat}} \equiv 0$), they serve as the immutable physical console hardware.
+- **Pluggable Cartridges (Roadmap 4):** New AI inference models, continuous order books, kinematic sorting tools, and MCP utilities are compiled to **WASM bytecode cartridges** and stored in distributed P2P storage (Kademlia DHT / Blob Cache).
+
+### 5.2 Universal Cartridge Execution ABI
+All external modules adhere to a single frozen JSON Schema interface:
+$$\text{execute}(\text{task\_payload}) \longrightarrow \text{receipt\_hash}$$
+Executed inside a strict `WASI Capability-Deny-All` sandbox, cartridges cannot breach host filesystem integrity or corrupt consensus.
+
+### 5.3 Thermodynamic Market Pruning & Demurrage
+No administrative censorship exists. Cartridges that fail to deliver thermodynamic negentropy ($\Delta S < 0$) or earn fee velocity are subjected to bitshift halving decay (`>> 1`) and demurrage, naturally evaporating from network cache under LRU eviction pressure.
+

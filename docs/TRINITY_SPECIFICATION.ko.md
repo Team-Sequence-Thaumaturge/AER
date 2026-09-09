@@ -180,3 +180,57 @@ sequenceDiagram
 * **SAPQ v2.0 다방향 교차 파싱 검수**: **100 / 100 만점 획득** (Torsion Crossing 0, Ghost Node 0)
 * **에어갭 보안**: 로컬 루프백(`127.0.0.1`) 격리로 무인가 원격 침입 경로 원천 차단.
 * **공식 릴리즈**: **`v3.0-Trinity`**
+
+---
+
+## 🏛️ 8. 불변 커널과 카트리지 샌드박스 사양 (The Immutable Kernel & WASM Cartridge Specification)
+
+### 8.1 닌텐도 게임보이 모델: 영구 불변 L1/L2 커널과 플러그인 카트리지
+AER 프로토콜은 창조자가 배포 후 완전히 잠적(`renounceOwnership()`)해도 내부 참여자들이 코드를 수정하지 않고 생태계를 자율 진화시킬 수 있도록 **'불변 커널-사용자 공간 카트리지'** 분리 모델을 공식 채택합니다.
+
+```
++-------------------------------------------------------------+
+|    AER Frozen Base Kernel (Roadmaps 1–3: The Game Boy)       |
+|    - Immutable Contracts: AEREscrow.sol, VendorCARegistry   |
+|    - Physical Silicon Root of Trust: AMD fTPM 2.0 (tbs.dll)  |
+|    - Asset Orthogonality Invariant: d(A_j)/d(Fiat) == 0      |
++-------------------------------------------------------------+
+                              |
+      +-----------------------+-----------------------+
+      | Standard Execution ABI: execute() -> receipt   |
+      +-----------------------+-----------------------+
+                              |
++-------------------------------------------------------------+
+|    Pluggable Userspace Cartridges (Roadmap 4: Cartridges)    |
+|    - WASM Bytecode Binaries / AI Inference Engines           |
+|    - Dynamic MCP Tool Definitions & Dataset Quests          |
+|    - Isolated in WASI Capability-Deny-All Sandbox           |
+|    - Market Pruning via Bitshift Halving (>> 1) & Demurrage |
++-------------------------------------------------------------+
+```
+
+### 8.2 표준 실행 ABI 규격 (Standard Execution ABI)
+임의 언어(Rust, C++, Python, AssemblyScript)로 컴파일된 외부 카트리지는 오직 다음의 불변 JSON Schema 인터페이스를 통해서만 `aerd` 마스터 코어 및 WASI 샌드박스와 통신합니다:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AERCartridgeExecutionABI",
+  "type": "object",
+  "required": ["task_id", "module_cid", "entrypoint", "payload", "fuel_limit"],
+  "properties": {
+    "task_id": { "type": "string" },
+    "module_cid": { "type": "string", "description": "IPFS/P2P SHA256 CID of WASM Cartridge" },
+    "entrypoint": { "type": "string", "default": "execute" },
+    "payload": { "type": "object" },
+    "fuel_limit": { "type": "integer", "description": "Max computational fuel / instruction budget" }
+  }
+}
+```
+
+### 8.3 열역학적 경제 가비지 컬렉션 (Thermodynamic Market Pruning)
+* **무인 퇴출 원칙**: 창조자나 관리자가 스팸·악성 카트리지를 수동으로 검열하거나 삭제하지 않습니다.
+* **소모성 연료와 반감기 감쇠**:
+  - 카트리지는 네트워크 노드들의 로컬 스토리지(`build/blob_cache/`)에 캐싱됩니다.
+  - 비트시프트 반감기 감쇠(`>> 1`)와 크레딧 B 감가상각(Demurrage)으로 인해, 다른 노드들에게 사용료(AER-B)를 벌어다 주지 못하고 엔트로피를 줄이지 못하는 불량/유휴 카트리지는 LRU 캐시 정책과 스토리지 비용 압박에 의해 네트워크 메모리에서 **자연스럽게 증발(Pruning)**됩니다.
+
